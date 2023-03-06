@@ -39,23 +39,23 @@ public class AppointmentController {
         return appointmentService.getAllAppointments();
     }
 
-    @GetMapping("/patient/{id}")
-    public List<Appointment> getAppointmentsByPatientId(@PathVariable Long id) {
-        Optional<Patient> patient = patientService.getPatientById(id);
-        return patient.map(appointmentService::getAppointmentsByPatient).orElse(Collections.emptyList());
-    }
+//    @GetMapping("/patient/{id}")
+//    public List<Appointment> getAppointmentsByPatientId(@PathVariable Long id) {
+//        Optional<Patient> patient = patientService.getPatientById(id);
+//        return patient.map(appointmentService::getAppointmentsByPatient).orElse(Collections.emptyList());
+//    }
 
-    @GetMapping(params = {"start", "end"})
-    public List<Appointment> getAppointmentsBetweenDates(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
-                                                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
-        return appointmentService.getAppointmentsBetweenDates(start, end);
-    }
-
-    @PostMapping
-    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
-        Appointment savedAppointment = appointmentService.saveAppointment(appointment);
-        return ResponseEntity.created(URI.create("/appointments/" + savedAppointment.getId())).body(savedAppointment);
-    }
+//    @GetMapping(params = {"start", "end"})
+//    public List<Appointment> getAppointmentsBetweenDates(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
+//                                                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
+//        return appointmentService.getAppointmentsBetweenDates(start, end);
+//    }
+//
+//    @PostMapping
+//    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
+//        Appointment savedAppointment = appointmentService.saveAppointment(appointment);
+//        return ResponseEntity.created(URI.create("/appointments/" + savedAppointment.getId())).body(savedAppointment);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
