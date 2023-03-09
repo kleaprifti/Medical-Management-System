@@ -19,7 +19,7 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public Patient getPatientById(@PathVariable Long id) {
+    public Patient getPatientById(@PathVariable Long id)  {
         return patientRepository.findById(id).orElse(null);
     }
 

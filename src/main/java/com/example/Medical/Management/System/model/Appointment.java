@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -21,10 +23,14 @@ public class Appointment {
         private Long id;
 
         @ManyToOne
+        @JoinColumn(name = "doctor_id")
+        private Doctor doctor;
+
+        @ManyToOne
         @JoinColumn(name = "patient_id")
         private Patient patient;
 
-        @Temporal(TemporalType.TIMESTAMP)
+        @Temporal(TemporalType.DATE)
         private Date appointmentDate;
 
 

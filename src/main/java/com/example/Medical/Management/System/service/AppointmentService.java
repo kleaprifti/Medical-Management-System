@@ -1,11 +1,14 @@
 package com.example.Medical.Management.System.service;
 
 import com.example.Medical.Management.System.model.Appointment;
+import com.example.Medical.Management.System.model.Doctor;
 import com.example.Medical.Management.System.model.Patient;
 import com.example.Medical.Management.System.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +46,10 @@ public class AppointmentService {
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
     }
+
+//    public List<Appointment> getAppointmentsByDoctor(Doctor doctor) {
+//        return appointmentRepository.findByDoctor(doctor);
+//    }
 }
 
 
