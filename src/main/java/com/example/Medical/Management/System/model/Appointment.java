@@ -1,5 +1,6 @@
 package com.example.Medical.Management.System.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,16 +22,17 @@ public class Appointment {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
-
-        @ManyToOne
-        @JoinColumn(name = "doctor_id")
-        private Doctor doctor;
+//
+//        @ManyToOne
+//        @JoinColumn(name = "doctor_id",nullable = false)
+//        private Doctor doctor;
 
         @ManyToOne
         @JoinColumn(name = "patient_id")
+        @JsonIgnore
         private Patient patient;
 
-        @Temporal(TemporalType.DATE)
+        @Temporal(TemporalType.TIMESTAMP)
         private Date appointmentDate;
 
 

@@ -23,14 +23,14 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
     private final PatientService patientService; // add this
 
-    private final DoctorService doctorService;
+//    private final DoctorService doctorService;
 
 
     @Autowired
     public AppointmentController(AppointmentService appointmentService, PatientService patientService, DoctorService doctorService) {
         this.appointmentService = appointmentService;
         this.patientService = patientService;
-        this.doctorService = doctorService;
+//        this.doctorService = doctorService;
     }
 
     @GetMapping("/{id}")
@@ -47,7 +47,11 @@ public class AppointmentController {
     @GetMapping("/patient/{id}")
     public List<Appointment> getAppointmentsByPatientId(@PathVariable Long id) {
         Optional<Patient> patient = patientService.getPatientById(id);
-        return patient.map(appointmentService::getAppointmentsByPatient).orElse(Collections.emptyList());
+        if(patient.isPresent()) {
+            return appointmentService.getAppointmentsByPatient(patient.get());
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     @GetMapping(params = {"start", "end"})
@@ -61,17 +65,29 @@ public class AppointmentController {
         Appointment savedAppointment = appointmentService.saveAppointment(appointment);
         return ResponseEntity.created(URI.create("/appointments/" + savedAppointment.getId())).body(savedAppointment);
     }
-    @PostMapping("/assign")
-    public ResponseEntity<Appointment> assignAppointment(@RequestBody Appointment appointment, @RequestParam Long doctorId) {
-        Optional<Doctor> doctor = doctorService.getDoctorById(doctorId);
-        if (doctor.isPresent()) {
-            appointment.setDoctor(doctor.get());
+
+    @PostMapping("/patient/{id}")
+    public ResponseEntity<Appointment> addAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
+        Optional<Patient> patient = patientService.getPatientById(id);
+        if(patient.isPresent()) {
+            appointment.setPatient(patient.get());
             Appointment savedAppointment = appointmentService.saveAppointment(appointment);
             return ResponseEntity.created(URI.create("/appointments/" + savedAppointment.getId())).body(savedAppointment);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+//    @PostMapping("/assign")
+//    public ResponseEntity<Appointment> assignAppointment(@RequestBody Appointment appointment, @RequestParam Long doctorId) {
+//        Optional<Doctor> doctor = doctorService.getDoctorById(doctorId);
+//        if (doctor.isPresent()) {
+//            appointment.setDoctor(doctor.get());
+//            Appointment savedAppointment = appointmentService.saveAppointment(appointment);
+//            return ResponseEntity.created(URI.create("/appointments/" + savedAppointment.getId())).body(savedAppointment);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
 
     @DeleteMapping("/{id}")
@@ -79,6 +95,12 @@ public class AppointmentController {
         appointmentService.deleteAppointment(id);
         return ResponseEntity.noContent().build();
     }
+
+//    @GetMapping("/doctor/{id}")
+//    public List<Appointment> getAppointmentsByDoctorId(Long doctorId) {
+//        return appointmentService.findByDoctorId(doctorId);
+//    }
+
 }
 
 

@@ -46,10 +46,10 @@ public class AppointmentService {
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
     }
+//  public  List<Appointment> findByDoctorId(Long doctorId){
+//            return appointmentRepository.findByDoctorId(doctorId);
+//  }
 
-//    public List<Appointment> getAppointmentsByDoctor(Doctor doctor) {
-//        return appointmentRepository.findByDoctor(doctor);
-//    }
 }
 
 
