@@ -1,6 +1,6 @@
 use medical_management_system;
 
-INSERT INTO patient (name, phone_number)
+INSERT INTO patients (name, phone_number)
 VALUES
   ('John Doe', '123-456-7890'),
   ('Jane Doe', '234-567-8901'),
