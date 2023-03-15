@@ -36,6 +36,11 @@ public class Appointment {
         private Date appointmentDate;
 
 
+        @ManyToOne
+        @JoinColumn(name = "doctor_id")
+        @JsonIgnore
+        private Doctor doctor;
+
     }
 
 
