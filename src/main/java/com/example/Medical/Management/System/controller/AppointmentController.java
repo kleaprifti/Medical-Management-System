@@ -2,8 +2,6 @@ package com.example.Medical.Management.System.controller;
 
 import com.example.Medical.Management.System.dto.AppointmentDto;
 import com.example.Medical.Management.System.service.AppointmentService;
-import com.example.Medical.Management.System.service.PatientService;
-import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,16 +10,10 @@ import java.util.List;
 @RequestMapping("/appointments")
 public class AppointmentController {
     private final AppointmentService appointmentService;
-  private final PatientService patientService;
-    private final ModelMapper modelMapper;
 
 
-//  private final DoctorService doctorService;
-
-    public AppointmentController(AppointmentService appointmentService, PatientService patientService, ModelMapper modelMapper) {
+    public AppointmentController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
-        this.patientService = patientService;
-        this.modelMapper =modelMapper;
 
     }
     @GetMapping
