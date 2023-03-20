@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/appointments")
 public class AppointmentController {
     private final AppointmentService appointmentService;
-  private final PatientService patientService; // add this
+  private final PatientService patientService;
     private final ModelMapper modelMapper;
 
 

@@ -33,7 +33,6 @@ public class DoctorService {
                 .collect(Collectors.toList());
     }
 
-    // helper method to convert Doctor entity to DTO
     private DoctorDto convertToDto(Doctor doctor) {
         DoctorDto doctorDto = new DoctorDto();
         doctorDto.setId(doctor.getId());
@@ -47,7 +46,7 @@ public class DoctorService {
         return convertToDto(doctor);
     }
 
-    // helper method to convert DTO to Doctor entity
+
     private Doctor convertToEntity(DoctorDto doctorDto) {
         Doctor doctor = new Doctor();
         doctor.setName(doctorDto.getName());
@@ -63,17 +62,17 @@ public class DoctorService {
         return convertToDto(appointment);
     }
 
-    // helper method to convert DTO to Appointment entity
+
     private Appointment convertToEntity(AppointmentDto appointmentDto) {
         Appointment appointment = new Appointment();
-        // set other fields in the appointment entity
+
         return appointment;
     }
 
-    // helper method to convert Appointment entity to DTO
+
     private AppointmentDto convertToDto(Appointment appointment) {
         AppointmentDto appointmentDto = new AppointmentDto();
-        // set fields in the appointment DTO
+
         return appointmentDto;
     }
 
