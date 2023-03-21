@@ -1,8 +1,8 @@
-package com.example.Medical.Management.System.service;
+package com.example.medicalmanagement.service;
 
-import com.example.Medical.Management.System.dto.PatientDto;
-import com.example.Medical.Management.System.model.Patient;
-import com.example.Medical.Management.System.repository.PatientRepository;
+import com.example.medicalmanagement.dto.PatientDto;
+import com.example.medicalmanagement.model.Patient;
+import com.example.medicalmanagement.repository.PatientRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

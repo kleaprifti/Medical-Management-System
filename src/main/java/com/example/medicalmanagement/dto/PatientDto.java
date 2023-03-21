@@ -1,6 +1,5 @@
-package com.example.Medical.Management.System.dto;
+package com.example.medicalmanagement.dto;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

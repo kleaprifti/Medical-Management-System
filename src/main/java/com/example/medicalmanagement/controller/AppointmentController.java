@@ -1,7 +1,7 @@
-package com.example.Medical.Management.System.controller;
+package com.example.medicalmanagement.controller;
 
-import com.example.Medical.Management.System.dto.AppointmentDto;
-import com.example.Medical.Management.System.service.AppointmentService;
+import com.example.medicalmanagement.dto.AppointmentDto;
+import com.example.medicalmanagement.service.AppointmentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

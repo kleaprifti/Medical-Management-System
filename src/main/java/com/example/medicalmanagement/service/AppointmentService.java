@@ -1,21 +1,13 @@
-package com.example.Medical.Management.System.service;
+package com.example.medicalmanagement.service;
 
-import com.example.Medical.Management.System.dto.AppointmentDto;
-import com.example.Medical.Management.System.dto.PatientDto;
-import com.example.Medical.Management.System.model.Appointment;
-import com.example.Medical.Management.System.model.Doctor;
-import com.example.Medical.Management.System.model.Patient;
-import com.example.Medical.Management.System.repository.AppointmentRepository;
+import com.example.medicalmanagement.dto.AppointmentDto;
+import com.example.medicalmanagement.model.Appointment;
+import com.example.medicalmanagement.repository.AppointmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

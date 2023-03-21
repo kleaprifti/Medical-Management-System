@@ -1,6 +1,6 @@
-package com.example.Medical.Management.System.repository;
+package com.example.medicalmanagement.repository;
 
-import com.example.Medical.Management.System.model.Patient;
+import com.example.medicalmanagement.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

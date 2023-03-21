@@ -1,8 +1,8 @@
-package com.example.Medical.Management.System.controller;
+package com.example.medicalmanagement.controller;
 
-import com.example.Medical.Management.System.dto.PatientDto;
-import com.example.Medical.Management.System.repository.PatientRepository;
-import com.example.Medical.Management.System.service.PatientService;
+import com.example.medicalmanagement.dto.PatientDto;
+import com.example.medicalmanagement.repository.PatientRepository;
+import com.example.medicalmanagement.service.PatientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

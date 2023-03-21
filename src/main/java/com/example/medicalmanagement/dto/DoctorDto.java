@@ -1,4 +1,4 @@
-package com.example.Medical.Management.System.dto;
+package com.example.medicalmanagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
