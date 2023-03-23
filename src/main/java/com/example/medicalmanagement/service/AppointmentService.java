@@ -7,37 +7,30 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService {
 
-        private final AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
 
     private ModelMapper modelMapper;
 
     @Autowired
-        public AppointmentService(AppointmentRepository appointmentRepository,ModelMapper modelMapper) {
-            this.appointmentRepository = appointmentRepository;
-            this.modelMapper=modelMapper;
-        }
-
-
-
-
-    public List<AppointmentDto> getAllAppointments() {
-        List<Appointment> appointments = appointmentRepository.findAll();
-        return appointments.stream()
-                .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
-                .collect(Collectors.toList());
+    public AppointmentService(AppointmentRepository appointmentRepository, ModelMapper modelMapper) {
+        this.appointmentRepository = appointmentRepository;
+        this.modelMapper = modelMapper;
     }
+
 
     public AppointmentDto getAppointmentById(Long id) throws Exception {
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new Exception("Appointment not found with id: " + id));
         return modelMapper.map(appointment, AppointmentDto.class);
     }
+
     public List<AppointmentDto> getAppointmentsByPatientId(Long patientId) {
         List<Appointment> appointments = appointmentRepository.findByPatientId(patientId);
         return appointments.stream()
@@ -57,6 +50,14 @@ public class AppointmentService {
                 .orElseThrow(() -> new Exception("Appointment not found with id: " + id));
         appointmentRepository.delete(appointment);
     }
+
+
+
+
+    public List<Appointment> getAppointmentsBetweenDatesAndTimes(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return appointmentRepository.findByDoctorIdAndAppointmentDateTimeBetween(doctorId, startDateTime, endDateTime);
+    }
+
 }
 
 

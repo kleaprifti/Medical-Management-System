@@ -5,14 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentDto {
     private Long id;
-    private Date appointmentDate;
-
+    private Long doctorId;
+    private LocalDateTime appointmentDateTime;
 
 }

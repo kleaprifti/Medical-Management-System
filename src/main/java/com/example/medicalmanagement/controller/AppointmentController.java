@@ -1,9 +1,12 @@
 package com.example.medicalmanagement.controller;
 
 import com.example.medicalmanagement.dto.AppointmentDto;
+import com.example.medicalmanagement.model.Appointment;
+import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.service.AppointmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -11,15 +14,24 @@ import java.util.List;
 public class AppointmentController {
     private final AppointmentService appointmentService;
 
+    private final AppointmentRepository appointmentRepository;
 
-    public AppointmentController(AppointmentService appointmentService) {
+
+    @Autowired
+    public AppointmentController(AppointmentService appointmentService,AppointmentRepository appointmentRepository) {
         this.appointmentService = appointmentService;
+        this.appointmentRepository = appointmentRepository;
+    }
+    @GetMapping("")
+    public List<Appointment> getAppointmentsBetweenDatesAndTimes(@RequestParam Long doctorId, @RequestParam LocalDateTime startDateTime, @RequestParam LocalDateTime endDateTime) {
 
+        List<Appointment> appointments = appointmentRepository.findByDoctorIdAndAppointmentDateTimeBetween(doctorId, startDateTime, endDateTime);
+
+        return appointments;
     }
-    @GetMapping
-    public List<AppointmentDto> getAllAppointments() {
-        return appointmentService.getAllAppointments();
-    }
+
+
+
     @GetMapping("/{id}")
     public AppointmentDto getAppointmentById(@PathVariable Long id) throws Exception {
         return appointmentService.getAppointmentById(id);

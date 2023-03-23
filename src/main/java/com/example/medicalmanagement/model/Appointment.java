@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-import java.util.Date;
+
+import java.time.LocalDateTime;
+
 
 @Entity
 @Table (name = "appointments")
@@ -27,9 +29,7 @@ public class Appointment {
         @JsonIgnore
         private Patient patient;
 
-        @Temporal(TemporalType.TIMESTAMP)
-        private Date appointmentDate;
-
+       private LocalDateTime appointmentDateTime;
 
         @ManyToOne
         @JoinColumn(name = "doctor_id")
