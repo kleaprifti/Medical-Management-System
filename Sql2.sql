@@ -36,17 +36,17 @@ VALUES
   ('Dr.Stephen Strange', 'Pediatrician'),
   ('Dr.Hank Pym', 'Cardiologist');
 
-  
-  
-  
-  
-  
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date`, `doctor_id`, `patient_id`) VALUES ('2023-03-20', '1', '1');
-INSERT INTO `medical_management_system`.`appointments` ( `appointment_date`, `doctor_id`, `patient_id`) VALUES ( '2023-03-21', '1', '2');
-INSERT INTO `medical_management_system`.`appointments` ( `appointment_date`, `doctor_id`, `patient_id`) VALUES ('2023-03-22', '1', '3');
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date`, `doctor_id`, `patient_id`) VALUES ( '2023-03-23', '2', '4');
-INSERT INTO `medical_management_system`.`appointments` ( `appointment_date`, `doctor_id`, `patient_id`) VALUES ('2023-03-24', '2', '5');
-INSERT INTO `medical_management_system`.`appointments` ( `appointment_date`, `doctor_id`, `patient_id`) VALUES ( '2023-03-25', '2', '6');
-INSERT INTO `medical_management_system`.`appointments` ( `appointment_date`, `doctor_id`, `patient_id`) VALUES ('2023-03-26', '3', '7');
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date`, `doctor_id`, `patient_id`) VALUES ( '2023-03-27', '3', '8');
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date`, `doctor_id`, `patient_id`) VALUES ( '2023-03-28', '3', '9');
+
+
+
+
+
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_time`, `doctor_id`, `patient_id`) VALUES ('2023-03-20 08:00:00', '1', '1');
+INSERT INTO `medical_management_system`.`appointments` ( `appointment_date_time`, `doctor_id`, `patient_id`) VALUES ( '2023-03-21 10:00:00', '1', '2');
+INSERT INTO `medical_management_system`.`appointments` ( `appointment_date_time`, `doctor_id`, `patient_id`) VALUES ('2023-03-22 12:30:00', '1', '3');
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_time`, `doctor_id`, `patient_id`) VALUES ( '2023-03-23 09:00:00', '2', '4');
+INSERT INTO `medical_management_system`.`appointments` ( `appointment_date_time`, `doctor_id`, `patient_id`) VALUES ('2023-03-24 13:00:00', '2', '5');
+INSERT INTO `medical_management_system`.`appointments` ( `appointment_date_time`, `doctor_id`, `patient_id`) VALUES ( '2023-03-25 08:00:00', '2', '6');
+INSERT INTO `medical_management_system`.`appointments` ( `appointment_date_time`, `doctor_id`, `patient_id`) VALUES ('2023-03-26 16:00:00', '3', '7');
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_time`, `doctor_id`, `patient_id`) VALUES ( '2023-03-27 17:30:00', '3', '8');
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_time`, `doctor_id`, `patient_id`) VALUES ( '2023-03-28 18:00:00', '3', '9');
