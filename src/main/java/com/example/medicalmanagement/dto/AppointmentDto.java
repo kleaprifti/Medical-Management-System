@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 @Getter
 @Setter
@@ -12,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class AppointmentDto {
     private Long id;
-    private Date appointmentDate;
-
+    private Long doctorId;
+    private LocalDateTime appointmentDateTime;
 
 }
