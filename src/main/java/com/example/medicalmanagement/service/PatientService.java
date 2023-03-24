@@ -40,12 +40,6 @@ public class PatientService {
         return patientOptional.map(patient -> modelMapper.map(patient, PatientDto.class));
     }
 
-    public PatientDto addPatient(PatientDto patientDto) {
-        Patient patient = modelMapper.map(patientDto, Patient.class);
-        patient = patientRepository.save(patient);
-        PatientDto addedPatientDto = modelMapper.map(patient, PatientDto.class);
-        return addedPatientDto;
-    }
 
 
     public void deletePatient(Long id) {
@@ -56,20 +50,7 @@ public class PatientService {
 
 
 
-    public Patient updatePatient(Long id, Patient newPatient) throws Exception {
-        Optional<Patient> optionalPatient = patientRepository.findById(id);
-        if (optionalPatient.isPresent()) {
-            Patient oldPatient = optionalPatient.get();
-            oldPatient.setName(newPatient.getName());
-            oldPatient.setDateOfBirth(newPatient.getDateOfBirth());
-            oldPatient.setGender(newPatient.getGender());
-            oldPatient.setAddress(newPatient.getAddress());
-            oldPatient.setPhoneNumber(newPatient.getPhoneNumber());
-            return patientRepository.save(oldPatient);
-        } else {
-            throw new Exception("Patient not found with id " + id);
-        }
-    }
+
 
 
 }

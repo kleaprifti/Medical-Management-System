@@ -1,11 +1,8 @@
 package com.example.medicalmanagement.controller;
 
 import com.example.medicalmanagement.dto.PatientDto;
-import com.example.medicalmanagement.repository.PatientRepository;
 import com.example.medicalmanagement.service.PatientService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,15 +12,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/patients")
 public class PatientController {
-    private final ModelMapper modelMapper;
-    private PatientRepository patientRepository;
     private PatientService patientService;
 
     @Autowired
-    public PatientController(PatientRepository patientRepository, PatientService patientService, ModelMapper modelMapper) {
-        this.patientRepository = patientRepository;
+    public PatientController(PatientService patientService) {
         this.patientService = patientService;
-        this.modelMapper = modelMapper;
+
     }
 
     @GetMapping("")
@@ -41,12 +35,7 @@ public class PatientController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<PatientDto> addPatient(@RequestBody PatientDto patientDto) {
-        PatientDto patient = patientService.addPatient(patientDto);
-        PatientDto patientResponse = modelMapper.map(patient, PatientDto.class);
-        return new ResponseEntity<PatientDto>(patientResponse, HttpStatus.CREATED);
-    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePatient(@PathVariable("id") Long id) {

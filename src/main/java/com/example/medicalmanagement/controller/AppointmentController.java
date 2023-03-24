@@ -25,9 +25,9 @@ public class AppointmentController {
     @GetMapping("")
     public List<Appointment> getAppointmentsBetweenDatesAndTimes(@RequestParam Long doctorId, @RequestParam LocalDateTime startDateTime, @RequestParam LocalDateTime endDateTime) {
 
-        List<Appointment> appointments = appointmentRepository.findByDoctorIdAndAppointmentDateTimeBetween(doctorId, startDateTime, endDateTime);
 
-        return appointments;
+        return appointmentRepository.findByDoctorIdAndAppointmentDateTimeBetween(doctorId, startDateTime, endDateTime);
+
     }
 
 
@@ -45,8 +45,5 @@ public class AppointmentController {
     public void deleteAppointment(@PathVariable Long id) throws Exception {
         appointmentService.deleteAppointment(id);
     }
-    @GetMapping("/patient/{id}")
-    public List<AppointmentDto> getAppointmentsByPatientId(@PathVariable Long id) {
-        return appointmentService.getAppointmentsByPatientId(id);
-    }
+
 }
