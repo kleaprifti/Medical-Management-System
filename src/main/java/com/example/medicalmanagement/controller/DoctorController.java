@@ -5,6 +5,8 @@ import com.example.medicalmanagement.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/doctors")
@@ -15,9 +17,8 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
-    @PostMapping
-    public DoctorDto addDoctor(@RequestBody DoctorDto doctorDto) {
-        return doctorService.addDoctor(doctorDto);
+    @GetMapping("/all")
+     public List<DoctorDto> getAllDoctors(){
+        return doctorService.getAllDoctors();
     }
-
 }
