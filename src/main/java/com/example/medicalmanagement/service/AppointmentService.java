@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class AppointmentService {
@@ -31,12 +31,7 @@ public class AppointmentService {
         return modelMapper.map(appointment, AppointmentDto.class);
     }
 
-    public List<AppointmentDto> getAppointmentsByPatientId(Long patientId) {
-        List<Appointment> appointments = appointmentRepository.findByPatientId(patientId);
-        return appointments.stream()
-                .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
-                .collect(Collectors.toList());
-    }
+
 
     public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
         Appointment appointment = modelMapper.map(appointmentDto, Appointment.class);
