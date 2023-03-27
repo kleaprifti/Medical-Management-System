@@ -7,43 +7,45 @@ import com.example.medicalmanagement.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
-    private final AppointmentService appointmentService;
-
-    private final AppointmentRepository appointmentRepository;
 
 
-    @Autowired
-    public AppointmentController(AppointmentService appointmentService,AppointmentRepository appointmentRepository) {
-        this.appointmentService = appointmentService;
-        this.appointmentRepository = appointmentRepository;
-    }
-    @GetMapping("")
-    public List<Appointment> getAppointmentsBetweenDatesAndTimes(@RequestParam Long doctorId, @RequestParam LocalDateTime startDateTime, @RequestParam LocalDateTime endDateTime) {
+  private final AppointmentRepository appointmentRepository;
+
+   @Autowired
+  public AppointmentController(AppointmentRepository appointmentRepository) {
+
+      this.appointmentRepository = appointmentRepository;
+   }
 
 
-        return appointmentRepository.findByDoctorIdAndAppointmentDateTimeBetween(doctorId, startDateTime, endDateTime);
+   @GetMapping("")
+   public Set<Appointment> getAppointmentsBetweenDatesAndTimes(@RequestParam Long doctorId, @RequestParam LocalDateTime startDateTime, @RequestParam LocalDateTime endDateTime) {
+       Set<Appointment> appointments = new HashSet<>();
+       LocalDateTime currentDateTime = startDateTime.truncatedTo(ChronoUnit.HOURS);
 
-    }
+       while (currentDateTime.isBefore(endDateTime)) {
+           LocalDateTime appointmentEndDateTime = currentDateTime.plusHours(1);
+
+           List<Appointment> currentAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBetween(doctorId, currentDateTime, appointmentEndDateTime);
+
+           appointments.addAll(currentAppointments);
+
+           currentDateTime = currentDateTime.plusHours(1);
+       }
+
+       return appointments;
+   }
 
 
 
-    @GetMapping("/{id}")
-    public AppointmentDto getAppointmentById(@PathVariable Long id) throws Exception {
-        return appointmentService.getAppointmentById(id);
-    }
-    @PostMapping
-    public AppointmentDto addAppointment(@RequestBody AppointmentDto appointmentDto) {
-        return appointmentService.addAppointment(appointmentDto);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteAppointment(@PathVariable Long id) throws Exception {
-        appointmentService.deleteAppointment(id);
-    }
 
 }

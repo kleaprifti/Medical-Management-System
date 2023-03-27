@@ -23,32 +23,6 @@ public class PatientService {
 
     }
 
-    public List<PatientDto> getAllPatients() {
-        List<Patient> patients = patientRepository.findAll();
-        List<PatientDto> patientDTOS = new ArrayList<>();
-        for (Patient patient : patients) {
-            PatientDto patientDto = modelMapper.map(patient, PatientDto.class);
-            patientDTOS.add(patientDto);
-        }
-        return patientDTOS;
-    }
-
-
-
-    public Optional<PatientDto> getPatientById(Long id) {
-        Optional<Patient> patientOptional = patientRepository.findById(id);
-        return patientOptional.map(patient -> modelMapper.map(patient, PatientDto.class));
-    }
-
-
-
-    public void deletePatient(Long id) {
-        Patient patient = patientRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
-        patientRepository.delete(patient);
-    }
-
-
 
 
 

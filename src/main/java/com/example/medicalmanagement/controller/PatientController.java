@@ -19,30 +19,6 @@ public class PatientController {
         this.patientService = patientService;
 
     }
-
-    @GetMapping("")
-    public List<PatientDto> getAllPatients() {
-        return patientService.getAllPatients();
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<PatientDto> getPatientById(@PathVariable("id") Long id) {
-        Optional<PatientDto> patientDtoOptional = patientService.getPatientById(id);
-        if (patientDtoOptional.isPresent()) {
-            return ResponseEntity.ok(patientDtoOptional.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePatient(@PathVariable("id") Long id) {
-        patientService.deletePatient(id);
-        return ResponseEntity.noContent().build();
-    }
-    }
-
 
 
