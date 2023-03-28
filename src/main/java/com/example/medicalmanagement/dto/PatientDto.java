@@ -11,8 +11,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PatientDto {
-    private Long id;
+    private Long patientId;
     private String name;
+    private String lastName;
     private LocalDate dateOfBirth;
     private String gender;
     private String address;

@@ -20,10 +20,13 @@ import java.util.List;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Id;
 
     @Column(name = "name")
     private String name;
+
+    @Column(name="last_name")
+    private String lastName;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
@@ -37,9 +40,10 @@ public class Patient {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+
     @OneToMany(mappedBy = "patient")
     @JsonIgnoreProperties
-    private List<Appointment> appointments = new ArrayList<>();
+    private List<Appointment> appointment;
 
 
 }

@@ -30,6 +30,6 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor")
     @JsonIgnoreProperties
-    private List<Appointment> appointments = new ArrayList<>();
+    private List<Appointment> appointment;
 
 }
