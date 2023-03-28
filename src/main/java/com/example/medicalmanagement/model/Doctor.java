@@ -21,8 +21,9 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "full name")
+    private String fullName;
+
 
     @Column(name="profile")
     private String profile;
