@@ -30,7 +30,7 @@ VALUES
   ('Thanos','Thanos', '678-901-2345'),
   ('Kang','Kang', '789-012-3456');
   
-  INSERT INTO doctors (name, profile)
+  INSERT INTO doctors (full_name, profile)
 VALUES
   ('Dr.Rrapaj', 'General'),
   ('Dr.Stephen Strange', 'Pediatrician'),
