@@ -25,6 +25,10 @@ connect local database with the remote server by changing into the configuration
   - spring.datasource.url = jdbc:mysql://localhost:3306/medical_management_system
   - spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQLDialect
 
+To add Spring Profile (dev / test) run this commands:
+
+  - mvn install -D spring.profiles.active=dev
+  - mvn install -D spring.profiles.active=test
 
 
 # **Technologies**
