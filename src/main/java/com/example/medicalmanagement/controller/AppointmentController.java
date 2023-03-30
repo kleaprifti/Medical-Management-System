@@ -6,6 +6,7 @@ import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -17,35 +18,24 @@ import java.util.Set;
 @RequestMapping("/appointments")
 public class AppointmentController {
 
+    private final AppointmentRepository appointmentRepository;
+    private final AppointmentService appointmentService;
 
-  private final AppointmentRepository appointmentRepository;
+    @Autowired
+    public AppointmentController(AppointmentRepository appointmentRepository, AppointmentService appointmentService) {
 
-   @Autowired
-  public AppointmentController(AppointmentRepository appointmentRepository) {
-
-      this.appointmentRepository = appointmentRepository;
-   }
-
-
-   @GetMapping("")
-   public Set<Appointment> getAppointmentsBetweenDatesAndTimes(@RequestParam Long doctorId, @RequestParam LocalDateTime startDateTime, @RequestParam LocalDateTime endDateTime) {
-       Set<Appointment> appointments = new HashSet<>();
-       LocalDateTime currentDateTime = startDateTime.truncatedTo(ChronoUnit.HOURS);
-
-       while (currentDateTime.isBefore(endDateTime)) {
-           LocalDateTime appointmentEndDateTime = currentDateTime.plusHours(1);
-
-           List<Appointment> currentAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBetween(doctorId, currentDateTime, appointmentEndDateTime);
-
-           appointments.addAll(currentAppointments);
-
-           currentDateTime = currentDateTime.plusHours(1);
-       }
-
-       return appointments;
-   }
+        this.appointmentRepository = appointmentRepository;
+        this.appointmentService = appointmentService;
+    }
 
 
+    @GetMapping("")
+    public Set<Appointment> getAppointmentsBetweenDatesAndTimes(@RequestParam Long doctorId, @RequestParam LocalDateTime startDateTime, @RequestParam LocalDateTime endDateTime) {
 
-
+        return appointmentService.getAppointmentsBetweenDatesAndTimes(doctorId, startDateTime, endDateTime);
+    }
 }
+
+
+
+
