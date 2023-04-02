@@ -25,6 +25,7 @@ public class AppointmentController {
 
         return appointmentService.getAppointmentsBetweenDatesAndTimes(doctorId, startDateTime, endDateTime);
     }
+
 }
 
 
