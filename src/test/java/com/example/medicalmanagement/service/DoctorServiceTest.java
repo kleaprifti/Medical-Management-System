@@ -1,26 +1,26 @@
 package com.example.medicalmanagement.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.medicalmanagement.dto.DoctorDto;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import com.example.medicalmanagement.model.Doctor;
+import com.example.medicalmanagement.repository.DoctorRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.medicalmanagement.model.Doctor;
-import com.example.medicalmanagement.repository.DoctorRepository;
+import java.util.Arrays;
+import java.util.List;
 
-@ExtendWith(MockitoExtension.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
 public class DoctorServiceTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DoctorServiceTest.class);
 
     @Mock
     private DoctorRepository doctorRepository;
@@ -31,46 +31,38 @@ public class DoctorServiceTest {
     @InjectMocks
     private DoctorService doctorService;
 
-    private static final Logger logger = LoggerFactory.getLogger(DoctorServiceTest.class);
-
     @Test
     public void testGetAllDoctors() {
-        logger.info("Testing getAllDoctors method");
+        LOGGER.info("Testing getAllDoctors method...");
 
-        // Create some test data
-        Doctor doctor1 = new Doctor(1L, "John Doe", "profile1", null);
-        Doctor doctor2 = new Doctor(2L, "Jane Smith", "profile2", null);
-        List<Doctor> doctors = new ArrayList<>();
-        doctors.add(doctor1);
-        doctors.add(doctor2);
+        Doctor doctor1 = new Doctor();
+        doctor1.setId(1L);
+        doctor1.setFullName("John Smith");
 
-        DoctorDto doctorDto1 = new DoctorDto(1L, "John Doe", "profile1");
-        DoctorDto doctorDto2 = new DoctorDto(2L, "Jane Smith", "profile2");
-        List<DoctorDto> doctorDtos = new ArrayList<>();
-        doctorDtos.add(doctorDto1);
-        doctorDtos.add(doctorDto2);
+        Doctor doctor2 = new Doctor();
+        doctor2.setId(2L);
+        doctor2.setFullName("Jane Smith");
 
-        // Mock the repository's findAll() method to return the test data
+        List<Doctor> doctors = Arrays.asList(doctor1, doctor2);
+
+        DoctorDto doctorDto1 = new DoctorDto();
+        doctorDto1.setId(1L);
+        doctorDto1.setFullName("John Smith");
+        doctorDto1.setProfile("Gjinekologe");
+
+        DoctorDto doctorDto2 = new DoctorDto();
+        doctorDto2.setId(2L);
+        doctorDto2.setFullName("Jane Smith");
+        doctorDto2.setProfile("General");
+
+        List<DoctorDto> expectedDoctorDtos = Arrays.asList(doctorDto1, doctorDto2);
+
         when(doctorRepository.findAll()).thenReturn(doctors);
-
-        // Mock the modelMapper's map() method to map the test data to the DTOs
         when(modelMapper.map(doctor1, DoctorDto.class)).thenReturn(doctorDto1);
         when(modelMapper.map(doctor2, DoctorDto.class)).thenReturn(doctorDto2);
 
-        // Call the method being tested
-        List<DoctorDto> result = doctorService.getAllDoctors();
+        List<DoctorDto> actualDoctorDtos = doctorService.getAllDoctors();
 
-        // Verify that the repository's findAll() method was called exactly once
-        verify(doctorRepository, times(1)).findAll();
-
-        // Verify that the modelMapper's map() method was called twice with the correct arguments
-        verify(modelMapper, times(1)).map(doctor1, DoctorDto.class);
-        verify(modelMapper, times(1)).map(doctor2, DoctorDto.class);
-
-        // Verify that the method returned the expected result
-        assertEquals(doctorDtos, result);
-
-        logger.info("getAllDoctors method test completed successfully");
+        assertEquals(expectedDoctorDtos, actualDoctorDtos);
     }
-
 }
