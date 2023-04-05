@@ -21,7 +21,7 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name",unique = true,nullable = false)
     private String fullName;
 
 
