@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class PatientService {
@@ -22,6 +22,17 @@ public class PatientService {
         this.modelMapper = modelMapper;
 
     }
+
+    public List<PatientDto> getAllPatients() {
+        List<Patient> patients = patientRepository.findAll();
+        List<PatientDto> patientDto = new ArrayList<>();
+        for (Patient patient : patients) {
+            PatientDto patientDto1 = modelMapper.map(patient, PatientDto.class);
+            patientDto.add(patientDto1);
+        }
+        return patientDto;
+    }
+
 
 
 
