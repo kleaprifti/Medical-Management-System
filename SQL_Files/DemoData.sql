@@ -2,7 +2,7 @@ use medical_management_system;
 
 INSERT INTO patients (name,last_name, phone_number)
 VALUES
-    ('John', 'Doe', '123-456-7890'),
+    ('John', 'Doe', '123-456-7801'),
     ('Jane','Doe', '234-567-8901'),
     ('Klea',' Prifti', '345-678-9012'),
     ('Romeisa',' Aliu', '456-789-0123'),
@@ -13,22 +13,22 @@ VALUES
     ('Aida',' Sufaj', '901-234-5678'),
     ('Steve',' Rogers', '012-345-6789'),
     ('Tony',' Stark', '123-456-7890'),
-    ('Natasha',' Romanoff', '234-567-8901'),
-    ('Wanda',' Maximoff', '345-678-9012'),
-    ('Stephen',' Strange', '456-789-0123'),
-    ('Thor',' Odinson ', '567-890-1234'),
-    ('Peter',' Parker', '678-901-2345'),
-    ('Andrew',' Garfield', '789-012-3456'),
-    ('Peggy',' Carter', '890-123-4567'),
-    ('Reed',' Richards', '901-234-5678'),
-    ('Tchalla', 'Tchalla','012-345-6789'),
-    ('Carol','Denvers', '123-456-7890'),
-    ('Nick',' Fury', '234-567-8901'),
-    ('Bruce',' Banner', '345-678-9012'),
-    ('Loki',' Laufeyson', '456-789-0123'),
-    ('Peter',' Quill', '567-890-1234'),
-    ('Thanos','Thanos', '678-901-2345'),
-    ('Kang','Kang', '789-012-3456');
+    ('Natasha',' Romanoff', '234-567-756'),
+    ('Wanda',' Maximoff', '345-678-493'),
+    ('Stephen',' Strange', '456-789-947'),
+    ('Thor',' Odinson ', '567-890-2953'),
+    ('Peter',' Parker', '678-901-8734'),
+    ('Andrew',' Garfield', '789-012-1111'),
+    ('Peggy',' Carter', '890-123-0000'),
+    ('Reed',' Richards', '901-234-6321'),
+    ('Tchalla', 'Tchalla','012-345-8392'),
+    ('Carol','Denvers', '123-456-0945'),
+    ('Nick',' Fury', '234-567-7955'),
+    ('Bruce',' Banner', '345-678-9090'),
+    ('Loki',' Laufeyson', '456-789-4212'),
+    ('Peter',' Quill', '567-890-3333'),
+    ('Thanos','Thanos', '678-901-4444'),
+    ('Kang','Kang', '789-012-1616');
 
 INSERT INTO doctors (full_name, profile)
 VALUES
