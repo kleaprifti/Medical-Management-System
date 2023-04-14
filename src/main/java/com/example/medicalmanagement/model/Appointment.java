@@ -40,6 +40,7 @@ public class Appointment {
     @JsonIgnore
     private Doctor doctor;
 
+
 }
 
 

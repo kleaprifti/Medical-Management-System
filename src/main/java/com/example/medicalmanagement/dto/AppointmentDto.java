@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 public class AppointmentDto {
     private Long  appointmentId;
     private Long doctorId;
+    private Long patientId;
     private LocalDateTime appointmentDateStartTime;
     private LocalDateTime appointmentDateEndTime;
+
+
 }

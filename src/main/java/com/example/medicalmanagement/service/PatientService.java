@@ -31,11 +31,7 @@ public class PatientService {
             patientDto.add(patientDto1);
         }
         return patientDto;
+
     }
-
-
-
-
-
 
 }
