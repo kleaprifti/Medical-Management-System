@@ -10,7 +10,6 @@ import com.example.medicalmanagement.repository.PatientRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -45,20 +44,30 @@ public class AppointmentService {
     }
 
     public Appointment addAppointment(AppointmentDto appointmentDto) {
-        List<Appointment> existingAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
-                appointmentDto.getDoctorId(), appointmentDto.getAppointmentDateStartTime(),appointmentDto.getAppointmentDateEndTime());
-        if (!existingAppointments.isEmpty()) {
-            throw new IllegalArgumentException("An appointment already exists during this time range");
+        List<Appointment> existingAppointments = appointmentRepository.findAppointmentsByDoctorIdAndAppointmentDateStartTimeAndAndAppointmentDateEndTime(
+                appointmentDto.getDoctorId(), appointmentDto.getAppointmentDateStartTime(), appointmentDto.getAppointmentDateEndTime());
+
+        for (Appointment existingAppointment : existingAppointments) {
+            if (existingAppointment.getAppointmentDateStartTime().isBefore(appointmentDto.getAppointmentDateEndTime()) &&
+                    existingAppointment.getAppointmentDateEndTime().isAfter(appointmentDto.getAppointmentDateStartTime())) {
+
+                throw new IllegalArgumentException("An appointment already exists during this time range");
+
+
+            }
         }
+
         Patient patient = patientRepository.findById(appointmentDto.getPatientId())
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
         Doctor doctor = doctorRepository.findById(appointmentDto.getDoctorId())
-                .orElseThrow(() -> new EntityNotFoundException("This doctor is not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
+
         Appointment appointment = new Appointment();
         appointment.setAppointmentDateStartTime(appointmentDto.getAppointmentDateStartTime());
         appointment.setAppointmentDateEndTime(appointmentDto.getAppointmentDateEndTime());
         appointment.setPatient(patient);
         appointment.setDoctor(doctor);
         return appointmentRepository.save(appointment);
+
     }
 }

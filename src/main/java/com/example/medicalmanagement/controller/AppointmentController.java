@@ -32,4 +32,5 @@ public class AppointmentController {
         return appointmentService.addAppointment(appointmentDto);
     }
 
+
 }
