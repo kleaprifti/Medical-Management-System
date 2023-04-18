@@ -43,7 +43,9 @@ public class AppointmentService {
         return appointments;
     }
 
-    public Appointment addAppointment(AppointmentDto appointmentDto) {
+
+public Appointment addAppointment(AppointmentDto appointmentDto) {
+    try {
         List<Appointment> existingAppointments = appointmentRepository.findAppointmentsByDoctorIdAndAppointmentDateStartTimeAndAndAppointmentDateEndTime(
                 appointmentDto.getDoctorId(), appointmentDto.getAppointmentDateStartTime(), appointmentDto.getAppointmentDateEndTime());
 
@@ -52,9 +54,13 @@ public class AppointmentService {
                     existingAppointment.getAppointmentDateEndTime().isAfter(appointmentDto.getAppointmentDateStartTime())) {
 
                 throw new IllegalArgumentException("An appointment already exists during this time range");
-
-
             }
+        }
+
+        LocalDateTime startDateTime = appointmentDto.getAppointmentDateStartTime();
+        LocalDateTime endDateTime = appointmentDto.getAppointmentDateEndTime();
+        if (startDateTime.plusHours(1).isAfter(endDateTime) || startDateTime.isEqual(endDateTime)) {
+            throw new IllegalArgumentException("Appointment duration should be at least one hour");
         }
 
         Patient patient = patientRepository.findById(appointmentDto.getPatientId())
@@ -63,11 +69,15 @@ public class AppointmentService {
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
 
         Appointment appointment = new Appointment();
-        appointment.setAppointmentDateStartTime(appointmentDto.getAppointmentDateStartTime());
-        appointment.setAppointmentDateEndTime(appointmentDto.getAppointmentDateEndTime());
+        appointment.setAppointmentDateStartTime(startDateTime);
+        appointment.setAppointmentDateEndTime(endDateTime);
         appointment.setPatient(patient);
         appointment.setDoctor(doctor);
         return appointmentRepository.save(appointment);
-
+    } catch (IllegalArgumentException | EntityNotFoundException e) {
+        throw e;
+    } catch (Exception e) {
+        throw new RuntimeException("Technical issue occurred while adding appointment", e);
     }
+  }
 }
