@@ -43,7 +43,7 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient")
     @JsonIgnoreProperties
-    private List<Appointment> appointment;
+    private List<Appointment> appointment = new ArrayList<>();
 
 
 }

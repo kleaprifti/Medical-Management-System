@@ -18,8 +18,15 @@ public class PatientService {
 
     }
 
+    public List<PatientDto> getAllPatients() {
+        List<Patient> patients = patientRepository.findAll();
+        List<PatientDto> patientDto = new ArrayList<>();
+        for (Patient patient : patients) {
+            PatientDto patientDto1 = modelMapper.map(patient, PatientDto.class);
+            patientDto.add(patientDto1);
+        }
+        return patientDto;
 
-
-
+    }
 
 }

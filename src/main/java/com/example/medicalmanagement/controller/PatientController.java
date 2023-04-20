@@ -15,6 +15,9 @@ public class PatientController {
         this.patientService = patientService;
 
     }
+    @GetMapping("/all")
+    public List<PatientDto> getAllPatients(){
+        return patientService.getAllPatients();
     }
 
-
+}
