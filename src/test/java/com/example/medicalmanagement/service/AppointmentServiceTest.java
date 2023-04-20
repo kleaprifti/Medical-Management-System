@@ -61,6 +61,7 @@ import static org.mockito.Mockito.*;
     }
 
 
+
     @Test
      void testAddAppointment() {
         AppointmentDto appointmentDto = new AppointmentDto();
