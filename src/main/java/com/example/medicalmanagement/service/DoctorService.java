@@ -6,8 +6,6 @@ import com.example.medicalmanagement.repository.DoctorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,11 +23,8 @@ public class DoctorService {
 
     public List<DoctorDto> getAllDoctors() {
         List<Doctor> doctors = doctorRepository.findAll();
-        List<DoctorDto> doctorDto = new ArrayList<>();
-        for (Doctor doctor : doctors) {
-            DoctorDto doctorDto1 = modelMapper.map(doctor, DoctorDto.class);
-            doctorDto.add(doctorDto1);
-        }
-        return doctorDto;
+        return doctors.stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorDto.class))
+                .toList();
     }
 }
