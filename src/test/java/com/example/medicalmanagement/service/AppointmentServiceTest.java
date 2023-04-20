@@ -60,6 +60,7 @@ import static org.mockito.Mockito.*;
         LOGGER.info("The list of the appointments is tested successfully with the expected output");
     }
 
+
     @Test
      void testAddAppointment() {
         AppointmentDto appointmentDto = new AppointmentDto();
