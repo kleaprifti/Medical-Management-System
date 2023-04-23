@@ -1,11 +1,12 @@
+
 use medical_management_system;
-#delete patients
+#delete
 SET SQL_SAFE_UPDATES = 0;
 DELETE FROM `appointments`;
-
-DELETE FROM `patients`;
-
-DELETE FROM `doctors`;
+DELETE FROM `user_speciality`;
+DELETE FROM `users`;
+DELETE FROM `speciality`;
+DELETE FROM `role`;
 
 
 

@@ -1,6 +1,5 @@
 package com.example.medicalmanagement.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,15 +29,14 @@ public class Appointment {
     private LocalDateTime appointmentDateEndTime;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", referencedColumnName = "Id")
-    @JsonIgnore
-    private Patient patient;
-
+    @JoinColumn(name = "doctor_id")
+    private User doctor;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id", referencedColumnName = "id")
-    @JsonIgnore
-    private Doctor doctor;
+    @JoinColumn(name = "patient_id")
+    private User patient;
+
+
 
 }
 
