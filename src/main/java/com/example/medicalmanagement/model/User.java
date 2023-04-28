@@ -38,7 +38,3 @@ public class User {
     private List<Speciality> specialities;
 
    }
-
-
-
-
