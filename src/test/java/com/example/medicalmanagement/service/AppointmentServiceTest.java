@@ -36,29 +36,30 @@ public class AppointmentServiceTest {
 
     @Test
     public void testGetAppointmentsBetweenDatesAndTimes() {
-        // set up test data
+        LOGGER.info("Starting testGetAppointmentsBetweenDatesAndTimes");
+
         Long doctorId = 1L;
-        LocalDateTime startDateTime = LocalDateTime.of(2022, 1, 1, 10, 0);
-        LocalDateTime endDateTime = LocalDateTime.of(2022, 1, 1, 12, 0);
+        LocalDateTime startDateTime = LocalDateTime.of(2023, 3, 20, 10, 0);
+        LocalDateTime endDateTime = LocalDateTime.of(2023, 3, 20, 11, 0);
         Appointment appointment1 = new Appointment(1L, startDateTime, endDateTime, new User(), new User());
         List<Appointment> appointmentList = Arrays.asList(appointment1);
         Set<AppointmentDto> expected = new HashSet<>();
         AppointmentDto appointmentDto = new AppointmentDto(1L, startDateTime, endDateTime);
         expected.add(appointmentDto);
 
-        // set up mock behavior
+        LOGGER.info("Setting up mock behavior");
+
         when(appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
                 doctorId, endDateTime, startDateTime)).thenReturn(appointmentList);
 
         when(modelMapper.map(appointment1, AppointmentDto.class)).thenReturn(appointmentDto);
+        LOGGER.info("Calling method under test");
 
-        // call method under test
         Set<AppointmentDto> result = appointmentService.getAppointmentsBetweenDatesAndTimes(doctorId, startDateTime, endDateTime);
 
-        // assert result
         assertEquals(expected, result);
 
 
-        LOGGER.info("The list of the appointments is tested successfully with the expected output");
+        LOGGER.info("Finished testGetAppointmentsBetweenDatesAndTimes");
     }
 }

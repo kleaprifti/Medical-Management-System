@@ -1,6 +1,5 @@
 package com.example.medicalmanagement.dto;
 
-import com.example.medicalmanagement.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
