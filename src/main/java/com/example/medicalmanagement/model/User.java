@@ -25,10 +25,11 @@ public class User {
 
     @Column(name = "phone_number")
     private String phoneNumber;
-
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
 
     @ManyToMany
