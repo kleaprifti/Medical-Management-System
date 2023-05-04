@@ -1,41 +1,72 @@
 use medical_management_system;
 #Insert into Role
 
-INSERT INTO `medical_management_system`.`role` (`user_role`) VALUES ('DOCTOR');
-INSERT INTO `medical_management_system`.`role` (`user_role`) VALUES ('PATIENT');
+INSERT INTO `medical_management_system`.`role` (`roles`) VALUES ('DOCTOR');
+INSERT INTO `medical_management_system`.`role` (`roles`) VALUES ('PATIENT');
 
 
 #Inser into Users
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Steve Rogers', '4728337482', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Tony Stark', '8348923612', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Natasha Romanoff', '92362184', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Peggy Carter ', '547423093', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Romeisa Aliu', '003834252', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Klejda Rrapaj', '57239145', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Sildi Ricku', '93482663', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Carlos Sainz', '3627183', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Pablus Pabliuus', '57355253', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Francesco Totti', '298342184', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Matt Smith', '473829742', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Wanda Maximoff', '76538291', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Max Verstappen', '5738219353', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Charles Leclerc', '83728264', (SELECT id FROM role WHERE user_role = 'DOCTOR'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Daniel  Ricciardo', '8038472', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Sebastian Vettel', '58384734', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Fernando Alonso', '85232244', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Lewis Hamilton', '1234567', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Lando Norris', '85634283', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Carol Denvers', '462827421', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Gamora Quill', '000394821', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Sherlock Holmes', '111482231', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Gregory House', '222333444', (SELECT id FROM role WHERE user_role = 'DOCTOR'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Stephen Strange', '8884443222', (SELECT id FROM role WHERE user_role = 'DOCTOR'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('John Watson', '999323333', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Irene Adler', '0002222111', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('John Smith', '373163982', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('James Moriarty', '32223833', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Charles  Leclerc', '33821102', (SELECT id FROM role WHERE user_role = 'PATIENT'));
-INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`, `role_id`) VALUES ('Thanos Lang', '212221114', (SELECT id FROM role WHERE user_role = 'PATIENT'));
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Steve Rogers', '4728337482');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Tony Stark', '8348923612');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Natasha Romanoff', '92362184');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Peggy Carter ', '547423093');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Romeisa Aliu', '003834252');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Klejda Rrapaj', '57239145');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Sildi Ricku', '93482663');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Carlos Sainz', '3627183');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Pablus Pabliuus', '57355253');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Francesco Totti', '298342184');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Matt Smith', '473829742');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Wanda Maximoff', '76538291');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Max Verstappen', '5738219353');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Charles Leclerc', '83728264');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Daniel  Ricciardo', '8038472');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Sebastian Vettel', '58384734');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Fernando Alonso', '85232244');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Lewis Hamilton', '1234567');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Lando Norris', '85634283');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Carol Denvers', '462827421');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Gamora Quill', '000394821');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Sherlock Holmes', '111482231');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Gregory House', '222333444');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Stephen Strange', '8884443222');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('John Watson', '999323333');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Irene Adler', '0002222111');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('John Smith', '373163982');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('James Moriarty', '32223833');
+INSERT INTO `medical_management_system`.`users` ( `full_name`, `phone_number`) VALUES ('Thanos Lang', '212221114');
+
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '4728337482'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '8348923612'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '92362184'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '547423093'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '003834252'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '57239145'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '93482663'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '3627183'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '57355253'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '298342184'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '473829742'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '76538291'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '5738219353'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '83728264'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '83728264'),(SELECT id FROM role WHERE roles = 'DOCTOR'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '8038472'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '58384734'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '85232244'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '1234567'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '85634283'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '462827421'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '000394821'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '111482231'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '222333444'),(SELECT id FROM role WHERE roles = 'DOCTOR'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '8884443222'),(SELECT id FROM role WHERE roles = 'DOCTOR'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '999323333'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '0002222111'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '373163982'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '32223833'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '212221114'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+
 
 
 

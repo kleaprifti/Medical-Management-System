@@ -4,6 +4,7 @@ use medical_management_system;
 SET SQL_SAFE_UPDATES = 0;
 DELETE FROM `appointments`;
 DELETE FROM `user_speciality`;
+DELETE FROM user_role;
 DELETE FROM `users`;
 DELETE FROM `speciality`;
 DELETE FROM `role`;
