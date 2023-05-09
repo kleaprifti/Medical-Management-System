@@ -1,17 +1,13 @@
 package com.example.medicalmanagement.repository;
 
-import com.example.medicalmanagement.model.Role;
 import com.example.medicalmanagement.model.User;
+import com.example.medicalmanagement.model.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-        @Query("SELECT u FROM User u WHERE u.role = :role")
-        List<User> findByRole(@Param("role") Role role);
+        List<User> findByRolesUserRole(UserRole role);
 }
