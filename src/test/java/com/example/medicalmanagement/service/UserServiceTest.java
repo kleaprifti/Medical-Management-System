@@ -1,31 +1,30 @@
 package com.example.medicalmanagement.service;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-import com.example.medicalmanagement.dto.SpecialityDto;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import com.example.medicalmanagement.dto.UserDto;
 import com.example.medicalmanagement.model.Role;
 import com.example.medicalmanagement.model.Speciality;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
-import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.UserRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
-@RunWith(MockitoJUnitRunner.class)
-public class UserServiceTest {
-
-    @Mock
-    private RoleRepository roleRepository;
+@ExtendWith(MockitoExtension.class)
+ class UserServiceTest {
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
     @Mock
     private UserRepository userRepository;
@@ -33,39 +32,52 @@ public class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    @Test
-    public void testGetAllDoctors() {
-        Role doctorRole = new Role();
-        doctorRole.setUserRole(UserRole.DOCTOR);
+    private List<User> mockUsers;
 
-//        List<User> mockDoctorUsers = new ArrayList<>();
-//        User mockDoctorUser1 = new User();
-//        mockDoctorUser1.setId(1L);
-//        mockDoctorUser1.setFullName("John Smith");
-//        mockDoctorUser1.setRole(doctorRole);
-//        mockDoctorUser1.setSpecialities(Arrays.asList(new SpecialityDto("Pediatrics")));
-//        mockDoctorUsers.add(mockDoctorUser1);
-//
-//        User mockDoctorUser2 = new User();
-//        mockDoctorUser2.setId(2L);
-//        mockDoctorUser2.setFullName("Jane Doe");
-////        mockDoctorUser2.setRole(doctorRole);
-////        mockDoctorUser2.setSpecialities(Arrays.asList(new SpecialityDto("Dermatology"), new Speciality("Oncology")));
-////        mockDoctorUsers.add(mockDoctorUser2);
-//
-//        when(roleRepository.findByUserRole(UserRole.DOCTOR)).thenReturn(doctorRole);
-//        when(userRepository.findByRole(doctorRole)).thenReturn(mockDoctorUsers);
-//
-//        List<UserDto> expectedDoctorDtos = Arrays.asList(
-//                new UserDto(1L, "John Smith", doctorRole,
-//                        Arrays.asList(new SpecialityDto("Pediatrics"))),
-//                new UserDto(2L, "Jane Doe", doctorRole,
-////                        Arrays.asList(new SpecialityDto("Dermatology"), new SpecialityDto("Oncology")))
-////        );
-//
-//        List<UserDto> actualDoctorDtos = userService.getAllDoctors();
-//
-//        assertEquals(expectedDoctorDtos, actualDoctorDtos);
-//    }
-}
+    @BeforeEach
+    public void setup() {
+        Speciality speciality1 = new Speciality(1L,"Speciality 1",null);
+        Speciality speciality2 = new Speciality(2L,"Speciality 2",null);
+
+        Role role = new Role();
+        role.setUserRole(UserRole.DOCTOR);
+
+        User user1 = new User();
+        user1.setId(1L);
+        user1.setFullName("Doctor 1");
+        user1.setRoles(Collections.singletonList(role));
+        user1.setSpecialities(Collections.singletonList(speciality1));
+
+        User user2 = new User();
+        user2.setId(2L);
+        user2.setFullName("Doctor 2");
+        user2.setRoles(Collections.singletonList(role));
+        user2.setSpecialities(Collections.singletonList(speciality2));
+
+        mockUsers = Arrays.asList(user1, user2);
+    }
+
+    @Test
+     void testGetAllDoctors() {
+        when(userRepository.findByRolesUserRole(any())).thenReturn(mockUsers);
+
+        List<UserDto> doctorDtos = userService.getAllDoctors();
+
+        assertEquals(2, doctorDtos.size());
+
+        UserDto doctorDto1 = doctorDtos.get(0);
+        assertEquals(1L, doctorDto1.getId());
+        assertEquals("Doctor 1", doctorDto1.getFullName());
+        assertEquals(Collections.singletonList(UserRole.DOCTOR), doctorDto1.getRoles());
+        assertEquals(Collections.singletonList("Speciality 1"), doctorDto1.getSpecialities());
+
+        UserDto doctorDto2 = doctorDtos.get(1);
+        assertEquals(2L, doctorDto2.getId());
+        assertEquals("Doctor 2", doctorDto2.getFullName());
+        assertEquals(Collections.singletonList(UserRole.DOCTOR), doctorDto2.getRoles());
+        assertEquals(Collections.singletonList("Speciality 2"), doctorDto2.getSpecialities());
+
+        logger.info(() -> "Test getAllDoctors() method completed successfully");
+
+    }
 }
