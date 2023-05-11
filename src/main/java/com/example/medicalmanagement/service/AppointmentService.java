@@ -1,6 +1,7 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.dto.AppointmentDto;
+import com.example.medicalmanagement.exceptionhandlers.SamePersonException;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
@@ -41,7 +42,7 @@ public class AppointmentService {
 
 
     public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
-        try {
+
             LocalDateTime now = LocalDateTime.now();
             if (appointmentDto.getAppointmentDateStartTime().isBefore(now)) {
                 throw new IllegalArgumentException("Appointment time cannot be in the past");
@@ -68,6 +69,9 @@ public class AppointmentService {
             if(!usersList.contains(doctor)){
                 throw new IllegalArgumentException("Doctor not found");
             }
+            if (doctor.getId().equals(patient.getId())) {
+                throw new SamePersonException("Doctor and patient cannot be the same person");
+            }
             Appointment appointment = new Appointment();
             appointment.setAppointmentDateStartTime(startDateTime);
             appointment.setAppointmentDateEndTime(endDateTime);
@@ -83,10 +87,5 @@ public class AppointmentService {
             savedAppointmentDto.setPatientId(savedAppointment.getPatient().getId());
 
             return savedAppointmentDto;
-        } catch (IllegalArgumentException | EntityNotFoundException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RuntimeException("Technical issue occurred while adding appointment", e);
         }
     }
-}
