@@ -2,6 +2,8 @@ package com.example.medicalmanagement.repository;
 
 import com.example.medicalmanagement.model.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -13,6 +15,15 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     List<Appointment> findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(Long  doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
-    List<Appointment> findAppointmentsByDoctorId(Long doctorId);
+    @Query("SELECT a FROM Appointment a WHERE (a.patient.Id= :patientId OR a.doctor.Id = :doctorId) AND" +
+            "((a.appointmentDateStartTime < :endDateTime AND a.appointmentDateEndTime > :startDateTime) OR " +
+            "(a.appointmentDateStartTime >= :startDateTime AND a.appointmentDateStartTime < :endDateTime) OR " +
+            "(a.appointmentDateEndTime > :startDateTime AND a.appointmentDateEndTime <= :endDateTime))")
+    List<Appointment> findConflictingAppointments(@Param("patientId") Long patientId,
+                                                  @Param("doctorId") Long doctorId,
+                                                  @Param("startDateTime") LocalDateTime startDateTime,
+                                                  @Param("endDateTime") LocalDateTime endDateTime);
+
+
 
 }
