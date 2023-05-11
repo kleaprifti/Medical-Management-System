@@ -16,8 +16,8 @@ import com.example.medicalmanagement.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -77,7 +77,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
         assertEquals(Collections.singletonList(UserRole.DOCTOR), doctorDto2.getRoles());
         assertEquals(Collections.singletonList("Speciality 2"), doctorDto2.getSpecialities());
 
-        logger.info(() -> "Test getAllDoctors() method completed successfully");
+        logger.info("getAllDoctors() method test completed successfully");
 
     }
 }
