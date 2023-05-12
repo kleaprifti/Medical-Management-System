@@ -7,11 +7,9 @@ import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -58,13 +56,13 @@ public class AppointmentService {
                 throw new TimeException("Appointment duration should be one hour");
             }
             User patient = userRepository.findById(appointmentDto.getPatientId())
-                    .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+                    .orElseThrow(() -> new NotFoundException("Patient not found"));
             List<User> usersList = userRepository.findByRolesUserRole(UserRole.PATIENT);
             if(!usersList.contains(patient)){
                 throw new NotFoundException("Patient not found");
             }
             User doctor = userRepository.findById(appointmentDto.getDoctorId())
-                    .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
+                    .orElseThrow(() -> new NotFoundException("Doctor not found"));
             usersList = userRepository.findByRolesUserRole(UserRole.DOCTOR);
             if(!usersList.contains(doctor)){
                 throw new NotFoundException("Doctor not found");
