@@ -1,13 +1,14 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.dto.AppointmentDto;
-import com.example.medicalmanagement.exceptionhandlers.SamePersonException;
+import com.example.medicalmanagement.exceptionhandlers.*;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.aspectj.weaver.ast.Not;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,29 +46,29 @@ public class AppointmentService {
 
             LocalDateTime now = LocalDateTime.now();
             if (appointmentDto.getAppointmentDateStartTime().isBefore(now)) {
-                throw new IllegalArgumentException("Appointment time cannot be in the past");
+                throw new DurationException("Appointment time cannot be in the past");
             }
 
             List<Appointment> conflictingAppointment = appointmentRepository.findConflictingAppointments(appointmentDto.getPatientId(),appointmentDto.getDoctorId(),appointmentDto.getAppointmentDateStartTime(),appointmentDto.getAppointmentDateEndTime());
             if (!conflictingAppointment.isEmpty()){
-                throw new IllegalArgumentException("This patient or this doctor has already an existing appointment during this time range");
+                throw new AlreadyExistsException("This patient or this doctor has already an existing appointment during this time range");
             }
             LocalDateTime startDateTime = appointmentDto.getAppointmentDateStartTime();
             LocalDateTime endDateTime = appointmentDto.getAppointmentDateEndTime();
             if (startDateTime.plusHours(1).isAfter(endDateTime) || startDateTime.isEqual(endDateTime) || startDateTime.plusHours(1).isBefore(endDateTime)) {
-                throw new IllegalArgumentException("Appointment duration should be one hour");
+                throw new TimeException("Appointment duration should be one hour");
             }
             User patient = userRepository.findById(appointmentDto.getPatientId())
                     .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
             List<User> usersList = userRepository.findByRolesUserRole(UserRole.PATIENT);
             if(!usersList.contains(patient)){
-                throw new IllegalArgumentException("Patient not found");
+                throw new NotFoundException("Patient not found");
             }
             User doctor = userRepository.findById(appointmentDto.getDoctorId())
                     .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
             usersList = userRepository.findByRolesUserRole(UserRole.DOCTOR);
             if(!usersList.contains(doctor)){
-                throw new IllegalArgumentException("Doctor not found");
+                throw new NotFoundException("Doctor not found");
             }
             if (doctor.getId().equals(patient.getId())) {
                 throw new SamePersonException("Doctor and patient cannot be the same person");
