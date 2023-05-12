@@ -8,7 +8,6 @@ import com.example.medicalmanagement.model.UserRole;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.aspectj.weaver.ast.Not;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,4 +88,4 @@ public class AppointmentService {
 
             return savedAppointmentDto;
         }
-    }
+}
