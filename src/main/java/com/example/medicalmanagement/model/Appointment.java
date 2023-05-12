@@ -1,10 +1,12 @@
 package com.example.medicalmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Check;
 
 
 import java.time.LocalDateTime;
@@ -30,12 +32,12 @@ public class Appointment {
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
+    @JsonIgnore
     private User doctor;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private User patient;
-
 
 
 }
