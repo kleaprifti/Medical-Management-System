@@ -13,10 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AppointmentDto {
     private Long  appointmentId;
-    private Long doctorId;
-    private Long patientId;
     private LocalDateTime appointmentDateStartTime;
     private LocalDateTime appointmentDateEndTime;
-
-
+    private Long doctorId;
+    private  Long patientId;
 }

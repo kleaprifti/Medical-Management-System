@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Check;
 
 
 import java.time.LocalDateTime;
@@ -30,15 +31,14 @@ public class Appointment {
     private LocalDateTime appointmentDateEndTime;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", referencedColumnName = "Id")
+    @JoinColumn(name = "doctor_id")
     @JsonIgnore
-    private Patient patient;
-
+    private User doctor;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id", referencedColumnName = "id")
-    @JsonIgnore
-    private Doctor doctor;
+    @JoinColumn(name = "patient_id")
+    private User patient;
+
 
 
 }
