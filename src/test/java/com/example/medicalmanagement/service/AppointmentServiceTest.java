@@ -41,26 +41,26 @@ public class AppointmentServiceTest {
     private AppointmentService appointmentService;
 
     @Test
-     public void testGetAppointmentsBetweenDatesAndTimes() {
+    public void testGetAppointmentsBetweenDatesAndTimes() {
         LOGGER.info("Starting testGetAppointmentsBetweenDatesAndTimes");
+
         Long doctorId = 1L;
         Long patientId = null;
         LocalDateTime startDateTime = LocalDateTime.of(2023, 3, 20, 10, 0);
         LocalDateTime endDateTime = LocalDateTime.of(2023, 3, 20, 11, 0);
+
         Appointment appointment1 = new Appointment(1L, startDateTime, endDateTime, new User(), new User());
-        List<Appointment> appointmentList = Arrays.asList(appointment1);
         Set<AppointmentDto> expected = new HashSet<>();
         AppointmentDto appointmentDto = new AppointmentDto(1L, startDateTime, endDateTime, doctorId, patientId);
         expected.add(appointmentDto);
 
         LOGGER.info("Setting up mock behavior");
-
+        when(userRepository.existsById(doctorId)).thenReturn(true);
         when(appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
-                doctorId, endDateTime, startDateTime)).thenReturn(appointmentList);
-
+                doctorId, endDateTime, startDateTime)).thenReturn(Arrays.asList(appointment1));
         when(modelMapper.map(appointment1, AppointmentDto.class)).thenReturn(appointmentDto);
-        LOGGER.info("Calling method under test");
 
+        LOGGER.info("Calling method under test");
         Set<AppointmentDto> result = appointmentService.getAppointmentsBetweenDatesAndTimes(doctorId, startDateTime, endDateTime);
 
         assertEquals(expected, result);

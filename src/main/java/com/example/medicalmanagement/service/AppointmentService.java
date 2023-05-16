@@ -10,7 +10,11 @@ import com.example.medicalmanagement.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.DateTimeException;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,7 +36,13 @@ public class AppointmentService {
     }
 
     public Set<AppointmentDto> getAppointmentsBetweenDatesAndTimes(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        if (!userRepository.existsById(doctorId)) {
+            throw new NotFoundException("Doctor with Id: " + doctorId + "was not found");
+        }
         List<Appointment> currentAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(doctorId, endDateTime, startDateTime);
+        if (currentAppointments.isEmpty()) {
+            throw new NotFoundException("This doctor has no appointments at the given time");
+        }
         return currentAppointments.stream()
                 .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
                 .collect(Collectors.toSet());
