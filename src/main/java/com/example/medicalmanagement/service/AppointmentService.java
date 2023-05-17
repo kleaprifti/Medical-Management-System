@@ -10,6 +10,7 @@ import com.example.medicalmanagement.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +33,13 @@ public class AppointmentService {
     }
 
     public Set<AppointmentDto> getAppointmentsBetweenDatesAndTimes(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        if (!userRepository.existsById(doctorId)) {
+            throw new NotFoundException("Doctor with Id: " + doctorId + "was not found");
+        }
         List<Appointment> currentAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(doctorId, endDateTime, startDateTime);
+        if (currentAppointments.isEmpty()) {
+            throw new NotFoundException("This doctor has no appointments at the given time");
+        }
         return currentAppointments.stream()
                 .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
                 .collect(Collectors.toSet());
@@ -43,7 +50,7 @@ public class AppointmentService {
 
             LocalDateTime now = LocalDateTime.now();
             if (appointmentDto.getAppointmentDateStartTime().isBefore(now)) {
-                throw new DurationException("Appointment time cannot be in the past");
+                throw new TimeException("Appointment time cannot be in the past");
             }
 
             List<Appointment> conflictingAppointment = appointmentRepository.findConflictingAppointments(appointmentDto.getPatientId(),appointmentDto.getDoctorId(),appointmentDto.getAppointmentDateStartTime(),appointmentDto.getAppointmentDateEndTime());
@@ -53,7 +60,7 @@ public class AppointmentService {
             LocalDateTime startDateTime = appointmentDto.getAppointmentDateStartTime();
             LocalDateTime endDateTime = appointmentDto.getAppointmentDateEndTime();
             if (startDateTime.plusHours(1).isAfter(endDateTime) || startDateTime.isEqual(endDateTime) || startDateTime.plusHours(1).isBefore(endDateTime)) {
-                throw new TimeException("Appointment duration should be one hour");
+                throw new DurationException("Appointment duration should be one hour");
             }
             User patient = userRepository.findById(appointmentDto.getPatientId())
                     .orElseThrow(() -> new NotFoundException("Patient not found"));

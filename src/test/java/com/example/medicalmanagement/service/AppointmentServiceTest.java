@@ -41,26 +41,26 @@ public class AppointmentServiceTest {
     private AppointmentService appointmentService;
 
     @Test
-     public void testGetAppointmentsBetweenDatesAndTimes() {
+    public void testGetAppointmentsBetweenDatesAndTimes() {
         LOGGER.info("Starting testGetAppointmentsBetweenDatesAndTimes");
+
         Long doctorId = 1L;
         Long patientId = null;
         LocalDateTime startDateTime = LocalDateTime.of(2023, 3, 20, 10, 0);
         LocalDateTime endDateTime = LocalDateTime.of(2023, 3, 20, 11, 0);
+
         Appointment appointment1 = new Appointment(1L, startDateTime, endDateTime, new User(), new User());
-        List<Appointment> appointmentList = Arrays.asList(appointment1);
         Set<AppointmentDto> expected = new HashSet<>();
         AppointmentDto appointmentDto = new AppointmentDto(1L, startDateTime, endDateTime, doctorId, patientId);
         expected.add(appointmentDto);
 
         LOGGER.info("Setting up mock behavior");
-
+        when(userRepository.existsById(doctorId)).thenReturn(true);
         when(appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
-                doctorId, endDateTime, startDateTime)).thenReturn(appointmentList);
-
+                doctorId, endDateTime, startDateTime)).thenReturn(Arrays.asList(appointment1));
         when(modelMapper.map(appointment1, AppointmentDto.class)).thenReturn(appointmentDto);
-        LOGGER.info("Calling method under test");
 
+        LOGGER.info("Calling method under test");
         Set<AppointmentDto> result = appointmentService.getAppointmentsBetweenDatesAndTimes(doctorId, startDateTime, endDateTime);
 
         assertEquals(expected, result);
@@ -70,8 +70,8 @@ public class AppointmentServiceTest {
     @Test
     public void testAddAppointment() {
         AppointmentDto appointmentDto = new AppointmentDto();
-        appointmentDto.setAppointmentDateStartTime(LocalDateTime.of(2023, 5, 15, 10, 0));
-        appointmentDto.setAppointmentDateEndTime(LocalDateTime.of(2023, 5, 15, 11, 0));
+        appointmentDto.setAppointmentDateStartTime(LocalDateTime.of(2023, 6, 25, 10, 0));
+        appointmentDto.setAppointmentDateEndTime(LocalDateTime.of(2023, 6, 25, 11, 0));
         appointmentDto.setPatientId(1L);
         appointmentDto.setDoctorId(2L);
 
@@ -102,8 +102,8 @@ public class AppointmentServiceTest {
 
         assertNotNull(result);
         assertEquals(1L, result.getAppointmentId());
-        assertEquals(LocalDateTime.of(2023, 5, 15, 10, 0), result.getAppointmentDateStartTime());
-        assertEquals(LocalDateTime.of(2023, 5, 15, 11, 0), result.getAppointmentDateEndTime());
+        assertEquals(LocalDateTime.of(2023, 6, 25, 10, 0), result.getAppointmentDateStartTime());
+        assertEquals(LocalDateTime.of(2023, 6, 25, 11, 0), result.getAppointmentDateEndTime());
 
         verify(userRepository).findById(1L);
         verify(userRepository).findByRolesUserRole(UserRole.PATIENT);
