@@ -50,7 +50,7 @@ public class AppointmentService {
 
             LocalDateTime now = LocalDateTime.now();
             if (appointmentDto.getAppointmentDateStartTime().isBefore(now)) {
-                throw new DurationException("Appointment time cannot be in the past");
+                throw new TimeException("Appointment time cannot be in the past");
             }
 
             List<Appointment> conflictingAppointment = appointmentRepository.findConflictingAppointments(appointmentDto.getPatientId(),appointmentDto.getDoctorId(),appointmentDto.getAppointmentDateStartTime(),appointmentDto.getAppointmentDateEndTime());
@@ -60,7 +60,7 @@ public class AppointmentService {
             LocalDateTime startDateTime = appointmentDto.getAppointmentDateStartTime();
             LocalDateTime endDateTime = appointmentDto.getAppointmentDateEndTime();
             if (startDateTime.plusHours(1).isAfter(endDateTime) || startDateTime.isEqual(endDateTime) || startDateTime.plusHours(1).isBefore(endDateTime)) {
-                throw new TimeException("Appointment duration should be one hour");
+                throw new DurationException("Appointment duration should be one hour");
             }
             User patient = userRepository.findById(appointmentDto.getPatientId())
                     .orElseThrow(() -> new NotFoundException("Patient not found"));
