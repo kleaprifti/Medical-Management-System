@@ -70,8 +70,8 @@ public class AppointmentServiceTest {
     @Test
     public void testAddAppointment() {
         AppointmentDto appointmentDto = new AppointmentDto();
-        appointmentDto.setAppointmentDateStartTime(LocalDateTime.of(2023, 5, 15, 10, 0));
-        appointmentDto.setAppointmentDateEndTime(LocalDateTime.of(2023, 5, 15, 11, 0));
+        appointmentDto.setAppointmentDateStartTime(LocalDateTime.of(2023, 6, 25, 10, 0));
+        appointmentDto.setAppointmentDateEndTime(LocalDateTime.of(2023, 6, 25, 11, 0));
         appointmentDto.setPatientId(1L);
         appointmentDto.setDoctorId(2L);
 
@@ -102,8 +102,8 @@ public class AppointmentServiceTest {
 
         assertNotNull(result);
         assertEquals(1L, result.getAppointmentId());
-        assertEquals(LocalDateTime.of(2023, 5, 15, 10, 0), result.getAppointmentDateStartTime());
-        assertEquals(LocalDateTime.of(2023, 5, 15, 11, 0), result.getAppointmentDateEndTime());
+        assertEquals(LocalDateTime.of(2023, 6, 25, 10, 0), result.getAppointmentDateStartTime());
+        assertEquals(LocalDateTime.of(2023, 6, 25, 11, 0), result.getAppointmentDateEndTime());
 
         verify(userRepository).findById(1L);
         verify(userRepository).findByRolesUserRole(UserRole.PATIENT);
