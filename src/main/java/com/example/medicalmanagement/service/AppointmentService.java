@@ -33,9 +33,9 @@ public class AppointmentService {
     }
 
     public Set<AppointmentDto> getAppointmentsBetweenDatesAndTimes(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        if (!userRepository.existsById(doctorId)) {
-            throw new NotFoundException("Doctor with Id " + doctorId + " " + "was not found");
-        }
+        userRepository.findById(doctorId)
+                .orElseThrow(() -> new NotFoundException("Doctor with Id " + doctorId + " was not found"));
+
         List<Appointment> currentAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(doctorId, endDateTime, startDateTime);
         if (currentAppointments.isEmpty()) {
             throw new NotFoundException("This doctor has no appointments at the given time");
