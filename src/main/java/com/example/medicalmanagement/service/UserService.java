@@ -18,13 +18,13 @@ public class UserService {
     private UserRepository userRepository;
 
     public List<UserDto> getAllDoctors() {
-    return userRepository.findByRolesUserRole(UserRole.DOCTOR)
-            .stream()
-            .filter(user -> user.getRoles()
-                    .stream()
-                    .anyMatch(role -> role.getUserRole() == UserRole.DOCTOR))
-            .map(this::mapToDto)
-            .toList();
+        return userRepository.findByRolesUserRole(UserRole.DOCTOR)
+                .stream()
+                .filter(user -> user.getRoles()
+                        .stream()
+                        .anyMatch(role -> role.getUserRole() == UserRole.DOCTOR))
+                .map(this::mapToDto)
+                .toList();
     }
 
     private UserDto mapToDto(User user) {

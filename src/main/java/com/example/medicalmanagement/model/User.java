@@ -1,12 +1,10 @@
 package com.example.medicalmanagement.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 import java.util.List;
 
@@ -39,4 +37,4 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "speciality_id")})
     private List<Speciality> specialities;
 
-   }
+}
