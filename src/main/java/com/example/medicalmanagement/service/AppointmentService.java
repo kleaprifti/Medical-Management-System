@@ -23,13 +23,18 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private AppointmentValidator appointmentValidator;
+    private AppointmentCreator appointmentCreator;
+
+
 
     @Autowired
-    public AppointmentService(AppointmentRepository appointmentRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public AppointmentService(AppointmentRepository appointmentRepository, UserRepository userRepository, ModelMapper modelMapper,AppointmentValidator appointmentValidator,AppointmentCreator appointmentCreator) {
         this.appointmentRepository = appointmentRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-
+        this.appointmentValidator=appointmentValidator;
+        this.appointmentCreator = appointmentCreator;
     }
 
     public Set<AppointmentDto> getAppointmentsBetweenDatesAndTimes(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
@@ -46,51 +51,19 @@ public class AppointmentService {
     }
 
 
-    public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
+public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
+    appointmentValidator.validate(appointmentDto);
 
-            LocalDateTime now = LocalDateTime.now();
-            if (appointmentDto.getAppointmentDateStartTime().isBefore(now)) {
-                throw new TimeException("Appointment time cannot be in the past");
-            }
+    User patient = userRepository.findById(appointmentDto.getPatientId())
+            .orElseThrow(() -> new NotFoundException("Patient not found"));
+    User doctor = userRepository.findById(appointmentDto.getDoctorId())
+            .orElseThrow(() -> new NotFoundException("Doctor not found"));
 
-            List<Appointment> conflictingAppointment = appointmentRepository.findConflictingAppointments(appointmentDto.getPatientId(),appointmentDto.getDoctorId(),appointmentDto.getAppointmentDateStartTime(),appointmentDto.getAppointmentDateEndTime());
-            if (!conflictingAppointment.isEmpty()){
-                throw new AlreadyExistsException("This patient or this doctor has already an existing appointment during this time range");
-            }
-            LocalDateTime startDateTime = appointmentDto.getAppointmentDateStartTime();
-            LocalDateTime endDateTime = appointmentDto.getAppointmentDateEndTime();
-            if (startDateTime.plusHours(1).isAfter(endDateTime) || startDateTime.isEqual(endDateTime) || startDateTime.plusHours(1).isBefore(endDateTime)) {
-                throw new DurationException("Appointment duration should be one hour");
-            }
-            User patient = userRepository.findById(appointmentDto.getPatientId())
-                    .orElseThrow(() -> new NotFoundException("Patient not found"));
-            List<User> usersList = userRepository.findByRolesUserRole(UserRole.PATIENT);
-            if(!usersList.contains(patient)){
-                throw new NotFoundException("Patient not found");
-            }
-            User doctor = userRepository.findById(appointmentDto.getDoctorId())
-                    .orElseThrow(() -> new NotFoundException("Doctor not found"));
-            usersList = userRepository.findByRolesUserRole(UserRole.DOCTOR);
-            if(!usersList.contains(doctor)){
-                throw new NotFoundException("Doctor not found");
-            }
-            if (doctor.getId().equals(patient.getId())) {
-                throw new SamePersonException("Doctor and patient cannot be the same person");
-            }
-            Appointment appointment = new Appointment();
-            appointment.setAppointmentDateStartTime(startDateTime);
-            appointment.setAppointmentDateEndTime(endDateTime);
-            appointment.setPatient(patient);
-            appointment.setDoctor(doctor);
-            Appointment savedAppointment = appointmentRepository.save(appointment);
+    appointmentValidator.checkSamePerson(patient, doctor);
 
-            AppointmentDto savedAppointmentDto = new AppointmentDto();
-            savedAppointmentDto.setAppointmentId(savedAppointment.getAppointmentId());
-            savedAppointmentDto.setAppointmentDateStartTime(savedAppointment.getAppointmentDateStartTime());
-            savedAppointmentDto.setAppointmentDateEndTime(savedAppointment.getAppointmentDateEndTime());
-            savedAppointmentDto.setDoctorId(savedAppointment.getDoctor().getId());
-            savedAppointmentDto.setPatientId(savedAppointment.getPatient().getId());
+    Appointment appointment = appointmentCreator.createAppointment(appointmentDto, patient, doctor);
+    Appointment savedAppointment = appointmentRepository.save(appointment);
 
-            return savedAppointmentDto;
-        }
+    return appointmentCreator.createAppointmentDto(savedAppointment);
+}
 }
