@@ -4,7 +4,6 @@ import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.*;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
-import com.example.medicalmanagement.model.UserRole;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -23,17 +22,15 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    private AppointmentValidator appointmentValidator;
-    private AppointmentCreator appointmentCreator;
-
-
+    private final AppointmentValidator appointmentValidator;
+    private final AppointmentCreator appointmentCreator;
 
     @Autowired
-    public AppointmentService(AppointmentRepository appointmentRepository, UserRepository userRepository, ModelMapper modelMapper,AppointmentValidator appointmentValidator,AppointmentCreator appointmentCreator) {
+    public AppointmentService(AppointmentRepository appointmentRepository, UserRepository userRepository, ModelMapper modelMapper, AppointmentValidator appointmentValidator, AppointmentCreator appointmentCreator) {
         this.appointmentRepository = appointmentRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-        this.appointmentValidator=appointmentValidator;
+        this.appointmentValidator = appointmentValidator;
         this.appointmentCreator = appointmentCreator;
     }
 
@@ -51,19 +48,19 @@ public class AppointmentService {
     }
 
 
-public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
-    appointmentValidator.validate(appointmentDto);
+    public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
+        appointmentValidator.validate(appointmentDto);
 
-    User patient = userRepository.findById(appointmentDto.getPatientId())
-            .orElseThrow(() -> new NotFoundException("Patient not found"));
-    User doctor = userRepository.findById(appointmentDto.getDoctorId())
-            .orElseThrow(() -> new NotFoundException("Doctor not found"));
+        User patient = userRepository.findById(appointmentDto.getPatientId())
+                .orElseThrow(() -> new NotFoundException("Patient not found"));
+        User doctor = userRepository.findById(appointmentDto.getDoctorId())
+                .orElseThrow(() -> new NotFoundException("Doctor not found"));
 
-    appointmentValidator.checkSamePerson(patient, doctor);
+        appointmentValidator.checkSamePerson(patient, doctor);
 
-    Appointment appointment = appointmentCreator.createAppointment(appointmentDto, patient, doctor);
-    Appointment savedAppointment = appointmentRepository.save(appointment);
+        Appointment appointment = appointmentCreator.createAppointment(appointmentDto, patient, doctor);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
 
-    return appointmentCreator.createAppointmentDto(savedAppointment);
-}
+        return appointmentCreator.createAppointmentDto(savedAppointment);
+    }
 }
