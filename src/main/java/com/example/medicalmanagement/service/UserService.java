@@ -39,4 +39,8 @@ public class UserService {
                         .toList());
     }
 
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
+    }
+
 }
