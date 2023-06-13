@@ -1,5 +1,6 @@
 package com.example.medicalmanagement;
 
+import com.example.medicalmanagement.service.AppointmentService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,6 +9,9 @@ public class MedicalManagementSystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MedicalManagementSystemApplication.class, args);
+
+
+
 	}
 
 }

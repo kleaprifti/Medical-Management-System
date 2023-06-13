@@ -1,5 +1,8 @@
 package com.example.medicalmanagement.service;
 
+
+
+import com.example.medicalmanagement.builder.AppointmentServiceBuilder;
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.*;
 import com.example.medicalmanagement.model.Appointment;
@@ -9,30 +12,33 @@ import com.example.medicalmanagement.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
 @Service
 public class AppointmentService {
 
-    private final AppointmentRepository appointmentRepository;
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-    private final AppointmentValidator appointmentValidator;
-    private final AppointmentCreator appointmentCreator;
+    private  AppointmentRepository appointmentRepository;
 
+    private  UserRepository userRepository;
+
+    private  ModelMapper modelMapper;
+
+
+    private  AppointmentValidator appointmentValidator;
+
+    private   AppointmentCreator appointmentCreator;
     @Autowired
-    public AppointmentService(AppointmentRepository appointmentRepository, UserRepository userRepository, ModelMapper modelMapper, AppointmentValidator appointmentValidator, AppointmentCreator appointmentCreator) {
-        this.appointmentRepository = appointmentRepository;
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
-        this.appointmentValidator = appointmentValidator;
-        this.appointmentCreator = appointmentCreator;
+    public AppointmentService(AppointmentServiceBuilder builder) {
+        this.appointmentRepository = builder.getAppointmentRepository();
+        this.appointmentCreator = builder.getAppointmentCreator();
+        this.userRepository = builder.getUserRepository();
+        this.modelMapper = builder.getModelMapper();
+        this.appointmentValidator = builder.getAppointmentValidator();
     }
+
 
     public Set<AppointmentDto> getAppointmentsBetweenDatesAndTimes(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         userRepository.findById(doctorId)
@@ -63,4 +69,5 @@ public class AppointmentService {
 
         return appointmentCreator.createAppointmentDto(savedAppointment);
     }
+
 }
