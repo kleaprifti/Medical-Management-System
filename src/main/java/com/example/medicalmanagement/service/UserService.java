@@ -5,6 +5,7 @@ import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.example.medicalmanagement.model.Speciality;
 import com.example.medicalmanagement.model.Role;
@@ -18,7 +19,9 @@ public class UserService {
     private UserRepository userRepository;
 
     public List<UserDto> getAllDoctors() {
-    return userRepository.findByRolesUserRole(UserRole.DOCTOR)
+       Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
+
+        return userRepository.findByRolesUserRole(UserRole.DOCTOR,sort)
             .stream()
             .filter(user -> user.getRoles()
                     .stream()

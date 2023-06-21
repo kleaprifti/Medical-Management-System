@@ -59,7 +59,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
     @Test
      void testGetAllDoctors() {
-        when(userRepository.findByRolesUserRole(any())).thenReturn(mockUsers);
+        when(userRepository.findByRolesUserRole(any(), any())).thenReturn(mockUsers);
 
         List<UserDto> doctorDtos = userService.getAllDoctors();
 
