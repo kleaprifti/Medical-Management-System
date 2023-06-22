@@ -1,7 +1,7 @@
 package com.example.medicalmanagement.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -79,5 +79,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
         logger.info("getAllDoctors() method test completed successfully");
 
+    }
+    @Test
+    public void deleteAllUsersTest() {
+        // Call the method to be tested
+        userService.deleteAllUsers();
+
+        // Verify that the deleteAll() method of the userRepository mock was called exactly once
+        verify(userRepository, times(1)).deleteAll();
     }
 }

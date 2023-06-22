@@ -31,14 +31,14 @@ public class AppointmentValidator {
         validateDuration(appointmentDto.getAppointmentDateStartTime(), appointmentDto.getAppointmentDateEndTime());
     }
 
-    private void validateAppointmentTime(LocalDateTime appointmentDateTime) {
+    void validateAppointmentTime(LocalDateTime appointmentDateTime) {
         LocalDateTime now = LocalDateTime.now();
         if (appointmentDateTime.isBefore(now)) {
             throw new TimeException("Appointment time cannot be in the past");
         }
     }
 
-    private void checkConflictingAppointments(AppointmentDto appointmentDto) {
+    void checkConflictingAppointments(AppointmentDto appointmentDto) {
         List<Appointment> conflictingAppointment = appointmentRepository.findConflictingAppointments(
                 appointmentDto.getPatientId(), appointmentDto.getDoctorId(),
                 appointmentDto.getAppointmentDateStartTime(), appointmentDto.getAppointmentDateEndTime());
@@ -47,7 +47,7 @@ public class AppointmentValidator {
         }
     }
 
-    private void validateDuration(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    void validateDuration(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         if (startDateTime.plusHours(1).isAfter(endDateTime) || startDateTime.isEqual(endDateTime)) {
             throw new DurationException("Appointment duration should be one hour");
         }
