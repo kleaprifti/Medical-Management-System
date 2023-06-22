@@ -1,9 +1,7 @@
 package com.example.medicalmanagement.controller;
 
 import com.example.medicalmanagement.dto.AppointmentDto;
-import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.service.AppointmentService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/appointments")

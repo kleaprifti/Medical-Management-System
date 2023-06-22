@@ -81,7 +81,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
     }
     @Test
-    public void deleteAllUsersTest() {
+     void deleteAllUsersTest() {
         // Call the method to be tested
         userService.deleteAllUsers();
 

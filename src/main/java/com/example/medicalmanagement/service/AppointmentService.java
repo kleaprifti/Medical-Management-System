@@ -11,8 +11,6 @@ import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
-import lombok.Getter;
-import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

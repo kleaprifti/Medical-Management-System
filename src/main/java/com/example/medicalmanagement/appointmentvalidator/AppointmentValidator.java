@@ -8,10 +8,7 @@ import com.example.medicalmanagement.exceptionhandlers.TimeException;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.AppointmentRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
