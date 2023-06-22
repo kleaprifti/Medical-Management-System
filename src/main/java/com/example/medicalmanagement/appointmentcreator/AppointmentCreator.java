@@ -1,11 +1,14 @@
-package com.example.medicalmanagement.service;
+package com.example.medicalmanagement.appointmentcreator;
 
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@NoArgsConstructor
 public class AppointmentCreator {
     public Appointment createAppointment(AppointmentDto appointmentDto, User patient, User doctor) {
         Appointment appointment = new Appointment();

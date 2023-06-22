@@ -1,4 +1,4 @@
-package com.example.medicalmanagement.service;
+package com.example.medicalmanagement.appointmentvalidator;
 
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.AlreadyExistsException;
@@ -8,12 +8,16 @@ import com.example.medicalmanagement.exceptionhandlers.TimeException;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.AppointmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 @Service
+@NoArgsConstructor
 public class AppointmentValidator {
     private AppointmentRepository appointmentRepository;
 

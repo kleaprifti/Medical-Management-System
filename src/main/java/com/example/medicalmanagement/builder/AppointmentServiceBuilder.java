@@ -2,9 +2,9 @@ package com.example.medicalmanagement.builder;
 
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
-import com.example.medicalmanagement.service.AppointmentCreator;
+import com.example.medicalmanagement.appointmentcreator.AppointmentCreator;
 import com.example.medicalmanagement.service.AppointmentService;
-import com.example.medicalmanagement.service.AppointmentValidator;
+import com.example.medicalmanagement.appointmentvalidator.AppointmentValidator;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
