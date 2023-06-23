@@ -31,7 +31,7 @@ public class UserService {
     }
 
     private UserDto mapToDto(User user) {
-        return new UserDto(user.getId(), user.getFullName(),
+        return new UserDto(user.getId(), user.getEmail() ,user.getFullName(),
                 user.getRoles()
                         .stream()
                         .map(Role::getUserRole)
