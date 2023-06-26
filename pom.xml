@@ -130,6 +130,7 @@
 						<exclude>**/exceptionhandlers/**</exclude>
 						<exclude>**/model/**</exclude>
 						<exclude>**/dto/**</exclude>
+						<exclude>**/MedicalManagementSystemApplication.class</exclude> <!-- Exclude the class from code coverage -->
 					</excludes>
 				</configuration>
 			</plugin>
