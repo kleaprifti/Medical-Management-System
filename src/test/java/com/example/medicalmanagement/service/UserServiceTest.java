@@ -22,6 +22,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
 @ExtendWith(MockitoExtension.class)
  class UserServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);

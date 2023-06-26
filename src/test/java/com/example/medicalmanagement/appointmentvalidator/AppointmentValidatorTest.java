@@ -1,5 +1,4 @@
 package com.example.medicalmanagement.appointmentvalidator;
-
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.AlreadyExistsException;
 import com.example.medicalmanagement.exceptionhandlers.DurationException;
