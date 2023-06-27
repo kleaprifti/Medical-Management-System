@@ -57,7 +57,6 @@ class AppointmentServiceTest {
                 appointmentValidator,
                 appointmentCreator
         ).build();
-//        appointmentService = new AppointmentService(appointmentServiceBuilder);
     }
 
     @Test
