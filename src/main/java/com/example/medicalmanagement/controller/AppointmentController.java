@@ -13,6 +13,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/appointments")
+@CrossOrigin
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
