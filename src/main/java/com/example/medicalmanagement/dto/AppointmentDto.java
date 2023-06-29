@@ -17,4 +17,5 @@ public class AppointmentDto {
     private LocalDateTime appointmentDateEndTime;
     private Long doctorId;
     private  Long patientId;
+    private String patientFullName;
 }
