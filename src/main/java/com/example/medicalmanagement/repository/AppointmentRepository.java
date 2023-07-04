@@ -31,6 +31,4 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     List<Appointment> findByDoctorId(Long doctorId);
 
-
-
 }
