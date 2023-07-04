@@ -19,7 +19,7 @@ INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_n
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('matt@gmail.com', 'Matt Smith', '473829742');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('wanda@gmail.com', 'Wanda Maximoff', '76538291');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('max@gmail.com', 'Max Verstappen', '5738219353');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('charles@gmail.com', 'Charles Leclerc', '83728264');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('kleaprifti21@gmail.com', 'Charles Leclerc', '83728264');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('daniel@gmail.com', 'Daniel Ricciardo', '8038472');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('sebastian@gmail.com', 'Sebastian Vettel', '58384734');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('fernando@gmail.com', 'Fernando Alonso', '85232244');
@@ -28,8 +28,8 @@ INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_n
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('carol@gmail.com', 'Carol Denvers', '462827421');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('gamora@gmail.com', 'Gamora Quill', '000394821');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('sherlock@gmail.com', 'Sherlock Holmes', '111482231');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('gregory@gmail.com', 'Gregory House', '222333444');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('stephen@gmail.com', 'Stephen Strange', '8884443222');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('10aromeisaaliu@gmail.com', 'Gregory House', '222333444');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Stephen Strange', '8884443222');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('john@gmail.com', 'John Watson', '999323333');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('irene@gmail.com', 'Irene Adler', '0002222111');
 INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('johnsmith@gmail.com', 'John Smith', '373163982');
@@ -72,9 +72,10 @@ INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUE
 
 
 #Insert into speciality
-INSERT INTO `medical_management_system`.`speciality` (`name`) VALUES ('General');
-INSERT INTO `medical_management_system`.`speciality` (`name`) VALUES ('Pediatrican');
-INSERT INTO `medical_management_system`.`speciality` (`name`) VALUES ('Cardiology');
+INSERT INTO `medical_management_system`.`speciality` (`email`,`name`) VALUES ('kleaprifti21@gmail.com','General');
+INSERT INTO `medical_management_system`.`speciality` (`email`,`name`) VALUES ('10aromeisaaliu@gmail.com','Pediatrican');
+INSERT INTO `medical_management_system`.`speciality` (`email`,`name`) VALUES ('romeisaaliu1@gmail.com','Cardiology');
+
 
 #Insert into user_speciality
 
