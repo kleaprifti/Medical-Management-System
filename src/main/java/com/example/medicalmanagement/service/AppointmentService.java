@@ -68,5 +68,10 @@ public class AppointmentService {
 
         return appointmentCreator.createAppointmentDto(savedAppointment);
     }
+    public void deleteAppointment(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new NotFoundException("Appointment with ID " + appointmentId + " was not found"));
 
+        appointmentRepository.delete(appointment);
+    }
 }

@@ -25,6 +25,7 @@ public class AppointmentCreator {
         appointmentDto.setAppointmentDateEndTime(appointment.getAppointmentDateEndTime());
         appointmentDto.setDoctorId(appointment.getDoctor().getId());
         appointmentDto.setPatientId(appointment.getPatient().getId());
+        appointmentDto.setPatientFullName(appointment.getPatient().getFullName());
         return appointmentDto;
     }
 }

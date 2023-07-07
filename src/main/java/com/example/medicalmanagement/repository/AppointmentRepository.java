@@ -30,5 +30,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
         Appointment save(Appointment appointment);
 
     List<Appointment> findByDoctorId(Long doctorId);
+    void deleteById(Long appointmentId);
+
 
 }

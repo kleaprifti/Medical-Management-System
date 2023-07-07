@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
@@ -192,5 +193,25 @@ class AppointmentServiceTest {
         verify(userRepository, times(1)).findById(appointmentDto.getPatientId());
         verify(userRepository, times(1)).findById(appointmentDto.getDoctorId());
         verifyNoMoreInteractions(userRepository, appointmentRepository);
+    }
+    @Test
+    public void testDeleteAppointment_Success() {
+        Long appointmentId = 1L;
+
+        Appointment appointment = new Appointment();
+        Mockito.when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.of(appointment));
+
+        appointmentService.deleteAppointment(appointmentId);
+
+        Mockito.verify(appointmentRepository, Mockito.times(1)).delete(appointment);
+    }
+
+    @Test
+    public void testDeleteAppointment_NotFound() {
+        Long appointmentId = 1L;
+
+        Mockito.when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class, () -> appointmentService.deleteAppointment(appointmentId));
     }
 }
