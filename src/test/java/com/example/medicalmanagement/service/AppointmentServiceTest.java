@@ -62,7 +62,7 @@ class AppointmentServiceTest {
 
     @Test
     void getAppointments_ValidInput_ReturnsAppointments() {
-        // Arrange
+
         Long doctorId = 1L;
         LocalDateTime startDateTime = LocalDateTime.now();
         LocalDateTime endDateTime = LocalDateTime.now().plusHours(2);
@@ -78,10 +78,10 @@ class AppointmentServiceTest {
         AppointmentDto appointmentDto = new AppointmentDto();
         when(modelMapper.map(any(Appointment.class), eq(AppointmentDto.class))).thenReturn(appointmentDto);
 
-        // Act
+
         Set<AppointmentDto> result = appointmentService.getAppointments(doctorId, startDateTime, endDateTime);
 
-        // Assert
+
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());
         verify(userRepository, times(1)).findById(doctorId);
@@ -92,7 +92,7 @@ class AppointmentServiceTest {
 
     @Test
     void getAppointments_InvalidDoctorId_ThrowsNotFoundException() {
-        // Arrange
+
         Long doctorId = 1L;
         LocalDateTime startDateTime = LocalDateTime.now();
         LocalDateTime endDateTime = LocalDateTime.now().plusHours(2);
@@ -107,7 +107,7 @@ class AppointmentServiceTest {
 
     @Test
     void getAppointments_NoAppointmentsFound_ThrowsNotFoundException() {
-        // Arrange
+
         Long doctorId = 1L;
         LocalDateTime startDateTime = LocalDateTime.now();
         LocalDateTime endDateTime = LocalDateTime.now().plusHours(2);
@@ -117,7 +117,6 @@ class AppointmentServiceTest {
         when(appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
                 doctorId, endDateTime, startDateTime)).thenReturn(new ArrayList<>());
 
-        // Act & Assert
         assertThrows(NotFoundException.class, () -> appointmentService.getAppointments(doctorId, startDateTime, endDateTime));
         verify(userRepository, times(1)).findById(doctorId);
         verify(appointmentRepository, times(1)).findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
@@ -146,10 +145,9 @@ class AppointmentServiceTest {
         AppointmentDto savedAppointmentDto = new AppointmentDto();
         when(appointmentCreator.createAppointmentDto(savedAppointment)).thenReturn(savedAppointmentDto);
 
-        // Act
+
         AppointmentDto result = appointmentService.addAppointment(appointmentDto);
 
-        // Assert
         assertNotNull(result);
         verify(appointmentValidator, times(1)).validate(appointmentDto);
         verify(userRepository, times(1)).findById(appointmentDto.getPatientId());
@@ -163,14 +161,14 @@ class AppointmentServiceTest {
 
     @Test
     void addAppointment_InvalidPatientId_ThrowsNotFoundException() {
-        // Arrange
+
         AppointmentDto appointmentDto = new AppointmentDto();
         appointmentDto.setPatientId(1L);
         appointmentDto.setDoctorId(2L);
 
         when(userRepository.findById(appointmentDto.getPatientId())).thenReturn(Optional.empty());
 
-        // Act & Assert
+
         assertThrows(NotFoundException.class, () -> appointmentService.addAppointment(appointmentDto));
         verify(userRepository, times(1)).findById(appointmentDto.getPatientId());
         verifyNoMoreInteractions(userRepository, appointmentRepository);
@@ -178,7 +176,6 @@ class AppointmentServiceTest {
 
     @Test
     void addAppointment_InvalidDoctorId_ThrowsNotFoundException() {
-        // Arrange
         AppointmentDto appointmentDto = new AppointmentDto();
         appointmentDto.setPatientId(1L);
         appointmentDto.setDoctorId(2L);
@@ -188,14 +185,13 @@ class AppointmentServiceTest {
 
         when(userRepository.findById(appointmentDto.getDoctorId())).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(NotFoundException.class, () -> appointmentService.addAppointment(appointmentDto));
         verify(userRepository, times(1)).findById(appointmentDto.getPatientId());
         verify(userRepository, times(1)).findById(appointmentDto.getDoctorId());
         verifyNoMoreInteractions(userRepository, appointmentRepository);
     }
     @Test
-    public void testDeleteAppointment_Success() {
+    public void DeleteAppointment_Success() {
         Long appointmentId = 1L;
 
         Appointment appointment = new Appointment();
@@ -207,7 +203,7 @@ class AppointmentServiceTest {
     }
 
     @Test
-    public void testDeleteAppointment_NotFound() {
+    public void DeleteAppointment_NotFound() {
         Long appointmentId = 1L;
 
         Mockito.when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.empty());
