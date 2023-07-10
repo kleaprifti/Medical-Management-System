@@ -31,7 +31,7 @@ class AppointmentControllerTest  {
          MockitoAnnotations.openMocks(this);
      }
     @Test
-     void testGetAppointments() {
+     void getAppointments() {
         Long doctorId = 1L;
         LocalDateTime startDateTime = LocalDateTime.of(2023, 6, 1, 9, 0);
         LocalDateTime endDateTime = LocalDateTime.of(2023, 6, 1, 12, 0);
@@ -47,7 +47,7 @@ class AppointmentControllerTest  {
     }
 
     @Test
-     void testAddAppointment() {
+     void addAppointment() {
          AppointmentDto appointmentDto = new AppointmentDto();
          AppointmentDto addedAppointment = new AppointmentDto();
 

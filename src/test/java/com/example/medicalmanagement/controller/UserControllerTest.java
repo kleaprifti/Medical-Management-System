@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
         MockitoAnnotations.openMocks(this);
     }
     @Test
-     void testGetAllDoctors() {
+     void getAllDoctors() {
         List<UserDto> doctors = new ArrayList<>();
 
         when(userService.getAllDoctors()).thenReturn(doctors);

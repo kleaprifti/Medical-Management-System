@@ -31,22 +31,18 @@ class AppointmentCreatorTest {
     }
 
     @Test
-    void testCreateAppointment() {
-        // Create a mock Appointment object
+    void createAppointment() {
         Appointment appointment = new Appointment();
         appointment.setAppointmentDateStartTime(LocalDateTime.of(2023,06,22,9,0));
         appointment.setAppointmentDateEndTime(LocalDateTime.of(2023,06,22,10,0));
         appointment.setPatient(patient);
         appointment.setDoctor(doctor);
 
-        // Mock the behavior of appointmentDto
         when(appointmentDto.getAppointmentDateStartTime()).thenReturn(LocalDateTime.of(2023,06,22,9,0));
         when(appointmentDto.getAppointmentDateEndTime()).thenReturn(LocalDateTime.of(2023,06,22,10,0));
 
-        // Call the method under test
         Appointment createdAppointment = appointmentCreator.createAppointment(appointmentDto, patient, doctor);
 
-        // Assert the expected result
         assertEquals(appointment.getAppointmentDateStartTime(), createdAppointment.getAppointmentDateStartTime());
         assertEquals(appointment.getAppointmentDateEndTime(), createdAppointment.getAppointmentDateEndTime());
         assertEquals(appointment.getPatient(), createdAppointment.getPatient());
@@ -54,8 +50,7 @@ class AppointmentCreatorTest {
     }
 
     @Test
-    void testCreateAppointmentDto() {
-        // Create a mock AppointmentDto object
+    void createAppointmentDto() {
         AppointmentDto expectedDto = new AppointmentDto();
         expectedDto.setAppointmentId(1L);
         expectedDto.setAppointmentDateStartTime(LocalDateTime.of(2023,06,22,9,0));
@@ -63,7 +58,6 @@ class AppointmentCreatorTest {
         expectedDto.setDoctorId(2L);
         expectedDto.setPatientId(3L);
 
-        // Create a mock Appointment object
         Appointment appointment = new Appointment();
         appointment.setAppointmentId(1L);
         appointment.setAppointmentDateStartTime(LocalDateTime.of(2023,06,22,9,0));
@@ -78,10 +72,8 @@ class AppointmentCreatorTest {
         appointment.setDoctor(doctor);
         appointment.setPatient(patient);
 
-        // Call the method under test
         AppointmentDto createdDto = appointmentCreator.createAppointmentDto(appointment);
 
-        // Assert the expected result
         assertEquals(expectedDto.getAppointmentId(), createdDto.getAppointmentId());
         assertEquals(expectedDto.getAppointmentDateStartTime(), createdDto.getAppointmentDateStartTime());
         assertEquals(expectedDto.getAppointmentDateEndTime(), createdDto.getAppointmentDateEndTime());

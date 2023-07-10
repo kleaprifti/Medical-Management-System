@@ -126,7 +126,6 @@ class AppointmentServiceTest {
 
     @Test
     void addAppointment_ValidInput_ReturnsAppointmentDto() {
-        // Arrange
         AppointmentDto appointmentDto = new AppointmentDto();
         appointmentDto.setPatientId(1L);
         appointmentDto.setDoctorId(2L);
@@ -191,7 +190,7 @@ class AppointmentServiceTest {
         verifyNoMoreInteractions(userRepository, appointmentRepository);
     }
     @Test
-    public void DeleteAppointment_Success() {
+    public void deleteAppointment_Success() {
         Long appointmentId = 1L;
 
         Appointment appointment = new Appointment();
@@ -203,7 +202,7 @@ class AppointmentServiceTest {
     }
 
     @Test
-    public void DeleteAppointment_NotFound() {
+    public void deleteAppointment_NotFound() {
         Long appointmentId = 1L;
 
         Mockito.when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.empty());

@@ -38,12 +38,11 @@ class AppointmentValidatorTest {
 
         appointmentValidator.validateAppointmentTime(appointmentDateTime);
 
-        // No exception should be thrown
     }
 
     @Test
     void validateAppointmentTime_pastTime_exceptionThrown() {
-        LocalDateTime appointmentDateTime = LocalDateTime.now().minusMinutes(30); // 30 minutes in the past
+        LocalDateTime appointmentDateTime = LocalDateTime.now().minusMinutes(30);
 
         assertThrows(TimeException.class, () -> appointmentValidator.validateAppointmentTime(appointmentDateTime));
     }
@@ -91,7 +90,6 @@ class AppointmentValidatorTest {
 
         appointmentValidator.validateDuration(startDateTime, endDateTime);
 
-        // No exception should be thrown
     }
 
     @Test
@@ -112,7 +110,6 @@ class AppointmentValidatorTest {
 
         appointmentValidator.checkSamePerson(patient, doctor);
 
-        // No exception should be thrown
     }
 
     @Test

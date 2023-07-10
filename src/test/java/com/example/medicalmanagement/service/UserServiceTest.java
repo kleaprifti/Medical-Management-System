@@ -59,7 +59,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
     }
 
     @Test
-     void testGetAllDoctors() {
+     void getAllDoctors() {
         when(userRepository.findByRolesUserRole(any(), any())).thenReturn(mockUsers);
 
         List<UserDto> doctorDtos = userService.getAllDoctors();
@@ -82,11 +82,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
     }
     @Test
-     void deleteAllUsersTest() {
-        // Call the method to be tested
+     void deleteAllUsers() {
         userService.deleteAllUsers();
 
-        // Verify that the deleteAll() method of the userRepository mock was called exactly once
         verify(userRepository, times(1)).deleteAll();
     }
 }
