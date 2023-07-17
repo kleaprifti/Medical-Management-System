@@ -1,4 +1,5 @@
 package com.example.medicalmanagement.service;
+
 import com.example.medicalmanagement.appointmentcreator.AppointmentCreator;
 import com.example.medicalmanagement.appointmentvalidator.AppointmentValidator;
 import com.example.medicalmanagement.builder.AppointmentServiceBuilder;
@@ -6,11 +7,13 @@ import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.*;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
+import com.example.medicalmanagement.model.UserRole;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -18,11 +21,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService {
-    private  AppointmentRepository appointmentRepository;
-    private  UserRepository userRepository;
-    private  ModelMapper modelMapper;
+    private AppointmentRepository appointmentRepository;
+    private UserRepository userRepository;
+    private ModelMapper modelMapper;
     private AppointmentValidator appointmentValidator;
     private AppointmentCreator appointmentCreator;
+    private EmailService emailService;
 
     @Autowired
     public AppointmentService(AppointmentServiceBuilder builder) {
@@ -31,6 +35,7 @@ public class AppointmentService {
         this.userRepository = builder.getUserRepository();
         this.modelMapper = builder.getModelMapper();
         this.appointmentValidator = builder.getAppointmentValidator();
+        this.emailService = builder.getEmailService();
     }
 
     public Set<AppointmentDto> getAppointments(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
@@ -68,10 +73,15 @@ public class AppointmentService {
 
         return appointmentCreator.createAppointmentDto(savedAppointment);
     }
-    public void deleteAppointment(Long appointmentId) {
+
+    public void deleteAppointment(Long appointmentId, boolean wantNotification) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Appointment with ID " + appointmentId + " was not found"));
 
         appointmentRepository.delete(appointment);
+        while (wantNotification == true) {
+            emailService.sendAppointmentCancellationEmail("sildiricku3@gmail.com");
+            break;
+        }
     }
 }
