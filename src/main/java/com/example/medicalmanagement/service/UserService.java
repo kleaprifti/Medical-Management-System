@@ -35,7 +35,7 @@ public class UserService {
                 user.getRoles()
                         .stream()
                         .map(Role::getUserRole)
-                        .toList(),
+                        .toList(), user.getEmail(),
                 user.getSpecialities()
                         .stream()
                         .map(Speciality::getName)

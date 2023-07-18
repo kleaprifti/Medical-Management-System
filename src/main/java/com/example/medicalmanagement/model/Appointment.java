@@ -39,7 +39,7 @@ public class Appointment {
     private User patient;
 
 
-
 }
+
 
 

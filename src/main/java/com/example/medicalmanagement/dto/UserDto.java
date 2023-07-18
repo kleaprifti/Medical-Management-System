@@ -20,5 +20,7 @@ public class UserDto {
 
     private List<UserRole> roles;
 
+    private String email;
+
     private List<String> specialities;
 }
