@@ -1,7 +1,8 @@
 package com.example.medicalmanagement.service;
 
 
-
+import com.example.medicalmanagement.dto.AppointmentDto;
+import com.example.medicalmanagement.dto.UserDto;
 import com.example.medicalmanagement.helpers.EmailContent;
 import com.example.medicalmanagement.helpers.EmailData;
 import com.example.medicalmanagement.model.Appointment;
@@ -20,11 +21,11 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
     public void sendAppointmentCancellationEmail(EmailData emailData) {
-        User user = emailData.getUser();
-        Appointment appointment = emailData.getAppointment();
+        User userDto = emailData.getUser();
+        Appointment appointmentDto = emailData.getAppointment();
 
-        String userEmail = user.getEmail();
-        String cancellationEmailContent = EmailContent.generateAppointmentCancellationEmail(user.getFullName(), appointment.getAppointmentDateStartTime());
+        String userEmail = userDto.getEmail();
+        String cancellationEmailContent = EmailContent.generateAppointmentCancellationEmail(userDto.getFullName(), appointmentDto.getAppointmentDateStartTime());
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(userEmail);
