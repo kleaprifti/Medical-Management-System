@@ -20,11 +20,11 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
     public void sendAppointmentCancellationEmail(EmailData emailData) {
-        User userDto = emailData.getUser();
-        Appointment appointmentDto = emailData.getAppointment();
+        User user = emailData.getUser();
+        Appointment appointment = emailData.getAppointment();
 
-        String userEmail = userDto.getEmail();
-        String cancellationEmailContent = EmailContent.generateAppointmentCancellationEmail(userDto.getFullName(), appointmentDto.getAppointmentDateStartTime());
+        String userEmail = user.getEmail();
+        String cancellationEmailContent = EmailContent.generateAppointmentCancellationEmail(user.getFullName(), appointment.getAppointmentDateStartTime());
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(userEmail);
