@@ -9,7 +9,6 @@ import com.example.medicalmanagement.helpers.EmailContent;
 import com.example.medicalmanagement.helpers.EmailData;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
-import com.example.medicalmanagement.model.UserRole;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -80,18 +79,16 @@ public class AppointmentService {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Appointment with ID " + appointmentId + " was not found"));
 
-        User patient = appointment.getPatient();
 
         appointmentRepository.delete(appointment);
 
-        while(wantNotification==true) {
+        if(wantNotification==true) {
             EmailData emailData = new EmailData();
             emailData.setUser(appointment.getPatient());
             emailData.setAppointment(appointment);
             emailData.setEmailContent(new EmailContent());
 
             emailService.sendAppointmentCancellationEmail(emailData);
-            break;
         }
     }
 

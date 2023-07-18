@@ -1,8 +1,7 @@
 package com.example.medicalmanagement.service;
 
 
-import com.example.medicalmanagement.dto.AppointmentDto;
-import com.example.medicalmanagement.dto.UserDto;
+
 import com.example.medicalmanagement.helpers.EmailContent;
 import com.example.medicalmanagement.helpers.EmailData;
 import com.example.medicalmanagement.model.Appointment;

@@ -18,9 +18,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    @Column(name = "email")
-    private String email;
+    private Long id;
 
     @Column(name = "full_name")
     private String fullName;
@@ -33,6 +31,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
+    private String email;
 
     @ManyToMany
     @JoinTable(name = "user_speciality",
