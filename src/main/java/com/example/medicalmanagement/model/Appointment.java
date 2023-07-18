@@ -42,8 +42,7 @@ public class Appointment {
     @JoinColumn(name = "patient_name")
     private User patientFullName;
 
-<<<<<<< HEAD
-=======
+
     @Override
     public String toString() {
         return "\n• Appointment :" +
@@ -51,7 +50,6 @@ public class Appointment {
                 ",\n Name of the patient :' " + patient.getFullName() + "!'";
     }
 
->>>>>>> origin/master
 }
 
 

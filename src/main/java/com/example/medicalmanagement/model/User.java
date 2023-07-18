@@ -18,13 +18,10 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< HEAD
+
     private Long id;
-=======
-    private Long Id;
     @Column(name = "email")
     private String email;
->>>>>>> origin/master
 
     @Column(name = "full_name")
     private String fullName;
@@ -37,12 +34,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
-    private String email;
 
     @ManyToMany
     @JoinTable(name = "user_speciality",
-            joinColumns = { @JoinColumn(name = "user_id")},
+            joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "speciality_id")})
     private List<Speciality> specialities;
 
-   }
+}
