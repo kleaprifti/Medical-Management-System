@@ -1,7 +1,4 @@
 package com.example.medicalmanagement.service;
-
-
-
 import com.example.medicalmanagement.appointmentcreator.AppointmentCreator;
 import com.example.medicalmanagement.appointmentvalidator.AppointmentValidator;
 import com.example.medicalmanagement.builder.AppointmentServiceBuilder;
@@ -20,7 +17,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-
 public class AppointmentService {
     private  AppointmentRepository appointmentRepository;
     private  UserRepository userRepository;
@@ -72,5 +68,10 @@ public class AppointmentService {
 
         return appointmentCreator.createAppointmentDto(savedAppointment);
     }
+    public void deleteAppointment(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new NotFoundException("Appointment with ID " + appointmentId + " was not found"));
 
+        appointmentRepository.delete(appointment);
+    }
 }

@@ -13,6 +13,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/appointments")
+@CrossOrigin
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
@@ -37,7 +38,11 @@ public class AppointmentController {
         AppointmentDto addedAppointment = appointmentService.addAppointment(appointmentDto);
         return new ResponseEntity<>(addedAppointment, HttpStatus.CREATED);
     }
-
+    @DeleteMapping("/{appointmentId}")
+    public ResponseEntity<Void> deleteAppointment(@PathVariable Long appointmentId) {
+        appointmentService.deleteAppointment(appointmentId);
+        return ResponseEntity.ok().build();
+    }
 }
 
 
