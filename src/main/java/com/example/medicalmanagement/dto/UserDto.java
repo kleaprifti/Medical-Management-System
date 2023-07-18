@@ -22,6 +22,5 @@ public class UserDto {
 
     private List<UserRole> roles;
 
-
     private List<String> specialities;
 }

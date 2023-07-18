@@ -38,7 +38,20 @@ public class Appointment {
     @JoinColumn(name = "patient_id")
     private User patient;
 
+    @ManyToOne
+    @JoinColumn(name = "patient_name")
+    private User patientFullName;
 
+<<<<<<< HEAD
+=======
+    @Override
+    public String toString() {
+        return "\n• Appointment :" +
+                "\nStart Date Time='" + appointmentDateStartTime + "\nEnd Date Time="+ appointmentDateEndTime+ '\'' +
+                ",\n Name of the patient :' " + patient.getFullName() + "!'";
+    }
+
+>>>>>>> origin/master
 }
 
 
