@@ -31,10 +31,15 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     List<Appointment> findByDoctorId(Long doctorId);
 
+<<<<<<< HEAD
+    @Query("SELECT a FROM Appointment a WHERE a.doctor.Id = :doctorId AND a.appointmentDateStartTime >= :currentDateTime AND a.appointmentDateStartTime < :next24HoursDateTime")
+    List<Appointment> findNext24HoursAppointments(@Param("doctorId") Long doctorId, @Param("currentDateTime") LocalDateTime currentDateTime, @Param("next24HoursDateTime") LocalDateTime next24HoursDateTime);
+=======
 
     @Query("SELECT a FROM Appointment a WHERE a.doctor.Id = :doctorId AND a.appointmentDateStartTime >= :currentDateTime AND a.appointmentDateStartTime < :next24HoursDateTime")
     List<Appointment> findNext24HoursAppointments(@Param("doctorId") Long doctorId, @Param("currentDateTime") LocalDateTime currentDateTime, @Param("next24HoursDateTime") LocalDateTime next24HoursDateTime);
     void deleteById(Long appointmentId);
+>>>>>>> origin/master
 
 
 }

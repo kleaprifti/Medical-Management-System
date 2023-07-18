@@ -71,6 +71,14 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
 
+			<!-- Other dependencies -->
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-mail</artifactId>
+			</dependency>
+
+
 
 		<dependency>
 			<groupId>com.mysql</groupId>
