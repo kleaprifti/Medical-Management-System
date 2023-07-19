@@ -25,5 +25,11 @@ public class UserDto {
 
     private boolean emailSent;
     public UserDto(Long id, String email, String fullName, List<UserRole> roles, List<String> specialities) {
+        this.id = id;
+        this.email = email;
+        this.fullName = fullName;
+        this.roles = roles;
+        this.specialities = specialities;
     }
+
 }
