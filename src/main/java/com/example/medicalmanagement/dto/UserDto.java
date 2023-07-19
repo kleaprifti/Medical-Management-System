@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
 
 @Getter
@@ -23,4 +22,8 @@ public class UserDto {
     private List<UserRole> roles;
 
     private List<String> specialities;
+
+    private boolean emailSent;
+    public UserDto(Long id, String email, String fullName, List<UserRole> roles, List<String> specialities) {
+    }
 }
