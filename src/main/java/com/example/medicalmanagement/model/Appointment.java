@@ -9,6 +9,7 @@ import lombok.Setter;
 
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Entity
@@ -45,9 +46,7 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "\n• Appointment :" +
-                "\nStart Date Time='" + appointmentDateStartTime + "\nEnd Date Time="+ appointmentDateEndTime+ '\'' +
-                ",\n Name of the patient :' " + patient.getFullName() + "!'";
+        return "\n•" + appointmentDateStartTime.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy ")) +", " + patient.getFullName() ;
     }
 
 }
