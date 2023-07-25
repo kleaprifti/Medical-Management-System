@@ -4,12 +4,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class EmailContent {
+    private EmailContent() {
+    }
 
-    public static String generateAppointmentCancellationEmail(String userName,  LocalDateTime appointmentDate) {
+    public static String generateAppointmentCancellationEmail(String userName, String doctorName, LocalDateTime appointmentDate) {
         String formattedAppointmentDate = appointmentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
         return  "Hello " + userName + ",\n\n"
-                + "Your appointment  " +  " on " + formattedAppointmentDate + " is cancelled due to a possible ferrari win"+ "\n\n"+"Regards\n The best online medical center";
+                +  "Your had an appointment " +  "on " + formattedAppointmentDate + " with Doctor " + doctorName + "\n Your appointment has been cancelled due to a possible Ferrari win!"+ "\n"+"Regards\n The best online medical center";
+
 
     }
 }

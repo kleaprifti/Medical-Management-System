@@ -4,9 +4,8 @@ import com.example.medicalmanagement.appointmentcreator.AppointmentCreator;
 import com.example.medicalmanagement.appointmentvalidator.AppointmentValidator;
 import com.example.medicalmanagement.builder.AppointmentServiceBuilder;
 import com.example.medicalmanagement.dto.AppointmentDto;
-import com.example.medicalmanagement.exceptionhandlers.*;
+import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.helpers.EmailContent;
-import com.example.medicalmanagement.helpers.EmailData;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.AppointmentRepository;
@@ -82,13 +81,15 @@ public class AppointmentService {
 
         appointmentRepository.delete(appointment);
 
-        if(wantNotification==true) {
-            EmailData emailData = new EmailData();
-            emailData.setUser(appointment.getPatient());
-            emailData.setAppointment(appointment);
-            emailData.setEmailContent(new EmailContent());
+        if(wantNotification) {
+            User patient = appointment.getPatient();
+            User doctor= appointment.getDoctor();
+            String userEmail = patient.getEmail();
+            String cancellationEmailContent = EmailContent.generateAppointmentCancellationEmail(patient.getFullName(),doctor.getFullName(), appointment.getAppointmentDateStartTime());
 
-            emailService.sendAppointmentCancellationEmail(emailData);
+            String subject = "Cancellation of appointment";
+            emailService.sendEmail(userEmail, subject, cancellationEmailContent);
+
         }
     }
 
