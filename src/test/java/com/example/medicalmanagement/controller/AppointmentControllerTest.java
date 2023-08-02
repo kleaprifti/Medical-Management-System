@@ -37,7 +37,7 @@ class AppointmentControllerTest  {
         LocalDateTime endDateTime = LocalDateTime.of(2023, 6, 1, 12, 0);
         Set<AppointmentDto> appointments = new HashSet<>();
 
-        when(appointmentService.getAppointments(eq(doctorId), eq(startDateTime), eq(endDateTime))).thenReturn(appointments);
+        when(appointmentService.getAppointments(doctorId, startDateTime, endDateTime)).thenReturn(appointments);
 
         Set<AppointmentDto> result = appointmentController.getAppointments(doctorId, startDateTime, endDateTime);
 
@@ -51,7 +51,7 @@ class AppointmentControllerTest  {
          AppointmentDto appointmentDto = new AppointmentDto();
          AppointmentDto addedAppointment = new AppointmentDto();
 
-         when(appointmentService.addAppointment(eq(appointmentDto))).thenReturn(addedAppointment);
+         when(appointmentService.addAppointment(appointmentDto)).thenReturn(addedAppointment);
 
          ResponseEntity<AppointmentDto> response = appointmentController.addAppointment(appointmentDto);
 

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,11 +40,14 @@ public class AppointmentService {
     }
 
     public Set<AppointmentDto> getAppointments(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        userRepository.findById(doctorId)
-                .orElseThrow(() -> new NotFoundException("Doctor with Id " + doctorId + " was not found"));
 
+       Optional<User> doctor = userRepository.findById(doctorId);
+       if (doctor.isEmpty()) {
+                throw  new NotFoundException("Doctor with Id " + doctorId + " was not found");
+       }
         List<Appointment> currentAppointments;
         if (startDateTime != null && endDateTime != null) {
+
             currentAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(doctorId, endDateTime, startDateTime);
         } else {
             currentAppointments = appointmentRepository.findByDoctorId(doctorId);
