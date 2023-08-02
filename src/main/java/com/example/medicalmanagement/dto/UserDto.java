@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,10 +15,11 @@ import java.util.List;
 public class UserDto {
 
     private Long id;
-
     private String email;
-
     private String fullName;
+    private String birthDate;
+    private String phoneNumber;
+    private String idMedicalCard;
 
     private List<UserRole> roles;
 

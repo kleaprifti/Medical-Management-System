@@ -26,8 +26,15 @@ public class User {
     @Column(name = "full_name")
     private String fullName;
 
+    @Column(name = "birth_date")
+    private String birthDate;
+
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
+
+    @Column(name = "id_medicalCard", unique = true)
+    private String idMedicalCard;
+
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
