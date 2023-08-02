@@ -47,7 +47,7 @@ public class AppointmentValidator {
     }
 
     void validateDuration(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        if (startDateTime.plusHours(1).isAfter(endDateTime) || startDateTime.isEqual(endDateTime)) {
+        if (startDateTime.plusHours(1).isAfter(endDateTime) || startDateTime.isEqual(endDateTime)|| startDateTime.plusHours(1).isBefore(endDateTime)) {
             throw new DurationException("Appointment duration should be one hour");
         }
     }
