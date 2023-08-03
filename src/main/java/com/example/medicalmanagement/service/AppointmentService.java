@@ -89,7 +89,7 @@ public class AppointmentService {
             User patient = appointment.getPatient();
             User doctor= appointment.getDoctor();
             String userEmail = patient.getEmail();
-            String cancellationEmailContent = EmailContent.generateAppointmentCancellationEmail(patient.getFullName(),doctor.getFullName(), appointment.getAppointmentDateStartTime());
+            String cancellationEmailContent = EmailContent.generateEmail(patient.getFullName(),doctor.getFullName(), appointment.getAppointmentDateStartTime());
 
             String subject = "Cancellation of appointment";
             emailService.sendEmail(userEmail, subject, cancellationEmailContent);
