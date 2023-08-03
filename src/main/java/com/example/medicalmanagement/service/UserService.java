@@ -46,4 +46,44 @@ public class UserService {
         userRepository.deleteAll();
 
     }
+
+    public boolean addUser(UserDto userDto) {
+
+    String fullName = userDto.getFullName();
+    String birthDate = userDto.getBirthDate();
+    String phoneNumber = userDto.getPhoneNumber();
+    String idMedicalCard = userDto.getIdMedicalCard();
+    List<String> specialities = userDto.getSpecialities();
+
+    if (fullName == null || fullName.isEmpty()
+            || birthDate == null || birthDate.isEmpty()
+            || phoneNumber == null || phoneNumber.isEmpty()
+            || idMedicalCard == null || idMedicalCard.length() != 16) {
+        return false;
+    }
+
+    try {
+        User newUser = new User();
+        newUser.setFullName(fullName);
+        newUser.setBirthDate(birthDate);
+        newUser.setPhoneNumber(phoneNumber);
+        newUser.setIdMedicalCard(idMedicalCard);
+
+        if (specialities != null && !specialities.isEmpty()) {
+            newUser.getSpecialities();
+
+            newUser.getRoles().clear();
+            newUser.setRoles((List<Role>) new Role(UserRole.DOCTOR));
+        } else {
+            newUser.getRoles().clear();
+            newUser.setRoles((List<Role>) new Role(UserRole.PATIENT));
+        }
+        userRepository.save(newUser);
+
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+    }
 }
