@@ -26,7 +26,7 @@ public class UserNotificationType {
     private NotificationType notificationType;
 
     @ManyToMany(mappedBy = "notificationTypes")
-    private Set<User> users;
+    private List<User> users;
 
 }
 

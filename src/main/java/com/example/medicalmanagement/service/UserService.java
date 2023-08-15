@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -31,9 +29,9 @@ public class UserService {
             .toList();
     }
 
-    private UserDto mapToDto(User user) {
+    public UserDto mapToDto(User user) {
         List<NotificationType> notificationTypes = new ArrayList<>();
-        if (user.getNotificationTypes() != null) {
+        if (!user.getNotificationTypes().isEmpty()) {
             notificationTypes = user.getNotificationTypes().stream()
                     .map(UserNotificationType::getNotificationType)
                     .collect(Collectors.toList());

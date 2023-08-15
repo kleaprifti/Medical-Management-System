@@ -192,24 +192,25 @@ class AppointmentServiceTest {
         verify(userRepository, times(1)).findById(appointmentDto.getDoctorId());
         verifyNoMoreInteractions(userRepository, appointmentRepository);
     }
+
     @Test
-     void deleteAppointment_Success() {
+    void deleteAppointment_Success() {
         Long appointmentId = 1L;
 
         Appointment appointment = new Appointment();
         Mockito.when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.of(appointment));
 
-        appointmentService.deleteAppointment(appointmentId,true);
+        appointmentService.deleteAppointment(appointmentId, true);
 
         Mockito.verify(appointmentRepository, Mockito.times(1)).delete(appointment);
     }
 
     @Test
-     void deleteAppointment_NotFound() {
+    void deleteAppointment_NotFound() {
         Long appointmentId = 1L;
 
         Mockito.when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> appointmentService.deleteAppointment(appointmentId,true));
+        assertThrows(NotFoundException.class, () -> appointmentService.deleteAppointment(appointmentId, true));
     }
 }

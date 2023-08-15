@@ -48,5 +48,5 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "notification_id")
     )
-    private Set<UserNotificationType> notificationTypes;
+    private List<UserNotificationType> notificationTypes;
 }

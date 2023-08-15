@@ -30,5 +30,8 @@ public class Role {
     public Role(UserRole userRole) {
         this.userRole = userRole;
     }
+
+    public Role(long l, UserRole userRole) {
+    }
 }
 
