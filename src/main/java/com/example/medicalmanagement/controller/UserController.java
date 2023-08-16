@@ -22,4 +22,8 @@ public class UserController {
         return userService.getAllDoctors();
     }
 
+    @GetMapping("/patients")
+    public List<UserDto> getAllPatients(){
+        return userService.getAllPatients();
+    }
 }
