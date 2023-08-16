@@ -29,12 +29,23 @@ public class UserService {
             .toList();
     }
 
+    public List<UserDto>getAllPatients(){
+        Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
+        return userRepository.findByRolesUserRole(UserRole.PATIENT,sort)
+                .stream()
+                .filter(user -> user.getRoles()
+                        .stream()
+                        .anyMatch(role -> role.getUserRole() == UserRole.PATIENT))
+                .map(this::mapToDto)
+                .toList();
+    }
+
     public UserDto mapToDto(User user) {
         List<NotificationType> notificationTypes = new ArrayList<>();
         if (!user.getNotificationTypes().isEmpty()) {
             notificationTypes = user.getNotificationTypes().stream()
                     .map(UserNotificationType::getNotificationType)
-                    .collect(Collectors.toList());
+                    .toList();
         }
         return new UserDto(user.getId(), user.getEmail() ,user.getFullName(),
                 user.getRoles()

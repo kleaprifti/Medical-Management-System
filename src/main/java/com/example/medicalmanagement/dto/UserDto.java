@@ -2,13 +2,13 @@ package com.example.medicalmanagement.dto;
 
 import com.example.medicalmanagement.model.NotificationType;
 import com.example.medicalmanagement.model.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -22,12 +22,16 @@ public class UserDto {
 
     private String fullName;
 
+    @JsonIgnore
     private List<UserRole> roles;
 
+    @JsonIgnore
     private List<String> specialities;
 
+    @JsonIgnore
     private boolean emailSent;
 
+    @JsonIgnore
     private List<NotificationType> notificationTypes;
 
 
