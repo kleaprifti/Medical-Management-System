@@ -194,15 +194,36 @@ class AppointmentServiceTest {
     }
 
     @Test
-    void deleteAppointment_Success() {
-        Long appointmentId = 1L;
+    void deleteAppointmentSuccess() {
+        Long appointmentId = 123L;
+        boolean wantNotification = true;
 
-        Appointment appointment = new Appointment();
-        Mockito.when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.of(appointment));
+        Appointment appointment = mock(Appointment.class);
+        when(appointment.getAppointmentId()).thenReturn(appointmentId);
 
-        appointmentService.deleteAppointment(appointmentId, true);
+        LocalDateTime appointmentDate = LocalDateTime.of(2023, 8, 16, 16, 10, 0); // Replace with appropriate date and time
+        when(appointment.getAppointmentDateStartTime()).thenReturn(appointmentDate);
+        LocalDateTime appointmentEndDate = LocalDateTime.of(2023, 8, 16, 17, 10, 0); // Replace with appropriate date and time
+        when(appointment.getAppointmentDateEndTime()).thenReturn(appointmentDate);
 
-        Mockito.verify(appointmentRepository, Mockito.times(1)).delete(appointment);
+
+        User patient = new User();
+        User doctor = new User();
+
+        when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.of(appointment));
+        when(appointment.getPatient()).thenReturn(patient);
+        when(appointment.getDoctor()).thenReturn(doctor);
+
+        appointmentService.deleteAppointment(appointmentId, wantNotification);
+
+        verify(appointmentRepository, times(1)).delete(appointment);
+
+        if (wantNotification) {
+            verify(emailService, times(1)).sendEmail(eq(patient.getEmail()), any(), any());
+
+        } else {
+            verify(emailService, never()).sendEmail(any(), any(), any());
+        }
     }
 
     @Test
