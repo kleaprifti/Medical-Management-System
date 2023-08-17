@@ -1,5 +1,6 @@
 package com.example.medicalmanagement.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -12,10 +13,12 @@ import com.example.medicalmanagement.model.Role;
 import com.example.medicalmanagement.model.Speciality;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
+import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.mockito.InjectMocks;
@@ -29,6 +32,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private SpecialityRepository specialityRepository;
 
     @InjectMocks
     private UserService userService;
@@ -37,8 +42,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
     @BeforeEach
     public void setup() {
-        Speciality speciality1 = new Speciality(1L,"doctor1@gmail.com","Speciality 1",null);
-        Speciality speciality2 = new Speciality(2L,"doctor2@gmail.com","Speciality 2",null);
+        Speciality speciality1 = new Speciality(1L, "doctor1@gmail.com", "Speciality 1", null);
+        Speciality speciality2 = new Speciality(2L, "doctor2@gmail.com", "Speciality 2", null);
         Role role = new Role();
         role.setUserRole(UserRole.DOCTOR);
 
@@ -60,7 +65,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
     }
 
     @Test
-     void getAllDoctors() {
+    void getAllDoctors() {
         when(userRepository.findByRolesUserRole(any(), any())).thenReturn(mockUsers);
 
         List<UserDto> doctorDtos = userService.getAllDoctors();
@@ -69,14 +74,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
         UserDto doctorDto1 = doctorDtos.get(0);
         assertEquals(1L, doctorDto1.getId());
-        assertEquals("doctor1@gmail.com",doctorDto1.getEmail());
+        assertEquals("doctor1@gmail.com", doctorDto1.getEmail());
         assertEquals("Doctor 1", doctorDto1.getFullName());
         assertEquals(Collections.singletonList(UserRole.DOCTOR), doctorDto1.getRoles());
         assertEquals(Collections.singletonList("Speciality 1"), doctorDto1.getSpecialities());
 
         UserDto doctorDto2 = doctorDtos.get(1);
         assertEquals(2L, doctorDto2.getId());
-        assertEquals("doctor2@gmail.com",doctorDto2.getEmail());
+        assertEquals("doctor2@gmail.com", doctorDto2.getEmail());
         assertEquals("Doctor 2", doctorDto2.getFullName());
         assertEquals(Collections.singletonList(UserRole.DOCTOR), doctorDto2.getRoles());
         assertEquals(Collections.singletonList("Speciality 2"), doctorDto2.getSpecialities());
@@ -84,10 +89,34 @@ import org.mockito.junit.jupiter.MockitoExtension;
         logger.info("getAllDoctors() method test completed successfully");
 
     }
+
     @Test
-     void deleteAllUsers() {
+    void deleteAllUsers() {
         userService.deleteAllUsers();
 
         verify(userRepository, times(1)).deleteAll();
+    }
+
+
+    @Test
+     void testAddUser() {
+        UserDto userDto = new UserDto();
+        userDto.setEmail("doctor@example.com");
+        userDto.setFullName("Dr. Aldo Demiri");
+        userDto.setBirthDate("1987-11-01");
+        userDto.setPhoneNumber("123-456-7890");
+        userDto.setIdMedicalCard("ABCDEFGH12345678");
+        userDto.setRoles(Collections.singletonList(UserRole.DOCTOR));
+        userDto.setSpecialities(Collections.singletonList("Cardiology"));
+
+        Mockito.when(specialityRepository.findByName(Mockito.anyString()))
+                .thenReturn(null);
+
+        Mockito.when(specialityRepository.save(Mockito.any(Speciality.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        boolean result = userService.addUser(userDto);
+
+        assertTrue(result);
     }
 }
