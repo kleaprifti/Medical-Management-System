@@ -30,5 +30,6 @@ public class Speciality {
     private List<User> users;
 
 
-
+    public Speciality(String speciality) {
+    }
 }

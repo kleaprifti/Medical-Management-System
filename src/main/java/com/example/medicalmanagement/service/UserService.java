@@ -1,15 +1,19 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.dto.UserDto;
+import com.example.medicalmanagement.model.Role;
+import com.example.medicalmanagement.model.Speciality;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
+import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import com.example.medicalmanagement.model.Speciality;
-import com.example.medicalmanagement.model.Role;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -17,6 +21,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SpecialityRepository specialityRepository;
 
     public List<UserDto> getAllDoctors() {
        Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
@@ -48,42 +54,67 @@ public class UserService {
     }
 
     public boolean addUser(UserDto userDto) {
+        try {
+            if (!validateInputParameters(userDto)) {
+                return false;
+            }
 
-    String fullName = userDto.getFullName();
-    String birthDate = userDto.getBirthDate();
-    String phoneNumber = userDto.getPhoneNumber();
-    String idMedicalCard = userDto.getIdMedicalCard();
-    List<String> specialities = userDto.getSpecialities();
+            User user = mapToUser(userDto);
 
-    if (fullName == null || fullName.isEmpty()
-            || birthDate == null || birthDate.isEmpty()
-            || phoneNumber == null || phoneNumber.isEmpty()
-            || idMedicalCard == null || idMedicalCard.length() != 16) {
-        return false;
+            userRepository.save(user);
+
+            return true;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    try {
-        User newUser = new User();
-        newUser.setFullName(fullName);
-        newUser.setBirthDate(birthDate);
-        newUser.setPhoneNumber(phoneNumber);
-        newUser.setIdMedicalCard(idMedicalCard);
+    private boolean validateInputParameters(UserDto userDto) {
 
-        if (specialities != null && !specialities.isEmpty()) {
-            newUser.getSpecialities();
-
-            newUser.getRoles().clear();
-            newUser.setRoles((List<Role>) new Role(UserRole.DOCTOR));
-        } else {
-            newUser.getRoles().clear();
-            newUser.setRoles((List<Role>) new Role(UserRole.PATIENT));
+        if (userDto.getFullName() == null || userDto.getFullName().isEmpty() ||
+                userDto.getBirthDate() == null || userDto.getBirthDate().isEmpty() ||
+                userDto.getPhoneNumber() == null || userDto.getPhoneNumber().isEmpty() ||
+                (userDto.getRoles() != null && userDto.getRoles().contains(UserRole.DOCTOR) && userDto.getSpecialities().isEmpty()) ||
+                userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty()) {
+            return false;
         }
-        userRepository.save(newUser);
 
         return true;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false;
     }
+
+    private User mapToUser(UserDto userDto) {
+        User user = new User();
+        user.setEmail(userDto.getEmail());
+        user.setFullName(userDto.getFullName());
+        user.setBirthDate(userDto.getBirthDate());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setIdMedicalCard(userDto.getIdMedicalCard());
+
+        List<Role> roles = new ArrayList<>();
+        if (userDto.getRoles() != null) {
+            roles = userDto.getRoles().stream()
+                    .map(role -> new Role(role))
+                    .collect(Collectors.toList());
+        }
+        user.setRoles(roles);
+
+        List<Speciality> specialities = new ArrayList<>();
+        if (userDto.getSpecialities() != null) {
+            specialities = userDto.getSpecialities().stream()
+                    .map(specialityName -> {
+                        Speciality speciality = specialityRepository.findByName(specialityName);
+                        if (speciality == null) {
+                            speciality = new Speciality(specialityName);
+                            specialityRepository.save(speciality);
+                        }
+                        return speciality;
+                    })
+                    .collect(Collectors.toList());
+        }
+        user.setSpecialities(specialities);
+
+        return user;
     }
+
 }
