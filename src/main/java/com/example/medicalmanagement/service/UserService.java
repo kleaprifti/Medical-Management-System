@@ -5,13 +5,14 @@ import com.example.medicalmanagement.model.Role;
 import com.example.medicalmanagement.model.Speciality;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
+import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,8 @@ public class UserService {
     @Autowired
     private SpecialityRepository specialityRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
     public List<UserDto> getAllDoctors() {
        Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
 
@@ -55,66 +58,61 @@ public class UserService {
 
     public boolean addUser(UserDto userDto) {
         try {
-            if (!validateInputParameters(userDto)) {
+            if (!validateUserDto(userDto)) {
                 return false;
             }
 
-            User user = mapToUser(userDto);
+            User newUser = new User();
+            newUser.setFullName(userDto.getFullName());
+            newUser.setBirthDate(userDto.getBirthDate());
+            newUser.setPhoneNumber(userDto.getPhoneNumber());
+            newUser.setIdMedicalCard(userDto.getIdMedicalCard());
 
-            userRepository.save(user);
+            List<Role> userRoles = userDto.getRoles().stream()
+                    .map(roleRepository::findByUserRole)
+                    .collect(Collectors.toList());
 
+            newUser.setRoles(userRoles);
+
+            boolean isDoctor = userRoles.stream().anyMatch(role -> role.getUserRole() == UserRole.DOCTOR);
+            if (isDoctor) {
+                List<Speciality> userSpecialities = userDto.getSpecialities().stream()
+                        .map(specialityRepository::findByName)
+                        .collect(Collectors.toList());
+
+                newUser.setSpecialities(userSpecialities);
+            }
+
+            userRepository.save(newUser);
             return true;
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
             return false;
         }
     }
 
-    private boolean validateInputParameters(UserDto userDto) {
+    private boolean validateUserDto(UserDto userDto) {
+        if (userDto == null) {
+            return false;
+        }
 
         if (userDto.getFullName() == null || userDto.getFullName().isEmpty() ||
-                userDto.getBirthDate() == null || userDto.getBirthDate().isEmpty() ||
-                userDto.getPhoneNumber() == null || userDto.getPhoneNumber().isEmpty() ||
-                (userDto.getRoles() != null && userDto.getRoles().contains(UserRole.DOCTOR) && userDto.getSpecialities().isEmpty()) ||
-                userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty()) {
+                userDto.getBirthDate() == null || userDto.getBirthDate().isAfter(LocalDate.now()) ||
+                userDto.getPhoneNumber() == null || userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty() ||
+                userDto.getRoles() == null || userDto.getRoles().isEmpty()) {
             return false;
         }
 
+        for (UserRole userRole : userDto.getRoles()) {
+            if (userRole != UserRole.DOCTOR && userRole != UserRole.PATIENT) {
+                return false;
+            }
+
+            if (userRole == UserRole.DOCTOR && (userDto.getSpecialities() == null || userDto.getSpecialities().isEmpty())) {
+                return false;
+
+            }
+        }
         return true;
-    }
-
-    private User mapToUser(UserDto userDto) {
-        User user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setFullName(userDto.getFullName());
-        user.setBirthDate(userDto.getBirthDate());
-        user.setPhoneNumber(userDto.getPhoneNumber());
-        user.setIdMedicalCard(userDto.getIdMedicalCard());
-
-        List<Role> roles = new ArrayList<>();
-        if (userDto.getRoles() != null) {
-            roles = userDto.getRoles().stream()
-                    .map(role -> new Role(role))
-                    .collect(Collectors.toList());
-        }
-        user.setRoles(roles);
-
-        List<Speciality> specialities = new ArrayList<>();
-        if (userDto.getSpecialities() != null) {
-            specialities = userDto.getSpecialities().stream()
-                    .map(specialityName -> {
-                        Speciality speciality = specialityRepository.findByName(specialityName);
-                        if (speciality == null) {
-                            speciality = new Speciality(specialityName);
-                            specialityRepository.save(speciality);
-                        }
-                        return speciality;
-                    })
-                    .collect(Collectors.toList());
-        }
-        user.setSpecialities(specialities);
-
-        return user;
     }
 
 }

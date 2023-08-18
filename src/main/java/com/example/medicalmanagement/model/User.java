@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,7 @@ public class User {
     private String fullName;
 
     @Column(name = "birth_date")
-    private String birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
