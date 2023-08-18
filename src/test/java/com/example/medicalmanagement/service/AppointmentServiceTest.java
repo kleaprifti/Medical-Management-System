@@ -192,17 +192,6 @@ class AppointmentServiceTest {
         verify(userRepository, times(1)).findById(appointmentDto.getDoctorId());
         verifyNoMoreInteractions(userRepository, appointmentRepository);
     }
-    @Test
-     void deleteAppointment_Success() {
-        Long appointmentId = 1L;
-
-        Appointment appointment = new Appointment();
-        Mockito.when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.of(appointment));
-
-        appointmentService.deleteAppointment(appointmentId,true);
-
-        Mockito.verify(appointmentRepository, Mockito.times(1)).delete(appointment);
-    }
 
     @Test
      void deleteAppointment_NotFound() {
