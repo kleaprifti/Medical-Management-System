@@ -34,4 +34,9 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding user");
         }
     }
+
+    @GetMapping("/patients")
+    public List<UserDto> getAllPatients() {
+        return userService.getAllPatients();
+    }
 }
