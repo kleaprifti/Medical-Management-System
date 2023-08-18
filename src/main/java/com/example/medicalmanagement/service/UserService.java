@@ -97,7 +97,7 @@ public class UserService {
 
         if (userDto.getFullName() == null || userDto.getFullName().isEmpty() ||
                 userDto.getBirthDate() == null || userDto.getBirthDate().isAfter(LocalDate.now()) ||
-                userDto.getPhoneNumber() == null || userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty() ||
+                userDto.getPhoneNumber() == null || userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty() || userDto.getIdMedicalCard().length() != 16 ||
                 userDto.getRoles() == null || userDto.getRoles().isEmpty()) {
             return false;
         }
