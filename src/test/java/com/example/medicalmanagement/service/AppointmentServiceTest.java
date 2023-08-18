@@ -193,12 +193,46 @@ class AppointmentServiceTest {
         verifyNoMoreInteractions(userRepository, appointmentRepository);
     }
 
+
     @Test
-     void deleteAppointment_NotFound() {
+    void deleteAppointmentSuccess() {
+        Long appointmentId = 123L;
+        boolean wantNotification = true;
+
+        Appointment appointment = mock(Appointment.class);
+        when(appointment.getAppointmentId()).thenReturn(appointmentId);
+
+        LocalDateTime appointmentDate = LocalDateTime.of(2023, 8, 16, 16, 10, 0); // Replace with appropriate date and time
+        when(appointment.getAppointmentDateStartTime()).thenReturn(appointmentDate);
+        LocalDateTime appointmentEndDate = LocalDateTime.of(2023, 8, 16, 17, 10, 0); // Replace with appropriate date and time
+        when(appointment.getAppointmentDateEndTime()).thenReturn(appointmentDate);
+
+
+        User patient = new User();
+        User doctor = new User();
+
+        when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.of(appointment));
+        when(appointment.getPatient()).thenReturn(patient);
+        when(appointment.getDoctor()).thenReturn(doctor);
+
+        appointmentService.deleteAppointment(appointmentId, wantNotification);
+
+        verify(appointmentRepository, times(1)).delete(appointment);
+
+        if (wantNotification) {
+            verify(emailService, times(1)).sendEmail(eq(patient.getEmail()), any(), any());
+
+        } else {
+            verify(emailService, never()).sendEmail(any(), any(), any());
+        }
+    }
+
+    @Test
+    void deleteAppointment_NotFound() {
         Long appointmentId = 1L;
 
         Mockito.when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> appointmentService.deleteAppointment(appointmentId,true));
+        assertThrows(NotFoundException.class, () -> appointmentService.deleteAppointment(appointmentId, true));
     }
 }

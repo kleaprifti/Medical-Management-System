@@ -7,31 +7,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-
+import java.util.Set;
 
 @Entity
-@Table(name = "role")
+@Table(name = "user_notification_type")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Role {
+public class UserNotificationType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "notification_id")
+    private Long notificationId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "roles")
-    private UserRole userRole;
+    @Column(name = "notification_type")
+    private NotificationType notificationType;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "notificationTypes")
     private List<User> users;
 
-    public Role(UserRole userRole) {
-        this.userRole = userRole;
-    }
-
-    public Role(long l, UserRole userRole) {
-    }
 }
 

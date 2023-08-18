@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -39,7 +40,24 @@ public class UserService {
             .toList();
     }
 
-    private UserDto mapToDto(User user) {
+    public List<UserDto>getAllPatients(){
+        Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
+        return userRepository.findByRolesUserRole(UserRole.PATIENT,sort)
+                .stream()
+                .filter(user -> user.getRoles()
+                        .stream()
+                        .anyMatch(role -> role.getUserRole() == UserRole.PATIENT))
+                .map(this::mapToDto)
+                .toList();
+    }
+
+    public UserDto mapToDto(User user) {
+        List<NotificationType> notificationTypes = new ArrayList<>();
+        if (!user.getNotificationTypes().isEmpty()) {
+            notificationTypes = user.getNotificationTypes().stream()
+                    .map(UserNotificationType::getNotificationType)
+                    .toList();
+        }
         return new UserDto(user.getId(), user.getEmail() ,user.getFullName(),
                 user.getRoles()
                         .stream()
@@ -48,12 +66,11 @@ public class UserService {
                 user.getSpecialities()
                         .stream()
                         .map(Speciality::getName)
-                        .toList());
+                        .toList(),notificationTypes);
     }
 
     public void deleteAllUsers() {
         userRepository.deleteAll();
-
     }
 
     public boolean addUser(UserDto userDto) {

@@ -48,5 +48,11 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "speciality_id")})
     private List<Speciality> specialities;
-
+    @ManyToMany
+    @JoinTable(
+            name = "user_notification_mapping",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "notification_id")
+    )
+    private List<UserNotificationType> notificationTypes;
 }
