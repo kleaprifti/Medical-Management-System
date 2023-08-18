@@ -35,8 +35,4 @@ public class UserController {
         }
     }
 
-    @GetMapping("/patients")
-    public List<UserDto> getAllPatients() {
-        return userService.getAllPatients();
-    }
 }
