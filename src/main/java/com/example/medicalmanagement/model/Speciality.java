@@ -18,10 +18,6 @@ public class Speciality {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "name")
     private String name;
 
@@ -30,5 +26,6 @@ public class Speciality {
     private List<User> users;
 
 
-
+    public Speciality(String speciality) {
+    }
 }

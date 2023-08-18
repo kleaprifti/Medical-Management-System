@@ -193,6 +193,7 @@ class AppointmentServiceTest {
         verifyNoMoreInteractions(userRepository, appointmentRepository);
     }
 
+
     @Test
     void deleteAppointmentSuccess() {
         Long appointmentId = 123L;

@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
+
 
 @Getter
 @Setter
@@ -17,10 +19,11 @@ import java.util.List;
 public class UserDto {
 
     private Long id;
-
     private String email;
-
     private String fullName;
+    private LocalDate birthDate;
+    private String phoneNumber;
+    private String idMedicalCard;
 
     @JsonIgnore
     private List<UserRole> roles;
