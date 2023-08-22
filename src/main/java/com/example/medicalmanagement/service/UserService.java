@@ -1,10 +1,7 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.dto.UserDto;
-import com.example.medicalmanagement.model.Role;
-import com.example.medicalmanagement.model.Speciality;
-import com.example.medicalmanagement.model.User;
-import com.example.medicalmanagement.model.UserRole;
+import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
@@ -13,8 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -59,6 +56,7 @@ public class UserService {
                     .toList();
         }
         return new UserDto(user.getId(), user.getEmail() ,user.getFullName(),
+                user.getBirthDate(),user.getPhoneNumber(), user.getIdMedicalCard(),
                 user.getRoles()
                         .stream()
                         .map(Role::getUserRole)
@@ -66,7 +64,7 @@ public class UserService {
                 user.getSpecialities()
                         .stream()
                         .map(Speciality::getName)
-                        .toList(),notificationTypes);
+                        .toList(),notificationTypes );
     }
 
     public void deleteAllUsers() {

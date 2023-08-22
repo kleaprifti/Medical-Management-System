@@ -41,5 +41,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
 
     }
+    @ExceptionHandler(InvalidUserDataException.class)
+    public ResponseEntity<ApiError> handleTimeException(InvalidUserDataException ex) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+    @ExceptionHandler(UserAdditionException.class)
+    public ResponseEntity<ApiError> handleTimeException(UserAdditionException ex) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
 
+    }
 }

@@ -1,22 +1,9 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.dto.UserDto;
-import com.example.medicalmanagement.model.Role;
-import com.example.medicalmanagement.model.Speciality;
-import com.example.medicalmanagement.model.User;
-import com.example.medicalmanagement.model.UserRole;
+import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import com.example.medicalmanagement.dto.UserDto;
-import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -161,7 +148,7 @@ class UserServiceTest {
 
 
     @Test
-    void testAddUser() {
+    void addUser() {
         UserDto userDto = new UserDto();
         userDto.setFullName("Dr. Aldo Smith");
         userDto.setBirthDate(LocalDate.of(1993, 5, 10));

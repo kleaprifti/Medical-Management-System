@@ -38,10 +38,13 @@ public class UserDto {
     private List<NotificationType> notificationTypes;
 
 
-    public UserDto(Long id, String email, String fullName, List<UserRole> roles, List<String> specialities, List<NotificationType> notificationTypes) {
+    public UserDto(Long id, String email, String fullName,LocalDate birthDate, String phoneNumber, String idMedicalCard, List<UserRole> roles, List<String> specialities, List<NotificationType> notificationTypes) {
         this.id = id;
         this.email = email;
         this.fullName = fullName;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+        this.idMedicalCard = idMedicalCard;
         this.roles = roles;
         this.specialities = specialities;
         this.notificationTypes = notificationTypes;
