@@ -78,6 +78,7 @@ public class UserService {
             }
 
             User newUser = new User();
+            newUser.setEmail(userDto.getEmail());
             newUser.setFullName(userDto.getFullName());
             newUser.setBirthDate(userDto.getBirthDate());
             newUser.setPhoneNumber(userDto.getPhoneNumber());
@@ -110,9 +111,12 @@ public class UserService {
             return false;
         }
 
-        if (userDto.getFullName() == null || userDto.getFullName().isEmpty() ||
+        if (    userDto.getEmail() == null || userDto.getEmail().isEmpty() ||
+                userDto.getFullName() == null || userDto.getFullName().isEmpty() ||
                 userDto.getBirthDate() == null || userDto.getBirthDate().isAfter(LocalDate.now()) ||
-                userDto.getPhoneNumber() == null || userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty() || userDto.getIdMedicalCard().length() != 16 ||
+                userDto.getPhoneNumber() == null || userDto.getPhoneNumber().isEmpty() ||
+                userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty() ||
+                userDto.getIdMedicalCard().length() != 16 ||
                 userDto.getRoles() == null || userDto.getRoles().isEmpty()) {
             return false;
         }
