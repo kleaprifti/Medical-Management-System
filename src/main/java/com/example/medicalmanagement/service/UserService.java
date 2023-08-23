@@ -55,8 +55,9 @@ public class UserService {
                     .map(UserNotificationType::getNotificationType)
                     .toList();
         }
+        boolean emailSent = true;
         return new UserDto(user.getId(), user.getEmail() ,user.getFullName(),
-                user.getBirthDate(),user.getPhoneNumber(), user.getIdMedicalCard(),
+                user.getBirthDate(),user.getPhoneNumber(), user.getIdMedicalCard() ,
                 user.getRoles()
                         .stream()
                         .map(Role::getUserRole)
@@ -64,7 +65,7 @@ public class UserService {
                 user.getSpecialities()
                         .stream()
                         .map(Speciality::getName)
-                        .toList(),notificationTypes );
+                        .toList() , emailSent, notificationTypes);
     }
 
     public void deleteAllUsers() {
