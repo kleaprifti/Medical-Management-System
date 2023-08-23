@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -25,25 +24,12 @@ public class UserService {
 
     @Autowired
     private RoleRepository roleRepository;
-    public List<UserDto> getAllDoctors() {
-       Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
 
-        return userRepository.findByRolesUserRole(UserRole.DOCTOR,sort)
-            .stream()
-            .filter(user -> user.getRoles()
-                    .stream()
-                    .anyMatch(role -> role.getUserRole() == UserRole.DOCTOR))
-            .map(this::mapToDto)
-            .toList();
-    }
-
-    public List<UserDto>getAllPatients(){
+    public List<UserDto> getAllUsers(UserRole userRole) {
         Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
-        return userRepository.findByRolesUserRole(UserRole.PATIENT,sort)
+
+        return userRepository.findByRolesUserRole(userRole, sort)
                 .stream()
-                .filter(user -> user.getRoles()
-                        .stream()
-                        .anyMatch(role -> role.getUserRole() == UserRole.PATIENT))
                 .map(this::mapToDto)
                 .toList();
     }
@@ -55,8 +41,8 @@ public class UserService {
                     .map(UserNotificationType::getNotificationType)
                     .toList();
         }
-        return new UserDto(user.getId(), user.getEmail() ,user.getFullName(),
-                user.getBirthDate(),user.getPhoneNumber(), user.getIdMedicalCard(),
+        return new UserDto(user.getId(), user.getEmail(), user.getFullName(),
+                user.getBirthDate(), user.getPhoneNumber(), user.getIdMedicalCard(),
                 user.getRoles()
                         .stream()
                         .map(Role::getUserRole)
@@ -64,7 +50,7 @@ public class UserService {
                 user.getSpecialities()
                         .stream()
                         .map(Speciality::getName)
-                        .toList(),notificationTypes );
+                        .toList(), notificationTypes);
     }
 
     public void deleteAllUsers() {
@@ -85,7 +71,7 @@ public class UserService {
 
             List<Role> userRoles = userDto.getRoles().stream()
                     .map(roleRepository::findByUserRole)
-                    .collect(Collectors.toList());
+                    .toList();
 
             newUser.setRoles(userRoles);
 
@@ -93,7 +79,7 @@ public class UserService {
             if (isDoctor) {
                 List<Speciality> userSpecialities = userDto.getSpecialities().stream()
                         .map(specialityRepository::findByName)
-                        .collect(Collectors.toList());
+                        .toList();
 
                 newUser.setSpecialities(userSpecialities);
             }

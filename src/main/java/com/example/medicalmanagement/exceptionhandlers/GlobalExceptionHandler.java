@@ -41,8 +41,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
 
     }
-    @ExceptionHandler(InvalidUserDataException.class)
-    public ResponseEntity<ApiError> handleTimeException(InvalidUserDataException ex) {
+    @ExceptionHandler(InvalidUserData.class)
+    public ResponseEntity<ApiError> handleTimeException(InvalidUserData ex) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
     }

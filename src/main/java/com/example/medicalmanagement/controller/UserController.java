@@ -1,6 +1,7 @@
 package com.example.medicalmanagement.controller;
 
 import com.example.medicalmanagement.dto.UserDto;
+import com.example.medicalmanagement.model.UserRole;
 import com.example.medicalmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,12 +19,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-    @GetMapping("/doctors")
-    public List<UserDto> getAllDoctors() {
-        return userService.getAllDoctors();
-    }
-
     @PostMapping("/add")
     public ResponseEntity<String> addUser(@RequestBody UserDto userDto) {
         boolean result = userService.addUser(userDto);
@@ -35,8 +30,9 @@ public class UserController {
         }
     }
 
-    @GetMapping("/patients")
-    public List<UserDto> getAllPatients(){
-        return userService.getAllPatients();
+
+    @GetMapping
+    public List<UserDto> getAllUsersByRole(@RequestParam("userRole") UserRole userRole) {
+        return userService.getAllUsers(userRole);
     }
 }

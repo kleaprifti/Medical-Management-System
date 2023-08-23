@@ -31,7 +31,5 @@ public class Role {
         this.userRole = userRole;
     }
 
-    public Role(long l, UserRole userRole) {
-    }
 }
 
