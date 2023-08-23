@@ -21,19 +21,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    @Column(name = "email")
+    @Column(name = "email",nullable = false)
     private String email;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name",nullable = false)
     private String fullName;
 
-    @Column(name = "birth_date")
+    @Column(name = "birth_date",nullable = false)
     private LocalDate birthDate;
 
-    @Column(name = "phone_number", unique = true)
+    @Column(name = "phone_number",nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "id_medicalCard", unique = true)
+    @Column(name = "id_medicalCard", nullable = false,unique = true)
     private String idMedicalCard;
 
     @ManyToMany
