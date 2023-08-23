@@ -52,4 +52,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
 
     }
+    @ExceptionHandler(DuplicateValueException.class)
+    public ResponseEntity<String> handleDuplicateValueException(DuplicateValueException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+
+    @ExceptionHandler(RoleException.class)
+    public ResponseEntity<String> handleRoleException(RoleException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(SpecialityException.class)
+    public ResponseEntity<String> handleSpecialityException(SpecialityException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
 }
