@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(DuplicateValueException.class)
     public ResponseEntity<String> handleDuplicateValueException(DuplicateValueException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        return  new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 
@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SpecialityException.class)
     public ResponseEntity<String> handleSpecialityException(SpecialityException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
     }
 
 }
