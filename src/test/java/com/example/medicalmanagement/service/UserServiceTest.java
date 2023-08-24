@@ -1,15 +1,19 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.dto.UserDto;
+import com.example.medicalmanagement.exceptionhandlers.DuplicateValueException;
+import com.example.medicalmanagement.exceptionhandlers.InvalidUserDataException;
+import com.example.medicalmanagement.exceptionhandlers.RoleException;
+import com.example.medicalmanagement.exceptionhandlers.SpecialityException;
 import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
-import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +24,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -31,8 +34,6 @@ class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
-    @Mock
-    private SpecialityRepository specialityRepository;
 
     @Mock
     private RoleRepository roleRepository;
@@ -145,36 +146,34 @@ class UserServiceTest {
 
         verify(userRepository, times(1)).deleteAll();
     }
-
-
     @Test
-    void addUser() {
+     void addUser() throws InvalidUserDataException, RoleException, SpecialityException, DuplicateValueException {
+        UserDto userDto = createUserDto();
+
+        Mockito.when(userRepository.existsByIdMedicalCard(anyString())).thenReturn(false);
+        Mockito.when(userRepository.existsByEmailOrPhoneNumber(anyString(), anyString())).thenReturn(false);
+        Mockito.when(roleRepository.findByUserRole(any(UserRole.class))).thenReturn(createRole());
+
+        userService.addUser(userDto);
+
+        Mockito.verify(userRepository, Mockito.times(1)).save(any(User.class));
+
+
+    }
+    private UserDto createUserDto() {
         UserDto userDto = new UserDto();
-        userDto.setFullName("Dr. Aldo Smith");
-        userDto.setBirthDate(LocalDate.of(1993, 5, 10));
-        userDto.setPhoneNumber("555-123-4567");
-        userDto.setIdMedicalCard("DOC9876543211234");
-        userDto.setRoles(Collections.singletonList(UserRole.DOCTOR));
-        userDto.setSpecialities(Collections.singletonList("Cardiology"));
+        userDto.setEmail("aldoshehu@example.com");
+        userDto.setFullName("Aldo Shehu");
+        userDto.setBirthDate(LocalDate.of(1998, 11, 17));
+        userDto.setPhoneNumber("1234567890");
+        userDto.setIdMedicalCard("1234567890123456");
+        userDto.setRoles(Collections.singletonList(UserRole.PATIENT));
+        return userDto;
+    }
 
-        Role doctorRole = new Role(UserRole.DOCTOR);
-        when(roleRepository.findByUserRole(UserRole.DOCTOR)).thenReturn(doctorRole);
-
-        Speciality cardiologySpeciality = new Speciality("Cardiology");
-        when(specialityRepository.findByName("Cardiology")).thenReturn(cardiologySpeciality);
-
-        when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
-            User savedUser = invocation.getArgument(0);
-            savedUser.setId(1L);
-            return savedUser;
-        });
-
-        boolean result = userService.addUser(userDto);
-
-        assertTrue(result);
-        verify(userRepository).save(any(User.class));
-        verify(roleRepository).findByUserRole(UserRole.DOCTOR);
-        verify(specialityRepository).findByName("Cardiology");
-
-  }
+    private Role createRole() {
+        Role role = new Role();
+        role.setUserRole(UserRole.PATIENT);
+        return role;
+    }
 }
