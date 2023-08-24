@@ -98,6 +98,8 @@ public class UserService {
                          .collect(Collectors.toList());
 
                  newUser.setSpecialities(userSpecialities);
+             }else if (userRoles.stream().anyMatch(role -> role.getUserRole() == UserRole.PATIENT)) {
+                 newUser.setSpecialities(new ArrayList<>());
              }
         userRepository.save(newUser);
         return true;
@@ -151,7 +153,7 @@ public class UserService {
             if (userRole == UserRole.DOCTOR && (userDto.getSpecialities() == null || userDto.getSpecialities().isEmpty())) {
                 throw new SpecialityException("Doctors must be associated with at least one speciality.");
             }
-            if (userRole == UserRole.PATIENT && !userDto.getSpecialities().isEmpty()) {
+            if (userRole == UserRole.PATIENT && (userDto.getSpecialities() != null && !userDto.getSpecialities().isEmpty())) {
                 throw new SpecialityException("Patients cannot be associated with specialities.");
             }
         }
