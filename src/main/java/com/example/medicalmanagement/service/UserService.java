@@ -72,38 +72,46 @@ public class UserService {
                         .toList() , emailSent, notificationTypes);
     }
 
+
     public void deleteAllUsers() {
         userRepository.deleteAll();
     }
 
     public boolean addUser(UserDto userDto) {
-            validateUserDto(userDto);
-            User newUser = new User();
-            newUser.setEmail(userDto.getEmail());
-            newUser.setFullName(userDto.getFullName());
-            newUser.setBirthDate(userDto.getBirthDate());
-            newUser.setPhoneNumber(userDto.getPhoneNumber());
-            newUser.setIdMedicalCard(userDto.getIdMedicalCard());
+        validateUserDto(userDto);
+        User newUser = new User();
+        newUser.setEmail(userDto.getEmail());
+        newUser.setFullName(userDto.getFullName());
+        newUser.setBirthDate(userDto.getBirthDate());
+        newUser.setPhoneNumber(userDto.getPhoneNumber());
+        newUser.setIdMedicalCard(userDto.getIdMedicalCard());
 
-            List<Role> userRoles = userDto.getRoles().stream()
-                    .map(roleRepository::findByUserRole)
-                    .collect(Collectors.toList());
+        List<Role> userRoles = userDto.getRoles().stream()
+                .map(roleRepository::findByUserRole)
+                .collect(Collectors.toList());
 
-            newUser.setRoles(userRoles);
+        newUser.setRoles(userRoles);
 
-            boolean isDoctor = userRoles.stream().anyMatch(role -> role.getUserRole() == UserRole.DOCTOR);
-             if (isDoctor) {
-                 List<Speciality> userSpecialities = userDto.getSpecialities().stream()
-                         .map(specialityRepository::findByName)
-                         .collect(Collectors.toList());
+        boolean isDoctor = userRoles.stream().anyMatch(role -> role.getUserRole() == UserRole.DOCTOR);
+        if (isDoctor) {
+            List<Speciality> validSpecialities = new ArrayList<>();
+            for (String specialityName : userDto.getSpecialities()) {
+                Speciality speciality = specialityRepository.findByName(specialityName);
+                if (speciality == null) {
+                    speciality = new Speciality();
+                    speciality.setName(specialityName);
+                    speciality = specialityRepository.save(speciality);
+                }
+                validSpecialities.add(speciality);
+            }
 
-                 newUser.setSpecialities(userSpecialities);
-             }else if (userRoles.stream().anyMatch(role -> role.getUserRole() == UserRole.PATIENT)) {
-                 newUser.setSpecialities(new ArrayList<>());
-             }
+            newUser.setSpecialities(validSpecialities);
+        } else if (userRoles.stream().anyMatch(role -> role.getUserRole() == UserRole.PATIENT)) {
+            newUser.setSpecialities(new ArrayList<>());
+        }
+
         userRepository.save(newUser);
         return true;
-
     }
 
    private void validateUserDto(UserDto userDto) throws InvalidUserDataException, RoleException, SpecialityException, DuplicateValueException {
