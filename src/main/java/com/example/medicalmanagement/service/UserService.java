@@ -126,8 +126,11 @@ public class UserService {
         if (userRepository.existsByIdMedicalCard(userDto.getIdMedicalCard())) {
             throw new DuplicateValueException("Duplicate record found for medical card ID.");
         }
-        if (userRepository.existsByEmailOrPhoneNumber(userDto.getEmail(), userDto.getPhoneNumber())) {
-            throw new DuplicateValueException("Duplicate record found for email or phone number.");
+        if (userRepository.existsByPhoneNumber(userDto.getPhoneNumber())) {
+            throw new DuplicateValueException("Duplicate record found for phone number.");
+        }
+        if (userRepository.existsByEmail(userDto.getEmail())) {
+            throw new DuplicateValueException("Duplicate record found for email.");
         }
     }
 
