@@ -1,6 +1,10 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.dto.UserDto;
+import com.example.medicalmanagement.exceptionhandlers.DuplicateValueException;
+import com.example.medicalmanagement.exceptionhandlers.InvalidUserDataException;
+import com.example.medicalmanagement.exceptionhandlers.RoleException;
+import com.example.medicalmanagement.exceptionhandlers.SpecialityException;
 import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
@@ -12,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -71,7 +74,7 @@ public class UserService {
 
         List<Role> userRoles = userDto.getRoles().stream()
                 .map(roleRepository::findByUserRole)
-                .collect(Collectors.toList());
+                .toList();
 
         newUser.setRoles(userRoles);
 
