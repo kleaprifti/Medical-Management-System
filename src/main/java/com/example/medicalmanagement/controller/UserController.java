@@ -5,6 +5,7 @@ import com.example.medicalmanagement.exceptionhandlers.DuplicateValueException;
 import com.example.medicalmanagement.exceptionhandlers.InvalidUserDataException;
 import com.example.medicalmanagement.exceptionhandlers.RoleException;
 import com.example.medicalmanagement.exceptionhandlers.SpecialityException;
+import com.example.medicalmanagement.model.UserRole;
 import com.example.medicalmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,6 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping("/doctors")
-    public List<UserDto> getAllDoctors() {
-        return userService.getAllDoctors();
-    }
-
     @PostMapping("/add")
     public ResponseEntity<String> addUser(@RequestBody UserDto userDto) {
     try {
@@ -39,8 +35,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request.");
     }
     }
-    @GetMapping("/patients")
-    public List<UserDto> getAllPatients(){
-        return userService.getAllPatients();
+
+
+    @GetMapping
+    public List<UserDto> getAllUsersByRole(@RequestParam("userRole") UserRole userRole) {
+        return userService.getAllUsers(userRole);
     }
 }

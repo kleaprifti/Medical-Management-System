@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -29,25 +28,12 @@ public class UserService {
 
     @Autowired
     private RoleRepository roleRepository;
-    public List<UserDto> getAllDoctors() {
-       Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
 
-        return userRepository.findByRolesUserRole(UserRole.DOCTOR,sort)
-            .stream()
-            .filter(user -> user.getRoles()
-                    .stream()
-                    .anyMatch(role -> role.getUserRole() == UserRole.DOCTOR))
-            .map(this::mapToDto)
-            .toList();
-    }
-
-    public List<UserDto>getAllPatients(){
+    public List<UserDto> getAllUsers(UserRole userRole) {
         Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
-        return userRepository.findByRolesUserRole(UserRole.PATIENT,sort)
+
+        return userRepository.findByRolesUserRole(userRole, sort)
                 .stream()
-                .filter(user -> user.getRoles()
-                        .stream()
-                        .anyMatch(role -> role.getUserRole() == UserRole.PATIENT))
                 .map(this::mapToDto)
                 .toList();
     }
@@ -59,6 +45,7 @@ public class UserService {
                     .map(UserNotificationType::getNotificationType)
                     .toList();
         }
+
         boolean emailSent = true;
         return new UserDto(user.getId(), user.getEmail() ,user.getFullName(),
                 user.getBirthDate(),user.getPhoneNumber(), user.getIdMedicalCard() ,
@@ -71,7 +58,6 @@ public class UserService {
                         .map(Speciality::getName)
                         .toList() , emailSent, notificationTypes);
     }
-
 
     public void deleteAllUsers() {
         userRepository.deleteAll();
@@ -88,7 +74,7 @@ public class UserService {
 
         List<Role> userRoles = userDto.getRoles().stream()
                 .map(roleRepository::findByUserRole)
-                .collect(Collectors.toList());
+                .toList();
 
         newUser.setRoles(userRoles);
 

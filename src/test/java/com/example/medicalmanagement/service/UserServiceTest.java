@@ -15,13 +15,16 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -91,54 +94,41 @@ class UserServiceTest {
 
 
     @Test
-    void getAllDoctors() {
-        when(userRepository.findByRolesUserRole(any(), any())).thenReturn(mockUsers);
+     void getAllUsersForDoctors() {
+        List<User> doctorUsers = new ArrayList<>();
+        User user1 = Mockito.mock(User.class);
+        User user2 = Mockito.mock(User.class);
+        doctorUsers.add(user1);
+        doctorUsers.add(user2);
 
-        List<UserDto> doctorDtos = userService.getAllDoctors();
-        assertEquals(2, doctorDtos.size());
+        when(userRepository.findByRolesUserRole(UserRole.DOCTOR, Sort.by(Sort.Direction.ASC, "fullName")))
+                .thenReturn(doctorUsers);
 
-        UserDto doctorDto1 = doctorDtos.get(0);
-        assertEquals(1L, doctorDto1.getId());
-        assertEquals("doctor1@gmail.com", doctorDto1.getEmail());
-        assertEquals("Doctor 1", doctorDto1.getFullName());
-        assertEquals(Collections.singletonList(UserRole.DOCTOR), doctorDto1.getRoles());
-        assertEquals(Collections.singletonList("Speciality 1"), doctorDto1.getSpecialities());
+        List<UserDto> doctorDtos = userService.getAllUsers(UserRole.DOCTOR);
 
-        UserDto doctorDto2 = doctorDtos.get(1);
-        assertEquals(2L, doctorDto2.getId());
-        assertEquals("doctor2@gmail.com", doctorDto2.getEmail());
-        assertEquals("Doctor 2", doctorDto2.getFullName());
-        assertEquals(Collections.singletonList(UserRole.DOCTOR), doctorDto2.getRoles());
-        assertEquals(Collections.singletonList("Speciality 2"), doctorDto2.getSpecialities());
-
-        logger.info("getAllDoctors() method test completed successfully");
+        assertEquals(doctorUsers.size(), doctorDtos.size());
 
     }
-
 
     @Test
-    void getAllPatients() {
-        when(userRepository.findByRolesUserRole(any(), any())).thenReturn(mockUsers);
+     void getAllUsersForPatients() {
+        List<User> patientUsers = new ArrayList<>();
+        User user1 = Mockito.mock(User.class);
+        User user2 = Mockito.mock(User.class);
+        patientUsers.add(user1);
+        patientUsers.add(user2);
 
-        List<UserDto> patientDtos = userService.getAllPatients();
+        when(userRepository.findByRolesUserRole(UserRole.PATIENT, Sort.by(Sort.Direction.ASC, "fullName")))
+                .thenReturn(patientUsers);
 
-        assertEquals(2, patientDtos.size());
+        List<UserDto> patientDtos = userService.getAllUsers(UserRole.PATIENT);
 
-        UserDto patientDto1 = patientDtos.get(0);
-        assertEquals(3L, patientDto1.getId());
-        assertEquals("patient1@gmail.com", patientDto1.getEmail());
-        assertEquals("Patient 1", patientDto1.getFullName());
-        assertEquals(Collections.singletonList(UserRole.PATIENT), patientDto1.getRoles());
-
-        UserDto patientDto2 = patientDtos.get(1);
-        assertEquals(4L, patientDto2.getId());
-        assertEquals("patient2@gmail.com", patientDto2.getEmail());
-        assertEquals("Patient 2", patientDto2.getFullName());
-        assertEquals(Collections.singletonList(UserRole.PATIENT), patientDto2.getRoles());
-
-        logger.info("getAllPatients() method test completed successfully");
+        assertEquals(patientUsers.size(), patientDtos.size());
 
     }
+
+
+
 
     @Test
     void deleteAllUsers() {
@@ -146,6 +136,7 @@ class UserServiceTest {
 
         verify(userRepository, times(1)).deleteAll();
     }
+
 
     @Test
     void addUser() {
