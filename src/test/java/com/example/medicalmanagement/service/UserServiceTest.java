@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -146,35 +147,44 @@ class UserServiceTest {
         verify(userRepository, times(1)).deleteAll();
     }
 
-
     @Test
     void addUser() {
-        UserDto userDto = new UserDto();
-        userDto.setFullName("Dr. Aldo Smith");
-        userDto.setBirthDate(LocalDate.of(1993, 5, 10));
-        userDto.setPhoneNumber("555-123-4567");
-        userDto.setIdMedicalCard("DOC9876543211234");
+        MockitoAnnotations.initMocks(this);
+
+        UserDto userDto = createUserDto();
+
+        Mockito.when(userRepository.existsByIdMedicalCard(anyString())).thenReturn(false);
+        Mockito.when(userRepository.existsByPhoneNumber(anyString())).thenReturn(false);
+        Mockito.when(userRepository.existsByEmail( anyString())).thenReturn(false);
+        Mockito.when(roleRepository.findByUserRole(any(UserRole.class))).thenReturn(createRole());
+        Mockito.when(specialityRepository.findByName(anyString())).thenReturn(createSpeciality());
+
         userDto.setRoles(Collections.singletonList(UserRole.DOCTOR));
         userDto.setSpecialities(Collections.singletonList("Cardiology"));
 
-        Role doctorRole = new Role(UserRole.DOCTOR);
-        when(roleRepository.findByUserRole(UserRole.DOCTOR)).thenReturn(doctorRole);
+        userService.addUser(userDto);
 
-        Speciality cardiologySpeciality = new Speciality("Cardiology");
-        when(specialityRepository.findByName("Cardiology")).thenReturn(cardiologySpeciality);
+        Mockito.verify(userRepository, times(1)).save(any(User.class));
+    }
 
-        when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
-            User savedUser = invocation.getArgument(0);
-            savedUser.setId(1L);
-            return savedUser;
-        });
+    private UserDto createUserDto() {
+        UserDto userDto = new UserDto();
+        userDto.setEmail("aldoshehu@example.com");
+        userDto.setFullName("Aldo Shehu");
+        userDto.setBirthDate(LocalDate.of(1998, 11, 17));
+        userDto.setPhoneNumber("1234567890");
+        userDto.setIdMedicalCard("1234567890123456");
+        userDto.setRoles(Collections.singletonList(UserRole.DOCTOR));
+        return userDto;
+    }
 
-        boolean result = userService.addUser(userDto);
+    private Role createRole() {
+        Role role = new Role();
+        role.setUserRole(UserRole.DOCTOR);
+        return role;
+    }
 
-        assertTrue(result);
-        verify(userRepository).save(any(User.class));
-        verify(roleRepository).findByUserRole(UserRole.DOCTOR);
-        verify(specialityRepository).findByName("Cardiology");
-
-  }
+    private Speciality createSpeciality() {
+        return new Speciality();
+    }
 }

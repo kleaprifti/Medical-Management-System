@@ -1,6 +1,10 @@
 package com.example.medicalmanagement.controller;
 
 import com.example.medicalmanagement.dto.UserDto;
+import com.example.medicalmanagement.exceptionhandlers.DuplicateValueException;
+import com.example.medicalmanagement.exceptionhandlers.InvalidUserDataException;
+import com.example.medicalmanagement.exceptionhandlers.RoleException;
+import com.example.medicalmanagement.exceptionhandlers.SpecialityException;
 import com.example.medicalmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,15 +30,15 @@ public class UserController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addUser(@RequestBody UserDto userDto) {
-        boolean result = userService.addUser(userDto);
-
-        if (result) {
-            return ResponseEntity.ok("User added successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding user");
-        }
+    try {
+        userService.addUser(userDto);
+        return ResponseEntity.ok("User added successfully");
+    } catch (InvalidUserDataException | RoleException | SpecialityException | DuplicateValueException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request.");
     }
-
+    }
     @GetMapping("/patients")
     public List<UserDto> getAllPatients(){
         return userService.getAllPatients();

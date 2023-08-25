@@ -5,37 +5,37 @@ INSERT INTO `medical_management_system`.`role` (`roles`) VALUES ('DOCTOR');
 INSERT INTO `medical_management_system`.`role` (`roles`) VALUES ('PATIENT');
 
 
-#Inser into Users
+#Insert into Users
 
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('sildiricku3@gmail.com', 'Steve Rogers', '4728337482');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('sildiricku3@gmail.com', 'Tony Stark', '8348923612');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('sildiricku3@gmail.com', 'Natasha Romanoff', '92362184');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('sildiricku3@gmail.com', 'Peggy Carter', '547423093');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('sildiricku3@gmail.com', 'Romeisa Aliu', '003834252');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('sildiricku3@gmail.com', 'Klejda Rrapaj', '57239145');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('sildiricku3@gmail.com', 'Sildi Ricku', '93482663');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('kleaprifti21@gmail.com', 'Carlos Sainz', '3627183');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('kleaprifti21@gmail.com', 'Pablus Pabliuus', '57355253');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('kleaprifti21@gmail.com', 'Francesco Totti', '298342184');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('kleaprifti21@gmail.com', 'Matt Smith', '473829742');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('kleaprifti21@gmail.com', 'Wanda Maximoff', '76538291');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('kleaprifti21@gmail.com', 'Max Verstappen', '5738219353');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('kleaprifti21@gmail.com', 'Charles Leclerc', '83728264');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('kleaprifti21@gmail.com', 'Daniel Ricciardo', '8038472');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Sebastian Vettel', '58384734');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Fernando Alonso', '85232244');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Lewis Hamilton', '1234567');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Lando Norris', '85634283');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Carol Denvers', '462827421');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Gamora Quill', '000394821');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Sherlock Holmes', '111482231');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Gregory House', '222333444');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Stephen Strange', '8884443222');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'John Watson', '999323333');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Irene Adler', '0002222111');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'John Smith', '373163982');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'James Moriarty', '32223833');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`, `phone_number`) VALUES ('romeisaaliu1@gmail.com', 'Thanos Lang', '212221114');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Steve Rogers', '1990-05-15', '4728337482', '0837462958176432');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Tony Stark', '1985-09-28', '8348923612', '4536912702841967');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Natasha Romanoff', '1988-07-03', '92362184', '1468295710397256');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Peggy Carter', '1982-11-20', '547423093', '3208941659278413');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Romeisa Aliu', '1995-04-10', '003834252', '5736489215649132');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Klejda Rrapaj', '1998-12-07', '57239145', '7904825613249051');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Sildi Ricku', '1992-02-25', '93482663', '8695472134059328');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Carlos Sainz', '1993-08-30', '3627183', '2654389710296548');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Pablus Pabliuus', '1997-06-14', '57355253', '7641852093765412');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Francesco Totti', '1989-03-07', '298342184', '9385721465029164');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Matt Smith','1987-01-12', '473829742', '4591783426138956');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Wanda Maximoff','1991-10-02', '76538291', '6329485107945308');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Max Verstappen', '1994-09-20', '5738219353', '8150246794832169');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Charles Leclerc','1998-06-23', '83728264', '1374298658102397');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Daniel Ricciardo', '1990-07-29', '8038472', '2480935467102834');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Sebastian Vettel', '1993-04-17', '58384734', '7946210385627104');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Fernando Alonso', '1986-02-06', '85232244', '9052638174612957');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Lewis Hamilton', '1984-08-14', '1234567', '4728135960847623');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Lando Norris', '1999-11-13', '85634283', '6514907328465201');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Carol Denvers', '1996-12-25', '462827421', '8243156789024175');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Gamora Quill', '1983-05-01', '000394821', '1657432987815023');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Sherlock Holmes', '1978-09-09', '111482231', '3298174650281796');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Gregory House', '1975-11-11', '222333444', '5021948317562049');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Stephen Strange', '1980-01-03', '8884443222', '7865123490671345');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'John Watson', '1997-07-18', '999323333', '9362107542815637');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Irene Adler','1991-03-27', '0002222111', '4103985274618392');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'John Smith', '1988-10-08', '373163982', '6820493715269301');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'James Moriarty','1977-12-22', '32223833', '9574032168213496');
+INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Thanos Lang', '1971-06-28', '212221114', '1068294157832049');
 
 
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '4728337482'),(SELECT id FROM role WHERE roles = 'PATIENT'));
