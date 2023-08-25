@@ -48,48 +48,6 @@ class UserServiceTest {
 
     @BeforeEach
     public void setup() {
-        Speciality speciality1 = new Speciality(1L,  "Speciality 1", null);
-        Speciality speciality2 = new Speciality(2L,  "Speciality 2",null);
-        Role role = new Role();
-        role.setUserRole(UserRole.DOCTOR);
-        Role role1 = new Role();
-        role1.setUserRole(UserRole.PATIENT);
-        UserNotificationType userNotificationType = new UserNotificationType();
-        userNotificationType.setNotificationType(NotificationType.WHATSAPP);
-
-        User user1 = new User();
-        user1.setId(1L);
-        user1.setEmail("doctor1@gmail.com");
-        user1.setFullName("Doctor 1");
-        user1.setRoles(Collections.singletonList(role));
-        user1.setSpecialities(Collections.singletonList(speciality1));
-        user1.setNotificationTypes(Collections.singletonList(userNotificationType));
-
-        User user2 = new User();
-        user2.setId(2L);
-        user2.setEmail("doctor2@gmail.com");
-        user2.setFullName("Doctor 2");
-        user2.setRoles(Collections.singletonList(role));
-        user2.setSpecialities(Collections.singletonList(speciality2));
-        user2.setNotificationTypes(Collections.singletonList(userNotificationType));
-
-        User user3 = new User();
-        user3.setId(3L);
-        user3.setEmail("patient1@gmail.com");
-        user3.setFullName("Patient 1");
-        user3.setRoles(Collections.singletonList(role1));
-        user3.setSpecialities(Collections.singletonList(speciality2));
-        user3.setNotificationTypes(Collections.singletonList(userNotificationType));
-
-        User user4 = new User();
-        user4.setId(4L);
-        user4.setEmail("patient2@gmail.com");
-        user4.setFullName("Patient 2");
-        user4.setRoles(Collections.singletonList(role1));
-        user4.setSpecialities(Collections.singletonList(speciality2));
-        user4.setNotificationTypes(Collections.singletonList(userNotificationType));
-
-        mockUsers = Arrays.asList(user1, user2, user3, user4);
     }
 
 
