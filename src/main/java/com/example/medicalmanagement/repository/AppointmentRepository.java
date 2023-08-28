@@ -15,7 +15,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     List<Appointment> findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(Long  doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
-    @Query("SELECT a FROM Appointment a WHERE (a.patient.Id= :patientId OR a.doctor.Id = :doctorId) AND" +
+    @Query("SELECT a FROM Appointment a WHERE (a.patient.id= :patientId OR a.doctor.id = :doctorId) AND" +
             "((a.appointmentDateStartTime < :endDateTime AND a.appointmentDateEndTime > :startDateTime) OR " +
             "(a.appointmentDateStartTime >= :startDateTime AND a.appointmentDateStartTime < :endDateTime) OR " +
             "(a.appointmentDateEndTime > :startDateTime AND a.appointmentDateEndTime <= :endDateTime))")
@@ -31,9 +31,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     List<Appointment> findByDoctorId(Long doctorId);
 
-    @Query("SELECT a FROM Appointment a WHERE a.doctor.Id = :doctorId AND a.appointmentDateStartTime >= :currentDateTime AND a.appointmentDateStartTime < :next24HoursDateTime")
+    @Query("SELECT a FROM Appointment a WHERE a.doctor.id = :doctorId AND a.appointmentDateStartTime >= :currentDateTime AND a.appointmentDateStartTime < :next24HoursDateTime")
     List<Appointment> findNext24HoursAppointments(@Param("doctorId") Long doctorId, @Param("currentDateTime") LocalDateTime currentDateTime, @Param("next24HoursDateTime") LocalDateTime next24HoursDateTime);
     void deleteById(Long appointmentId);
 
-
+    List<Appointment> findByPatientId(Long patientId);
 }
