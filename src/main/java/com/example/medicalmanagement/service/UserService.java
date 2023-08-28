@@ -31,11 +31,12 @@ public class UserService {
 
     public List<UserDto> getAllUsers(UserRole userRole) {
         Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
-
-        return userRepository.findByRolesUserRole(userRole, sort)
-                .stream()
-                .map(this::mapToDto)
-                .toList();
+        if (userRole != null) {
+            return userRepository.findByRolesUserRole(userRole, sort)
+                    .stream()
+                    .map(this::mapToDto)
+                    .toList();
+        }else return userRepository.findAll(sort).stream().map(this::mapToDto).toList();
     }
 
     public UserDto mapToDto(User user) {
@@ -47,8 +48,8 @@ public class UserService {
         }
 
         boolean emailSent = true;
-        return new UserDto(user.getId(), user.getEmail() ,user.getFullName(),
-                user.getBirthDate(),user.getPhoneNumber(), user.getIdMedicalCard() ,
+        return new UserDto(user.getId(), user.getEmail(), user.getFullName(),
+                user.getBirthDate(), user.getPhoneNumber(), user.getIdMedicalCard(),
                 user.getRoles()
                         .stream()
                         .map(Role::getUserRole)
@@ -56,7 +57,7 @@ public class UserService {
                 user.getSpecialities()
                         .stream()
                         .map(Speciality::getName)
-                        .toList() , emailSent, notificationTypes);
+                        .toList(), emailSent, notificationTypes);
     }
 
     public void deleteAllUsers() {
@@ -100,12 +101,12 @@ public class UserService {
         return true;
     }
 
-   private void validateUserDto(UserDto userDto) throws InvalidUserDataException, RoleException, SpecialityException, DuplicateValueException {
-    validateDuplicateValues(userDto);
-    validateRequiredFields(userDto);
-    validateBirthDate(userDto);
-    validateMedicalCardId(userDto);
-    validateUserRolesAndSpecialities(userDto);
+    private void validateUserDto(UserDto userDto) throws InvalidUserDataException, RoleException, SpecialityException, DuplicateValueException {
+        validateDuplicateValues(userDto);
+        validateRequiredFields(userDto);
+        validateBirthDate(userDto);
+        validateMedicalCardId(userDto);
+        validateUserRolesAndSpecialities(userDto);
     }
 
     private void validateDuplicateValues(UserDto userDto) throws DuplicateValueException {

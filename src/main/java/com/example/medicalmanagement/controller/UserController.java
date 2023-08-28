@@ -38,7 +38,7 @@ public class UserController {
 
 
     @GetMapping
-    public List<UserDto> getAllUsersByRole(@RequestParam("userRole") UserRole userRole) {
+    public List<UserDto> getAllUsersByRole(@RequestParam(value = "userRole", required = false) UserRole userRole) {
         return userService.getAllUsers(userRole);
     }
 }
