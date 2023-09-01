@@ -1,12 +1,10 @@
 package com.example.medicalmanagement.dto;
 
+import com.example.medicalmanagement.model.ContactInfo;
 import com.example.medicalmanagement.model.NotificationType;
 import com.example.medicalmanagement.model.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,14 +14,15 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class UserDto {
 
     private Long id;
-    private String email;
     private String fullName;
+
     private LocalDate birthDate;
-    private String phoneNumber;
     private String idMedicalCard;
+    private ContactInfo contactInfo;
 
     @JsonIgnore
     private List<UserRole> roles;
@@ -38,16 +37,17 @@ public class UserDto {
     private List<NotificationType> notificationTypes;
 
 
-    public UserDto(Long id, String email, String fullName,LocalDate birthDate, String phoneNumber, String idMedicalCard, List<UserRole> roles, List<String> specialities, List<NotificationType> notificationTypes) {
+
+    public UserDto(Long id, String fullName,LocalDate birthDate,String idMedicalCard, ContactInfo contactInfo,List<UserRole> roles, List<String> specialities, List<NotificationType> notificationTypes) {
         this.id = id;
-        this.email = email;
         this.fullName = fullName;
         this.birthDate = birthDate;
-        this.phoneNumber = phoneNumber;
         this.idMedicalCard = idMedicalCard;
+        this.contactInfo = contactInfo;
         this.roles = roles;
         this.specialities = specialities;
         this.notificationTypes = notificationTypes;
     }
+
 
 }

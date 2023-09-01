@@ -94,3 +94,7 @@ INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_ti
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-07-28 12:45:00', '2023-07-28 11:45:00', (SELECT id FROM users WHERE full_name='Stephen Strange') ,(SELECT id FROM users WHERE phone_number = '93482663'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-08-18 13:10:00', '2023-08-18 12:10:00', (SELECT id FROM users WHERE full_name='Stephen Strange') ,(SELECT id FROM users WHERE phone_number = '3627183'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-08-18 16:00:00', '2023-08-18 15:00:00', (SELECT id FROM users WHERE full_name='Stephen Strange') ,(SELECT id FROM users WHERE phone_number = '57355253'));
+
+
+INSERT INTO `medical_management_system`.`contact_info` ( `email`, `phone_number`, `slack_username`) VALUES ('romeisaaliu@gmail.com', '4728337482', 'romeisal');
+INSERT INTO `medical_management_system`.`contact_info` ( `email`, `phone_number`, `slack_username`) VALUES ( 'sildiricku@gmail.com', '8348923612', 'sildiR');

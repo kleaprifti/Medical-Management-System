@@ -55,8 +55,11 @@ public class UserService {
                     .map(UserNotificationType::getNotificationType)
                     .toList();
         }
-        return new UserDto(user.getId(), user.getEmail() ,user.getFullName(),
-                user.getBirthDate(),user.getPhoneNumber(), user.getIdMedicalCard(),
+
+        return new UserDto(user.getId(),user.getFullName(),
+                user.getBirthDate(),
+                user.getIdMedicalCard(),
+                user.getContactInfo(),
                 user.getRoles()
                         .stream()
                         .map(Role::getUserRole)
@@ -80,7 +83,7 @@ public class UserService {
             User newUser = new User();
             newUser.setFullName(userDto.getFullName());
             newUser.setBirthDate(userDto.getBirthDate());
-            newUser.setPhoneNumber(userDto.getPhoneNumber());
+            newUser.setContactInfo(userDto.getContactInfo());
             newUser.setIdMedicalCard(userDto.getIdMedicalCard());
 
             List<Role> userRoles = userDto.getRoles().stream()
@@ -112,7 +115,7 @@ public class UserService {
 
         if (userDto.getFullName() == null || userDto.getFullName().isEmpty() ||
                 userDto.getBirthDate() == null || userDto.getBirthDate().isAfter(LocalDate.now()) ||
-                userDto.getPhoneNumber() == null || userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty() || userDto.getIdMedicalCard().length() != 16 ||
+                userDto.getContactInfo().getPhoneNumber() == null || userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty() || userDto.getIdMedicalCard().length() != 16 ||
                 userDto.getRoles() == null || userDto.getRoles().isEmpty()) {
             return false;
         }
