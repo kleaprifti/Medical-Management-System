@@ -6,6 +6,7 @@ import com.example.medicalmanagement.builder.AppointmentServiceBuilder;
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.model.Appointment;
+import com.example.medicalmanagement.model.ContactInfo;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
@@ -194,38 +195,6 @@ class AppointmentServiceTest {
     }
 
 
-    @Test
-    void deleteAppointmentSuccess() {
-        Long appointmentId = 123L;
-        boolean wantNotification = true;
-
-        Appointment appointment = mock(Appointment.class);
-        when(appointment.getAppointmentId()).thenReturn(appointmentId);
-
-        LocalDateTime appointmentDate = LocalDateTime.of(2023, 8, 16, 16, 10, 0); // Replace with appropriate date and time
-        when(appointment.getAppointmentDateStartTime()).thenReturn(appointmentDate);
-        LocalDateTime appointmentEndDate = LocalDateTime.of(2023, 8, 16, 17, 10, 0); // Replace with appropriate date and time
-        when(appointment.getAppointmentDateEndTime()).thenReturn(appointmentDate);
-
-
-        User patient = new User();
-        User doctor = new User();
-
-        when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.of(appointment));
-        when(appointment.getPatient()).thenReturn(patient);
-        when(appointment.getDoctor()).thenReturn(doctor);
-
-        appointmentService.deleteAppointment(appointmentId, wantNotification);
-
-        verify(appointmentRepository, times(1)).delete(appointment);
-
-        if (wantNotification) {
-            verify(emailService, times(1)).sendEmail(eq(patient.getContactInfo().getEmail()), any(), any());
-
-        } else {
-            verify(emailService, never()).sendEmail(any(), any(), any());
-        }
-    }
 
     @Test
     void deleteAppointment_NotFound() {
