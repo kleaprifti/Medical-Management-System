@@ -43,6 +43,11 @@ public class AppointmentController {
         appointmentService.deleteAppointment(appointmentId,wantNotification);
         return ResponseEntity.ok().build();
     }
+    @GetMapping("/patient/{patientId}")
+    public ResponseEntity<Set<AppointmentDto>> getAppointmentsForPatient(@PathVariable Long patientId) {
+        Set<AppointmentDto> appointments = appointmentService.getAppointmentsForPatient(patientId);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
+    }
 }
 
 

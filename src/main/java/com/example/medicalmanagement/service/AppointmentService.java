@@ -96,5 +96,19 @@ public class AppointmentService {
 
         }
     }
+    public Set<AppointmentDto> getAppointmentsForPatient(Long patientId) {
+        Optional<User> patient = userRepository.findById(patientId);
+        if (patient.isEmpty()) {
+            throw new NotFoundException("Patient with ID " + patientId + " was not found");
+        }
 
+        List<Appointment> patientAppointments = appointmentRepository.findByPatientId(patientId);
+        if (patientAppointments.isEmpty()) {
+            throw new NotFoundException("This patient has no appointments");
+        }
+
+        return patientAppointments.stream()
+                .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
+                .collect(Collectors.toSet());
+    }
 }
