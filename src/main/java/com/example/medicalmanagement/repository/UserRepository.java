@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
         List<User> findByRolesUserRole(UserRole role, Sort sort);
         boolean existsByIdMedicalCard(String idMedicalCard);
-        boolean existsByEmail(String email);
-        boolean existsByPhoneNumber(String phoneNumber);
+        boolean existsByContactInfo_Email(String email);
+        boolean existsByContactInfo_PhoneNumber(String phoneNumber);
 
 }

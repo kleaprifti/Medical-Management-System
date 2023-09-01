@@ -1,5 +1,6 @@
 package com.example.medicalmanagement.dto;
 
+import com.example.medicalmanagement.model.ContactInfo;
 import com.example.medicalmanagement.model.NotificationType;
 import com.example.medicalmanagement.model.UserRole;
 import lombok.AllArgsConstructor;
@@ -18,18 +19,13 @@ import java.util.List;
 public class UserDto {
 
     private Long id;
-    private String email;
     private String fullName;
     private LocalDate birthDate;
-    private String phoneNumber;
     private String idMedicalCard;
-
+    private ContactInfo contactInfo;
     private List<UserRole> roles;
-
     private List<String> specialities;
-
     private boolean emailSent;
-
     private List<NotificationType> notificationTypes;
 
 }

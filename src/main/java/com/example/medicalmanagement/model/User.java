@@ -21,17 +21,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    @Column(name = "email",nullable = false)
-    private String email;
-
     @Column(name = "full_name",nullable = false)
     private String fullName;
 
     @Column(name = "birth_date",nullable = false)
     private LocalDate birthDate;
-
-    @Column(name = "phone_number",nullable = false, unique = true)
-    private String phoneNumber;
 
     @Column(name = "id_medicalCard", nullable = false,unique = true)
     private String idMedicalCard;
@@ -55,4 +49,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "notification_id")
     )
     private List<UserNotificationType> notificationTypes;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_info_id")
+    private ContactInfo contactInfo;
+
 }
