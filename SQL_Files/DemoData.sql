@@ -229,26 +229,26 @@ VALUES ((SELECT id FROM users WHERE full_name = 'Stephen Strange'),
 
 #Insert into Appointments
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`)
-    VALUES ('2023-07-28 10:00:00', '2023-07-28 09:00:00', (SELECT id FROM users WHERE full_name='Charles Leclerc') ,(SELECT id FROM users WHERE id_medical_card = '0837462958176432'));
+    VALUES ('2023-07-28 10:00:00', '2023-07-28 09:00:00', (SELECT id FROM users WHERE full_name='Daniel Ricciardo') ,(SELECT id FROM users WHERE id_medical_card = '0837462958176432'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-07-30 12:00:00', '2023-07-30 11:00:00', (SELECT id FROM users WHERE full_name = 'Charles Leclerc'),
+VALUES ('2023-07-30 12:00:00', '2023-07-30 11:00:00', (SELECT id FROM users WHERE full_name = 'Daniel Ricciardo'),
         (SELECT id FROM users WHERE id_medical_card = '4536912702841967'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-08-13 14:00:00', '2023-08-13 13:00:00', (SELECT id FROM users WHERE full_name = 'Charles Leclerc'),
+VALUES ('2023-08-13 14:00:00', '2023-08-13 13:00:00', (SELECT id FROM users WHERE full_name = 'Daniel Ricciardo'),
         (SELECT id FROM users WHERE id_medical_card = '1468295710397256'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-07-29 16:00:00', '2023-07-29 15:00:00', (SELECT id FROM users WHERE full_name = 'Gregory House'),
+VALUES ('2023-07-29 16:00:00', '2023-07-29 15:00:00', (SELECT id FROM users WHERE full_name = 'John Watson'),
         (SELECT id FROM users WHERE id_medical_card = '3208941659278413'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-07-27 18:00:00', '2023-07-27 17:00:00', (SELECT id FROM users WHERE full_name = 'Gregory House'),
+VALUES ('2023-07-27 18:00:00', '2023-07-27 17:00:00', (SELECT id FROM users WHERE full_name = 'John Watson'),
         (SELECT id FROM users WHERE id_medical_card = '5736489215649132'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-08-08 11:30:00', '2023-08-08 10:30:00', (SELECT id FROM users WHERE full_name = 'Gregory House'),
+VALUES ('2023-08-08 11:30:00', '2023-08-08 10:30:00', (SELECT id FROM users WHERE full_name = 'John Watson'),
         (SELECT id FROM users WHERE id_medical_card = '7904825613249051'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
