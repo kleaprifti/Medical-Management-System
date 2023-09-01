@@ -138,6 +138,7 @@
 						<exclude>**/exceptionhandlers/**</exclude>
 						<exclude>**/model/**</exclude>
 						<exclude>**/dto/**</exclude>
+						<exclude>**/helpers/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
