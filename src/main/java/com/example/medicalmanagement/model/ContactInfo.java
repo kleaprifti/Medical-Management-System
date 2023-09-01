@@ -25,7 +25,7 @@ public class ContactInfo {
     @Column(name = "phone_number",nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "Slack_Username", unique = true)
+    @Column(name = "slack_Username", unique = true)
     private String slackUserName ;
 
     @OneToOne(mappedBy = "contactInfo")

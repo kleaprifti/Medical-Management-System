@@ -1,105 +1,265 @@
-use medical_management_system;
+use
+medical_management_system;
 #Insert into Role
 
 INSERT INTO `medical_management_system`.`role` (`roles`) VALUES ('DOCTOR');
 INSERT INTO `medical_management_system`.`role` (`roles`) VALUES ('PATIENT');
 
+#INSERT into contact_info
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('sildiricku3@gmail.com', '123-456-7890', 's1');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('sildiricku3@gmail.com', '123-456-7891', 's2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('sildiricku3@gmail.com', '123-456-7892', 's3');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('sildiricku3@gmail.com', '123-456-7893', 's4');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('sildiricku3@gmail.com', '123-456-7894', 's5');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('sildiricku3@gmail.com', '123-456-7895', 's6');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('sildiricku3@gmail.com', '123-456-7896', 's7');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('sildiricku3@gmail.com', '123-456-7897', 's8');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('sildiricku3@gmail.com', '123-456-7898', 's9');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-7899', 's10');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-78910', 's11');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-78911', 's12');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-78912', 's13');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-78913', 's14');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-78914', 's15');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-78915', 's16');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-78916', 's17');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-78917', 's18');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('kleaprifti21@gmail.com', '123-456-78918', 's19');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78919', 's20');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78920', 's21');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78921', 's22');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78922', 's23');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78923', 's24');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78924', 's25');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78925', 's26');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78926', 's27');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78927', 's28');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78928', 's29');
+
 
 #Insert into Users
+INSERT INTO `medical_management_system`.`users` ( `birth_date`,`full_name`,`id_medical_card`,`contact_info_id`) VALUES ( '1990-05-15','Steve Rogers',  '0837462958176432',(SELECT id FROM contact_info WHERE slack_username = 's1'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1985-09-28', 'Tony Stark', '4536912702841967',(SELECT id FROM contact_info WHERE slack_username = 's2'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1988-07-03', 'Natasha Romanoff', '1468295710397256',(SELECT id FROM contact_info WHERE slack_username = 's3'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1982-11-20', 'Peggy Carter', '3208941659278413',(SELECT id FROM contact_info WHERE slack_username = 's4'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1995-04-10', 'Romeisa Aliu', '5736489215649132',(SELECT id FROM contact_info WHERE slack_username = 's5'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1998-12-07', 'Klejda Rrapaj', '7904825613249051',(SELECT id FROM contact_info WHERE slack_username = 's6'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1992-02-25', 'Sildi Ricku', '8695472134059328',(SELECT id FROM contact_info WHERE slack_username = 's7'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1993-08-30', 'Carlos Sainz', '2654389710296548',(SELECT id FROM contact_info WHERE slack_username = 's8'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1997-06-14', 'Pablus Pabliuus', '7641852093765412',(SELECT id FROM contact_info WHERE slack_username = 's9'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1989-03-07', 'Francesco Totti', '9385721465029164',(SELECT id FROM contact_info WHERE slack_username = 's10'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1987-01-12', 'Matt Smith', '4591783426138956',(SELECT id FROM contact_info WHERE slack_username = 's11'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1991-10-02', 'Wanda Maximoff', '6329485107945308',(SELECT id FROM contact_info WHERE slack_username = 's12'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1994-09-20', 'Max Verstappen', '8150246794832169',(SELECT id FROM contact_info WHERE slack_username = 's13'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1998-06-23', 'Charles Leclerc', '1374298658102397',(SELECT id FROM contact_info WHERE slack_username = 's14'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1990-07-29', 'Daniel Ricciardo', '2480935467102834',(SELECT id FROM contact_info WHERE slack_username = 's15'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1993-04-17', 'Sebastian Vettel', '7946210385627104',(SELECT id FROM contact_info WHERE slack_username = 's16'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1986-02-06', 'Fernando Alonso', '9052638174612957',(SELECT id FROM contact_info WHERE slack_username = 's17'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1984-08-14', 'Lewis Hamilton', '4728135960847623',(SELECT id FROM contact_info WHERE slack_username = 's18'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1999-11-13', 'Lando Norris', '6514907328465201',(SELECT id FROM contact_info WHERE slack_username = 's19'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1996-12-25', 'Carol Denvers', '8243156789024175',(SELECT id FROM contact_info WHERE slack_username = 's20'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1983-05-01', 'Gamora Quill', '1657432987815023',(SELECT id FROM contact_info WHERE slack_username = 's21'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1978-09-09', 'Sherlock Holmes', '3298174650281796',(SELECT id FROM contact_info WHERE slack_username = 's22'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1975-11-11', 'Gregory House', '5021948317562049',(SELECT id FROM contact_info WHERE slack_username = 's23'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1980-01-03', 'Stephen Strange', '7865123490671345',(SELECT id FROM contact_info WHERE slack_username = 's24'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1997-07-18', 'John Watson', '9362107542815637',(SELECT id FROM contact_info WHERE slack_username = 's25'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1991-03-27', 'Irene Adler', '4103985274618392',(SELECT id FROM contact_info WHERE slack_username = 's26'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1988-10-08', 'John Smith', '6820493715269301',(SELECT id FROM contact_info WHERE slack_username = 's27'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1977-12-22', 'James Moriarty', '9574032168213496',(SELECT id FROM contact_info WHERE slack_username = 's28'));
+INSERT INTO `medical_management_system`.`users` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
+VALUES ('1971-06-28', 'Thanos Lang', '1068294157832049',(SELECT id FROM contact_info WHERE slack_username = 's29'));
 
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Steve Rogers', '1990-05-15', '4728337482', '0837462958176432');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Tony Stark', '1985-09-28', '8348923612', '4536912702841967');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Natasha Romanoff', '1988-07-03', '92362184', '1468295710397256');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Peggy Carter', '1982-11-20', '547423093', '3208941659278413');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Romeisa Aliu', '1995-04-10', '003834252', '5736489215649132');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Klejda Rrapaj', '1998-12-07', '57239145', '7904825613249051');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('sildiricku3@gmail.com', 'Sildi Ricku', '1992-02-25', '93482663', '8695472134059328');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Carlos Sainz', '1993-08-30', '3627183', '2654389710296548');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Pablus Pabliuus', '1997-06-14', '57355253', '7641852093765412');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Francesco Totti', '1989-03-07', '298342184', '9385721465029164');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Matt Smith','1987-01-12', '473829742', '4591783426138956');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Wanda Maximoff','1991-10-02', '76538291', '6329485107945308');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Max Verstappen', '1994-09-20', '5738219353', '8150246794832169');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Charles Leclerc','1998-06-23', '83728264', '1374298658102397');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('kleaprifti21@gmail.com', 'Daniel Ricciardo', '1990-07-29', '8038472', '2480935467102834');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Sebastian Vettel', '1993-04-17', '58384734', '7946210385627104');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Fernando Alonso', '1986-02-06', '85232244', '9052638174612957');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Lewis Hamilton', '1984-08-14', '1234567', '4728135960847623');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Lando Norris', '1999-11-13', '85634283', '6514907328465201');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Carol Denvers', '1996-12-25', '462827421', '8243156789024175');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Gamora Quill', '1983-05-01', '000394821', '1657432987815023');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Sherlock Holmes', '1978-09-09', '111482231', '3298174650281796');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Gregory House', '1975-11-11', '222333444', '5021948317562049');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Stephen Strange', '1980-01-03', '8884443222', '7865123490671345');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'John Watson', '1997-07-18', '999323333', '9362107542815637');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Irene Adler','1991-03-27', '0002222111', '4103985274618392');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'John Smith', '1988-10-08', '373163982', '6820493715269301');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'James Moriarty','1977-12-22', '32223833', '9574032168213496');
-INSERT INTO `medical_management_system`.`users` ( `email`, `full_name`,`birth_date`, `phone_number`,`id_medical_card`) VALUES ('romeisaaliu1@gmail.com', 'Thanos Lang', '1971-06-28', '212221114', '1068294157832049');
+#Assign role to user
 
-
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '4728337482'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '8348923612'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '92362184'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '547423093'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '003834252'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '57239145'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '93482663'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '3627183'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '57355253'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '298342184'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '473829742'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '76538291'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '5738219353'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '83728264'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '83728264'),(SELECT id FROM role WHERE roles = 'DOCTOR'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '8038472'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '58384734'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '85232244'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '1234567'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '85634283'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '462827421'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '000394821'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '111482231'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '222333444'),(SELECT id FROM role WHERE roles = 'DOCTOR'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '8884443222'),(SELECT id FROM role WHERE roles = 'DOCTOR'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '999323333'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '0002222111'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '373163982'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '32223833'),(SELECT id FROM role WHERE roles = 'PATIENT'));
-INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`) VALUES ((SELECT id FROM users WHERE phone_number = '212221114'),(SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '0837462958176432'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '4536912702841967'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '1468295710397256'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '3208941659278413'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '5736489215649132'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '7904825613249051'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '8695472134059328'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '2654389710296548'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '7641852093765412'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '9385721465029164'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '4591783426138956'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '6329485107945308'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '8150246794832169'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '1374298658102397'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '2480935467102834'), (SELECT id FROM role WHERE roles = 'DOCTOR'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '7946210385627104'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '9052638174612957'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '4728135960847623'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '6514907328465201'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '8243156789024175'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '1657432987815023'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '3298174650281796'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '5021948317562049'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '7865123490671345'), (SELECT id FROM role WHERE roles = 'DOCTOR'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '9362107542815637'), (SELECT id FROM role WHERE roles = 'DOCTOR'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '4103985274618392'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '6820493715269301'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '9574032168213496'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
+VALUES ((SELECT id FROM users WHERE id_medical_card = '1068294157832049'), (SELECT id FROM role WHERE roles = 'PATIENT'));
 
 #Insert into speciality
 INSERT INTO `medical_management_system`.`speciality` (`name`) VALUES ('General');
-INSERT INTO `medical_management_system`.`speciality` (`name`) VALUES ('Pediatrican');
-INSERT INTO `medical_management_system`.`speciality` (`name`) VALUES ('Cardiology');
+INSERT INTO `medical_management_system`.`speciality` (`name`)
+VALUES ('Pediatrican');
+INSERT INTO `medical_management_system`.`speciality` (`name`)
+VALUES ('Cardiology');
 
 #Insert into user_speciality
 
 INSERT INTO `medical_management_system`.`user_speciality` (`user_id`, `speciality_id`) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'),(SELECT id FROM speciality WHERE name = 'General'));
-INSERT INTO `medical_management_system`.`user_speciality` (`user_id`, `speciality_id`) VALUES ((SELECT id FROM users WHERE full_name='Gregory House'),(SELECT id FROM speciality WHERE  name = 'Pediatrican'));
-INSERT INTO `medical_management_system`.`user_speciality` (`user_id`, `speciality_id`) VALUES ((SELECT id FROM users WHERE full_name='Stephen Strange'),(SELECT id FROM speciality WHERE name = 'Cardiology'));
+INSERT INTO `medical_management_system`.`user_speciality` (`user_id`, `speciality_id`)
+VALUES ((SELECT id FROM users WHERE full_name = 'Gregory House'),
+        (SELECT id FROM speciality WHERE name = 'Pediatrican'));
+INSERT INTO `medical_management_system`.`user_speciality` (`user_id`, `speciality_id`)
+VALUES ((SELECT id FROM users WHERE full_name = 'Stephen Strange'),
+        (SELECT id FROM speciality WHERE name = 'Cardiology'));
 
 
 #Insert into Notification Type
 INSERT INTO `medical_management_system`.`user_notification_type` (`notification_type`) VALUES ('WHATSAPP');
-INSERT INTO `medical_management_system`.`user_notification_type` (`notification_type`) VALUES ('EMAIL');
-INSERT INTO `medical_management_system`.`user_notification_type` (`notification_type`) VALUES ('SLACK');
+INSERT INTO `medical_management_system`.`user_notification_type` (`notification_type`)
+VALUES ('EMAIL');
+INSERT INTO `medical_management_system`.`user_notification_type` (`notification_type`)
+VALUES ('SLACK');
+
 #Map User notification preference to user
 INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'),(SELECT notification_id FROM user_notification_type WHERE notification_type = 'WHATSAPP'));
-INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'),(SELECT notification_id FROM user_notification_type WHERE notification_type = 'EMAIL'));
-INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`) VALUES ((SELECT id FROM users WHERE full_name='Gregory House'),(SELECT notification_id FROM user_notification_type WHERE notification_type = 'EMAIL'));
-INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`) VALUES ((SELECT id FROM users WHERE full_name='Stephen Strange'),(SELECT notification_id FROM user_notification_type WHERE notification_type = 'SLACK'));
-INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`) VALUES ((SELECT id FROM users WHERE full_name='Stephen Strange'),(SELECT notification_id FROM user_notification_type WHERE notification_type = 'EMAIL'));
+INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`)
+VALUES ((SELECT id FROM users WHERE full_name = 'Daniel Ricciardo'),
+        (SELECT notification_id FROM user_notification_type WHERE notification_type = 'EMAIL'));
+INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`)
+VALUES ((SELECT id FROM users WHERE full_name = 'John Watson'),
+        (SELECT notification_id FROM user_notification_type WHERE notification_type = 'EMAIL'));
+INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`)
+VALUES ((SELECT id FROM users WHERE full_name = 'Stephen Strange'),
+        (SELECT notification_id FROM user_notification_type WHERE notification_type = 'SLACK'));
+INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`)
+VALUES ((SELECT id FROM users WHERE full_name = 'Stephen Strange'),
+        (SELECT notification_id FROM user_notification_type WHERE notification_type = 'EMAIL'));
 
 
-# Insert into Appointments
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-07-28 10:00:00', '2023-07-28 09:00:00', (SELECT id FROM users WHERE full_name='Charles Leclerc') ,(SELECT id FROM users WHERE phone_number = '4728337482'));
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-07-30 12:00:00', '2023-07-30 11:00:00', (SELECT id FROM users WHERE full_name='Charles Leclerc') ,(SELECT id FROM users WHERE phone_number = '8348923612'));
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-08-13 14:00:00', '2023-08-13 13:00:00', (SELECT id FROM users WHERE full_name='Charles Leclerc') ,(SELECT id FROM users WHERE phone_number = '92362184'));
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-07-29 16:00:00', '2023-07-29 15:00:00', (SELECT id FROM users WHERE full_name='Gregory House') ,(SELECT id FROM users WHERE phone_number = '547423093'));
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-07-27 18:00:00', '2023-07-27 17:00:00', (SELECT id FROM users WHERE full_name='Gregory House') ,(SELECT id FROM users WHERE phone_number = '003834252'));
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-08-08 11:30:00', '2023-08-08 10:30:00', (SELECT id FROM users WHERE full_name='Gregory House') ,(SELECT id FROM users WHERE phone_number = '57239145'));
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-07-28 12:45:00', '2023-07-28 11:45:00', (SELECT id FROM users WHERE full_name='Stephen Strange') ,(SELECT id FROM users WHERE phone_number = '93482663'));
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-08-18 13:10:00', '2023-08-18 12:10:00', (SELECT id FROM users WHERE full_name='Stephen Strange') ,(SELECT id FROM users WHERE phone_number = '3627183'));
-INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`) VALUES ('2023-08-18 16:00:00', '2023-08-18 15:00:00', (SELECT id FROM users WHERE full_name='Stephen Strange') ,(SELECT id FROM users WHERE phone_number = '57355253'));
+#Insert into Appointments
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`)
+    VALUES ('2023-07-28 10:00:00', '2023-07-28 09:00:00', (SELECT id FROM users WHERE full_name='Charles Leclerc') ,(SELECT id FROM users WHERE id_medical_card = '0837462958176432'));
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
+                                                        `doctor_id`, `patient_id`)
+VALUES ('2023-07-30 12:00:00', '2023-07-30 11:00:00', (SELECT id FROM users WHERE full_name = 'Charles Leclerc'),
+        (SELECT id FROM users WHERE id_medical_card = '4536912702841967'));
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
+                                                        `doctor_id`, `patient_id`)
+VALUES ('2023-08-13 14:00:00', '2023-08-13 13:00:00', (SELECT id FROM users WHERE full_name = 'Charles Leclerc'),
+        (SELECT id FROM users WHERE id_medical_card = '1468295710397256'));
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
+                                                        `doctor_id`, `patient_id`)
+VALUES ('2023-07-29 16:00:00', '2023-07-29 15:00:00', (SELECT id FROM users WHERE full_name = 'Gregory House'),
+        (SELECT id FROM users WHERE id_medical_card = '3208941659278413'));
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
+                                                        `doctor_id`, `patient_id`)
+VALUES ('2023-07-27 18:00:00', '2023-07-27 17:00:00', (SELECT id FROM users WHERE full_name = 'Gregory House'),
+        (SELECT id FROM users WHERE id_medical_card = '5736489215649132'));
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
+                                                        `doctor_id`, `patient_id`)
+VALUES ('2023-08-08 11:30:00', '2023-08-08 10:30:00', (SELECT id FROM users WHERE full_name = 'Gregory House'),
+        (SELECT id FROM users WHERE id_medical_card = '7904825613249051'));
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
+                                                        `doctor_id`, `patient_id`)
+VALUES ('2023-07-28 12:45:00', '2023-07-28 11:45:00', (SELECT id FROM users WHERE full_name = 'Stephen Strange'),
+        (SELECT id FROM users WHERE id_medical_card = '8695472134059328'));
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
+                                                        `doctor_id`, `patient_id`)
+VALUES ('2023-08-18 13:10:00', '2023-08-18 12:10:00', (SELECT id FROM users WHERE full_name = 'Stephen Strange'),
+        (SELECT id FROM users WHERE id_medical_card = '2654389710296548'));
+INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
+                                                        `doctor_id`, `patient_id`)
+VALUES ('2023-08-18 16:00:00', '2023-08-18 15:00:00', (SELECT id FROM users WHERE full_name = 'Stephen Strange'),
+        (SELECT id FROM users WHERE id_medical_card = '7641852093765412'));
+
