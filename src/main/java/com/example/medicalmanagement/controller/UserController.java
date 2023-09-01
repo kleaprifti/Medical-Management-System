@@ -26,15 +26,14 @@ public class UserController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addUser(@RequestBody UserDto userDto) {
-    try {
-        userService.addUser(userDto);
-        return ResponseEntity.ok("User added successfully");
-    } catch (InvalidUserDataException | RoleException | SpecialityException | DuplicateValueException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
-//    } catch (Exception e) {
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request.");
-//    }
-    }
+        try {
+            userService.addUser(userDto);
+            return ResponseEntity.ok("User added successfully");
+        } catch (InvalidUserDataException | RoleException | SpecialityException | DuplicateValueException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request.");
+        }
     }
 
 
