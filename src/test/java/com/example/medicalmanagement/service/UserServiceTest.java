@@ -19,12 +19,10 @@ import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -103,8 +101,8 @@ class UserServiceTest {
         UserDto userDto = createUserDto();
 
         Mockito.when(userRepository.existsByIdMedicalCard(anyString())).thenReturn(false);
-        Mockito.when(userRepository.existsByPhoneNumber(anyString())).thenReturn(false);
-        Mockito.when(userRepository.existsByEmail( anyString())).thenReturn(false);
+        Mockito.when(userRepository.existsByContactInfo_PhoneNumber(anyString())).thenReturn(false);
+        Mockito.when(userRepository.existsByContactInfo_Email( anyString())).thenReturn(false);
         Mockito.when(roleRepository.findByUserRole(any(UserRole.class))).thenReturn(createRole());
         Mockito.when(specialityRepository.findByName(anyString())).thenReturn(createSpeciality());
 
@@ -116,12 +114,14 @@ class UserServiceTest {
         Mockito.verify(userRepository, times(1)).save(any(User.class));
     }
 
+
     private UserDto createUserDto() {
         UserDto userDto = new UserDto();
-        userDto.setEmail("aldoshehu@example.com");
+        User user = new User();
+        ContactInfo contactInfo = new ContactInfo(2L,"aldoshehu@gmail.com","97327","aldius",user);
         userDto.setFullName("Aldo Shehu");
         userDto.setBirthDate(LocalDate.of(1998, 11, 17));
-        userDto.setPhoneNumber("1234567890");
+        userDto.setContactInfo(contactInfo);
         userDto.setIdMedicalCard("1234567890123456");
         userDto.setRoles(Collections.singletonList(UserRole.DOCTOR));
         return userDto;

@@ -48,8 +48,8 @@ public class UserService {
         }
 
         boolean emailSent = true;
-        return new UserDto(user.getId(), user.getEmail(), user.getFullName(),
-                user.getBirthDate(), user.getPhoneNumber(), user.getIdMedicalCard(),
+        return new UserDto(user.getId(), user.getFullName(),
+                user.getBirthDate(),user.getIdMedicalCard(),user.getContactInfo(),
                 user.getRoles()
                         .stream()
                         .map(Role::getUserRole)
@@ -67,10 +67,9 @@ public class UserService {
     public boolean addUser(UserDto userDto) {
         validateUserDto(userDto);
         User newUser = new User();
-        newUser.setEmail(userDto.getEmail());
+        newUser.setContactInfo(userDto.getContactInfo());
         newUser.setFullName(userDto.getFullName());
         newUser.setBirthDate(userDto.getBirthDate());
-        newUser.setPhoneNumber(userDto.getPhoneNumber());
         newUser.setIdMedicalCard(userDto.getIdMedicalCard());
 
         List<Role> userRoles = userDto.getRoles().stream()
@@ -113,18 +112,18 @@ public class UserService {
         if (userRepository.existsByIdMedicalCard(userDto.getIdMedicalCard())) {
             throw new DuplicateValueException("Duplicate record found for medical card ID.");
         }
-        if (userRepository.existsByPhoneNumber(userDto.getPhoneNumber())) {
+        if (userRepository.existsByContactInfo_PhoneNumber(userDto.getContactInfo().getPhoneNumber())) {
             throw new DuplicateValueException("Duplicate record found for phone number.");
         }
-        if (userRepository.existsByEmail(userDto.getEmail())) {
+        if (userRepository.existsByContactInfo_Email(userDto.getContactInfo().getEmail())) {
             throw new DuplicateValueException("Duplicate record found for email.");
         }
     }
 
     private void validateRequiredFields(UserDto userDto) throws InvalidUserDataException {
-        if (userDto.getEmail() == null || userDto.getEmail().isEmpty()
+        if (userDto.getContactInfo().getEmail() == null || userDto.getContactInfo().getEmail().isEmpty()
                 || userDto.getFullName() == null || userDto.getFullName().isEmpty()
-                || userDto.getPhoneNumber() == null || userDto.getPhoneNumber().isEmpty()
+                || userDto.getContactInfo().getPhoneNumber() == null || userDto.getContactInfo().getPhoneNumber().isEmpty()
                 || userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty()
                 || userDto.getRoles() == null || userDto.getRoles().isEmpty()) {
             throw new InvalidUserDataException("Please provide values for all required fields: email, full name, phone number, medical card ID, and roles.");

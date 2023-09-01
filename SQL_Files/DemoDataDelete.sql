@@ -10,3 +10,4 @@ DELETE FROM `role`;
 DELETE FROM `user_notification_mapping`;
 DELETE FROM `user_notification_type`;
 DELETE FROM `users`;
+DELETE FROM `contact_info`;

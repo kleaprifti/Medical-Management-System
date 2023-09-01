@@ -88,7 +88,7 @@ public class AppointmentService {
         if(wantNotification) {
             User patient = appointment.getPatient();
             User doctor= appointment.getDoctor();
-            String userEmail = patient.getEmail();
+            String userEmail = patient.getContactInfo().getEmail();
             String cancellationEmailContent = EmailContent.generateEmail(patient.getFullName(),doctor.getFullName(), appointment.getAppointmentDateStartTime());
 
             String subject = "Cancellation of appointment";

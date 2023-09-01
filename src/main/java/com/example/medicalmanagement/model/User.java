@@ -1,5 +1,6 @@
 package com.example.medicalmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,17 +22,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    @Column(name = "email",nullable = false)
-    private String email;
-
     @Column(name = "full_name",nullable = false)
     private String fullName;
 
     @Column(name = "birth_date",nullable = false)
     private LocalDate birthDate;
-
-    @Column(name = "phone_number",nullable = false, unique = true)
-    private String phoneNumber;
 
     @Column(name = "id_medicalCard", nullable = false,unique = true)
     private String idMedicalCard;
@@ -55,4 +50,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "notification_id")
     )
     private List<UserNotificationType> notificationTypes;
+
+    @OneToOne(cascade =CascadeType.ALL)
+    @JsonManagedReference
+    @JoinColumn(name = "contact_info_id", referencedColumnName = "id")
+    private ContactInfo contactInfo;
+
 }
