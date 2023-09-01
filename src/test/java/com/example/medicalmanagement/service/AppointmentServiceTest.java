@@ -220,7 +220,7 @@ class AppointmentServiceTest {
         verify(appointmentRepository, times(1)).delete(appointment);
 
         if (wantNotification) {
-            verify(emailService, times(1)).sendEmail(eq(patient.getEmail()), any(), any());
+            verify(emailService, times(1)).sendEmail(eq(patient.getContactInfo().getEmail()), any(), any());
 
         } else {
             verify(emailService, never()).sendEmail(any(), any(), any());
