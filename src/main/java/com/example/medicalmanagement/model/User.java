@@ -1,5 +1,6 @@
 package com.example.medicalmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,8 +51,9 @@ public class User {
     )
     private List<UserNotificationType> notificationTypes;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_info_id")
+    @OneToOne(cascade =CascadeType.ALL,optional = false)
+    @JsonManagedReference
+    @JoinColumn(name = "contact_info_id", referencedColumnName = "id")
     private ContactInfo contactInfo;
 
 }

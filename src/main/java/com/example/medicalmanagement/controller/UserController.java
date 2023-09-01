@@ -31,8 +31,9 @@ public class UserController {
         return ResponseEntity.ok("User added successfully");
     } catch (InvalidUserDataException | RoleException | SpecialityException | DuplicateValueException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request.");
+//    } catch (Exception e) {
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request.");
+//    }
     }
     }
 

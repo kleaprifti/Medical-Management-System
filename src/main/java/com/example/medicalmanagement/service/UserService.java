@@ -70,7 +70,6 @@ public class UserService {
         newUser.setContactInfo(userDto.getContactInfo());
         newUser.setFullName(userDto.getFullName());
         newUser.setBirthDate(userDto.getBirthDate());
-        newUser.setContactInfo(userDto.getContactInfo());
         newUser.setIdMedicalCard(userDto.getIdMedicalCard());
 
         List<Role> userRoles = userDto.getRoles().stream()

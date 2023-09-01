@@ -3,6 +3,7 @@ package com.example.medicalmanagement.dto;
 import com.example.medicalmanagement.model.ContactInfo;
 import com.example.medicalmanagement.model.NotificationType;
 import com.example.medicalmanagement.model.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

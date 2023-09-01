@@ -1,5 +1,6 @@
 package com.example.medicalmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Setter
 public class ContactInfo {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -27,6 +29,7 @@ public class ContactInfo {
     private String slackUserName ;
 
     @OneToOne(mappedBy = "contactInfo")
+    @JsonBackReference
     private User user;
 }
 
