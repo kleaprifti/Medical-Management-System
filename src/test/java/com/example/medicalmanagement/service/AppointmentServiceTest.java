@@ -235,4 +235,58 @@ class AppointmentServiceTest {
 
         assertThrows(NotFoundException.class, () -> appointmentService.deleteAppointment(appointmentId, true));
     }
+
+    @Test
+    void getAppointmentsForPatient() {
+        Long patientId = 1L;
+
+        User patient = new User();
+        when(userRepository.findById(patientId)).thenReturn(Optional.of(patient));
+
+        List<Appointment> appointments = new ArrayList<>();
+        appointments.add(new Appointment());
+        when(appointmentRepository.findByPatientId(patientId)).thenReturn(appointments);
+
+        Set<AppointmentDto> appointmentDtos = appointmentService.getAppointmentsForPatient(patientId);
+
+        assertNotNull(appointmentDtos);
+        assertEquals(appointments.size(), appointmentDtos.size());
+
+        verify(userRepository, times(1)).findById(patientId);
+
+        verify(appointmentRepository, times(1)).findByPatientId(patientId);
+    }
+
+    @Test
+    void getAppointmentsForPatient_PatientNotFound() {
+        Long patientId = 1L;
+
+        when(userRepository.findById(patientId)).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class, () -> {
+            appointmentService.getAppointmentsForPatient(patientId);
+        });
+
+        verify(userRepository, times(1)).findById(patientId);
+
+        verify(appointmentRepository, never()).findByPatientId(anyLong());
+    }
+
+    @Test
+    void getAppointmentsForPatient_NoAppointments() {
+        Long patientId = 1L;
+
+        User patient = new User();
+        when(userRepository.findById(patientId)).thenReturn(Optional.of(patient));
+
+        when(appointmentRepository.findByPatientId(patientId)).thenReturn(new ArrayList<>());
+
+        assertThrows(NotFoundException.class, () -> {
+            appointmentService.getAppointmentsForPatient(patientId);
+        });
+
+        verify(userRepository, times(1)).findById(patientId);
+
+        verify(appointmentRepository, times(1)).findByPatientId(patientId);
+    }
 }
