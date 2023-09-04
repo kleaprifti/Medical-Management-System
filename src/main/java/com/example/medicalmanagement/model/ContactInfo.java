@@ -26,7 +26,7 @@ public class ContactInfo {
     @Column(name = "email")
     private String email;
     @NotBlank(message = "Phone Number cant be blank")
-    @Pattern(regexp = "^\\d+$", message = "Phone number input must match its regular expression")
+    @Pattern(regexp = "^\\d+$", message = "Bad phone number format, should contain only digits")
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
     @Column(name = "slack_Username", unique = true)
