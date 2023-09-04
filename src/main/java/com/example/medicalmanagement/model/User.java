@@ -1,6 +1,5 @@
 package com.example.medicalmanagement.model;
 
-import com.example.medicalmanagement.customvalidators.SpecialitiesRequiredForDoctor;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@SpecialitiesRequiredForDoctor
 
 public class User {
     @Id

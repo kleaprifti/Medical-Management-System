@@ -1,5 +1,6 @@
 package com.example.medicalmanagement.dto;
 
+import com.example.medicalmanagement.customvalidators.SpecialitiesRequiredForDoctor;
 import com.example.medicalmanagement.model.ContactInfo;
 import com.example.medicalmanagement.model.NotificationType;
 import com.example.medicalmanagement.model.UserRole;
@@ -20,6 +21,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SpecialitiesRequiredForDoctor
 public class UserDto {
 
     private Long id;

@@ -5,11 +5,12 @@ import jakarta.validation.Payload;
 
 
 import java.lang.annotation.*;
-@Target({ElementType.TYPE_USE})
+@Target({ElementType.TYPE,ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 @Constraint(validatedBy = SpecialitiesRequiredForDoctorValidator.class)
 public @interface SpecialitiesRequiredForDoctor {
-    String message() default "At least one speciality is required for a doctor.";
+    String message() default "";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
