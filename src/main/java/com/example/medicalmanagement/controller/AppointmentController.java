@@ -21,19 +21,22 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("/doctor/{doctorId}")
-    public Set<AppointmentDto> getAppointmentsForDoctor(
-            @PathVariable Long doctorId,
+    @GetMapping("/doctor-patient")
+    public ResponseEntity<Set<AppointmentDto>> getAppointmentsForDoctorAndPatient(
+            @RequestParam(required = false) Long doctorId,
             @RequestParam(required = false) Long patientId,
             @RequestParam(required = false) String startDateTime,
             @RequestParam(required = false) String endDateTime) {
 
+        if (doctorId == null || patientId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         LocalDateTime start = (startDateTime != null) ? LocalDateTime.parse(startDateTime) : null;
         LocalDateTime end = (endDateTime != null) ? LocalDateTime.parse(endDateTime) : null;
 
-        return appointmentService.getAppointments(doctorId, patientId, start, end);
+        Set<AppointmentDto> appointments = appointmentService.getAppointments(doctorId, patientId, start, end);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
-
     @PostMapping("/add")
     public ResponseEntity<AppointmentDto> addAppointment(@RequestBody AppointmentDto appointmentDto) {
         AppointmentDto addedAppointment = appointmentService.addAppointment(appointmentDto);
