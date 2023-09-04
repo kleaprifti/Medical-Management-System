@@ -1,5 +1,6 @@
 package com.example.medicalmanagement.model;
 
+import com.example.medicalmanagement.customvalidators.SpecialitiesRequiredForDoctor;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,18 +18,22 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@SpecialitiesRequiredForDoctor
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    @Column(name = "full_name",nullable = false)
+    @Column(name = "full_name")
     private String fullName;
 
-    @Column(name = "birth_date",nullable = false)
+    @Column(name = "birth_date")
+
     private LocalDate birthDate;
 
     @Column(name = "id_medicalCard", nullable = false,unique = true)
+
     private String idMedicalCard;
 
     @ManyToMany
