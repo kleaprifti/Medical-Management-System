@@ -11,8 +11,4 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
         List<User> findByRolesUserRole(UserRole role, Sort sort);
-        boolean existsByIdMedicalCard(String idMedicalCard);
-        boolean existsByContactInfo_Email(String email);
-        boolean existsByContactInfo_PhoneNumber(String phoneNumber);
-
 }

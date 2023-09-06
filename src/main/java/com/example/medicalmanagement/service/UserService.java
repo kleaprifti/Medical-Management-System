@@ -1,10 +1,6 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.dto.UserDto;
-import com.example.medicalmanagement.exceptionhandlers.DuplicateValueException;
-import com.example.medicalmanagement.exceptionhandlers.InvalidUserDataException;
-import com.example.medicalmanagement.exceptionhandlers.RoleException;
-import com.example.medicalmanagement.exceptionhandlers.SpecialityException;
 import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
@@ -13,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +31,7 @@ public class UserService {
                     .stream()
                     .map(this::mapToDto)
                     .toList();
-        }else return userRepository.findAll(sort).stream().map(this::mapToDto).toList();
+        } else return userRepository.findAll(sort).stream().map(this::mapToDto).toList();
     }
 
     public UserDto mapToDto(User user) {
@@ -49,7 +44,7 @@ public class UserService {
 
         boolean emailSent = true;
         return new UserDto(user.getId(), user.getFullName(),
-                user.getBirthDate(),user.getIdMedicalCard(),user.getContactInfo(),
+                user.getBirthDate(), user.getIdMedicalCard(), user.getContactInfo(),
                 user.getRoles()
                         .stream()
                         .map(Role::getUserRole)
@@ -65,7 +60,6 @@ public class UserService {
     }
 
     public boolean addUser(UserDto userDto) {
-        validateUserDto(userDto);
         User newUser = new User();
         newUser.setContactInfo(userDto.getContactInfo());
         newUser.setFullName(userDto.getFullName());
@@ -99,61 +93,4 @@ public class UserService {
         userRepository.save(newUser);
         return true;
     }
-
-    private void validateUserDto(UserDto userDto) throws InvalidUserDataException, RoleException, SpecialityException, DuplicateValueException {
-        validateDuplicateValues(userDto);
-        validateRequiredFields(userDto);
-        validateBirthDate(userDto);
-        validateMedicalCardId(userDto);
-        validateUserRolesAndSpecialities(userDto);
-    }
-
-    private void validateDuplicateValues(UserDto userDto) throws DuplicateValueException {
-        if (userRepository.existsByIdMedicalCard(userDto.getIdMedicalCard())) {
-            throw new DuplicateValueException("Duplicate record found for medical card ID.");
-        }
-        if (userRepository.existsByContactInfo_PhoneNumber(userDto.getContactInfo().getPhoneNumber())) {
-            throw new DuplicateValueException("Duplicate record found for phone number.");
-        }
-        if (userRepository.existsByContactInfo_Email(userDto.getContactInfo().getEmail())) {
-            throw new DuplicateValueException("Duplicate record found for email.");
-        }
-    }
-
-    private void validateRequiredFields(UserDto userDto) throws InvalidUserDataException {
-        if (userDto.getContactInfo().getEmail() == null || userDto.getContactInfo().getEmail().isEmpty()
-                || userDto.getFullName() == null || userDto.getFullName().isEmpty()
-                || userDto.getContactInfo().getPhoneNumber() == null || userDto.getContactInfo().getPhoneNumber().isEmpty()
-                || userDto.getIdMedicalCard() == null || userDto.getIdMedicalCard().isEmpty()
-                || userDto.getRoles() == null || userDto.getRoles().isEmpty()) {
-            throw new InvalidUserDataException("Please provide values for all required fields: email, full name, phone number, medical card ID, and roles.");
-        }
-    }
-
-    private void validateBirthDate(UserDto userDto) throws InvalidUserDataException {
-        if (userDto.getBirthDate().isAfter(LocalDate.now())) {
-            throw new InvalidUserDataException("Birthdate should be a date in the past.");
-        }
-    }
-
-    private void validateMedicalCardId(UserDto userDto) throws InvalidUserDataException {
-        if (userDto.getIdMedicalCard().length() != 16) {
-            throw new InvalidUserDataException("Medical card ID must consist of exactly 16 characters.");
-        }
-    }
-
-    private void validateUserRolesAndSpecialities(UserDto userDto) throws RoleException, SpecialityException {
-        for (UserRole userRole : userDto.getRoles()) {
-            if (userRole != UserRole.DOCTOR && userRole != UserRole.PATIENT) {
-                throw new RoleException("Invalid user role specified.");
-            }
-            if (userRole == UserRole.DOCTOR && (userDto.getSpecialities() == null || userDto.getSpecialities().isEmpty())) {
-                throw new SpecialityException("Doctors must be associated with at least one speciality.");
-            }
-            if (userRole == UserRole.PATIENT && (userDto.getSpecialities() != null && !userDto.getSpecialities().isEmpty())) {
-                throw new SpecialityException("Patients cannot be associated with specialities.");
-            }
-        }
-    }
-
 }

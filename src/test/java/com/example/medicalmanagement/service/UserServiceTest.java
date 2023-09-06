@@ -100,9 +100,7 @@ class UserServiceTest {
 
         UserDto userDto = createUserDto();
 
-        Mockito.when(userRepository.existsByIdMedicalCard(anyString())).thenReturn(false);
-        Mockito.when(userRepository.existsByContactInfo_PhoneNumber(anyString())).thenReturn(false);
-        Mockito.when(userRepository.existsByContactInfo_Email( anyString())).thenReturn(false);
+
         Mockito.when(roleRepository.findByUserRole(any(UserRole.class))).thenReturn(createRole());
         Mockito.when(specialityRepository.findByName(anyString())).thenReturn(createSpeciality());
 
