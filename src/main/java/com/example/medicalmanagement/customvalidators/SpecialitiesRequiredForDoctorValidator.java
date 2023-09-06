@@ -12,7 +12,7 @@ public class SpecialitiesRequiredForDoctorValidator implements ConstraintValidat
 
     @Override
     public void initialize(SpecialitiesRequiredForDoctor constraintAnnotation) {
-        // Initialization, if needed
+        //initialization if needed
     }
 
     @Override
@@ -33,6 +33,6 @@ public class SpecialitiesRequiredForDoctorValidator implements ConstraintValidat
             return false;
         }
 
-        return true; // Validation passes
+        return true;
     }
 }
