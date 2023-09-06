@@ -35,7 +35,7 @@ public class UserDto {
     @Valid
     private ContactInfo contactInfo;
     @NotNull(message = "Each user must have a role associated")
-    @NotEmpty(message = "Each user must have a role associated")
+    @NotEmpty(message = "User Role can not be empty")
     private List<UserRole> roles;
     private List<String> specialities;
     private boolean emailSent;
