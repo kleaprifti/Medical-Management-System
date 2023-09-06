@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,35 +38,35 @@ public class AppointmentService {
         this.emailService = builder.getEmailService();
     }
     public Set<AppointmentDto> getAppointments(Long doctorId, Long patientId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-
-        Optional<User> doctor = userRepository.findById(doctorId);
-        if (doctor.isEmpty()) {
-            throw new NotFoundException("Doctor with Id " + doctorId + " was not found");
-        }
-
         List<Appointment> currentAppointments;
+
         if (startDateTime != null && endDateTime != null) {
             if (patientId != null) {
                 currentAppointments = appointmentRepository.findByDoctorIdAndPatientIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(doctorId, patientId, endDateTime, startDateTime);
             } else {
                 currentAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(doctorId, endDateTime, startDateTime);
             }
+
         } else {
             if (patientId != null) {
                 currentAppointments = appointmentRepository.findByDoctorIdAndPatientId(doctorId, patientId);
             } else {
                 currentAppointments = appointmentRepository.findByDoctorId(doctorId);
             }
-        }
 
+            if (patientId != null) {
+                currentAppointments = appointmentRepository.findByPatientId(patientId);
+            }
         if (currentAppointments.isEmpty()) {
-            throw new NotFoundException("This doctor has no appointments at the given time");
+                throw new NotFoundException("No appointments found for the given criteria");
+            }
         }
 
         return currentAppointments.stream()
                 .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
                 .collect(Collectors.toSet());
     }
+
 
     public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
         appointmentValidator.validate(appointmentDto);
