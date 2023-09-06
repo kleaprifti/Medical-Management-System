@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @RestController
@@ -24,27 +23,23 @@ public class AppointmentController {
     @GetMapping("/doctor-patient")
     public ResponseEntity<Set<AppointmentDto>> getAppointmentsForDoctorAndPatient(
             @RequestParam(required = false) Long doctorId,
-            @RequestParam(required = false) Long patientId,
-            @RequestParam(required = false) String startDateTime,
-            @RequestParam(required = false) String endDateTime) {
-
-        LocalDateTime start = (startDateTime != null) ? LocalDateTime.parse(startDateTime) : null;
-        LocalDateTime end = (endDateTime != null) ? LocalDateTime.parse(endDateTime) : null;
+            @RequestParam(required = false) Long patientId) {
 
         Set<AppointmentDto> appointments;
 
         if (doctorId != null && patientId != null) {
-            appointments = appointmentService.getAppointments(doctorId, patientId, start, end);
+            appointments = appointmentService.getAppointments(doctorId, patientId);
         } else if (doctorId != null) {
-            appointments = appointmentService.getAppointments(doctorId, null,start, end);
+            appointments = appointmentService.getAppointments(doctorId, null);
         } else if (patientId != null) {
-            appointments = appointmentService.getAppointments(null, patientId,start, end);
+            appointments = appointmentService.getAppointments(null, patientId);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
+
     @PostMapping("/add")
     public ResponseEntity<AppointmentDto> addAppointment(@RequestBody AppointmentDto appointmentDto) {
         AppointmentDto addedAppointment = appointmentService.addAppointment(appointmentDto);

@@ -14,7 +14,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,36 +36,28 @@ public class AppointmentService {
         this.appointmentValidator = builder.getAppointmentValidator();
         this.emailService = builder.getEmailService();
     }
-    public Set<AppointmentDto> getAppointments(Long doctorId, Long patientId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+
+    public Set<AppointmentDto> getAppointments(Long doctorId, Long patientId) {
         List<Appointment> currentAppointments;
 
-        if (startDateTime != null && endDateTime != null) {
-            if (patientId != null) {
-                currentAppointments = appointmentRepository.findByDoctorIdAndPatientIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(doctorId, patientId, endDateTime, startDateTime);
-            } else {
-                currentAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(doctorId, endDateTime, startDateTime);
-            }
-
+        if (doctorId != null && patientId != null) {
+            currentAppointments = appointmentRepository.findByDoctorIdAndPatientId(doctorId, patientId);
+        } else if (doctorId != null) {
+            currentAppointments = appointmentRepository.findByDoctorId(doctorId);
+        } else if (patientId != null) {
+            currentAppointments = appointmentRepository.findByPatientId(patientId);
         } else {
-            if (patientId != null) {
-                currentAppointments = appointmentRepository.findByDoctorIdAndPatientId(doctorId, patientId);
-            } else {
-                currentAppointments = appointmentRepository.findByDoctorId(doctorId);
-            }
+            throw new IllegalArgumentException("Both doctorId and patientId cannot be null.");
+        }
 
-            if (patientId != null) {
-                currentAppointments = appointmentRepository.findByPatientId(patientId);
-            }
         if (currentAppointments.isEmpty()) {
-                throw new NotFoundException("No appointments found for the given criteria");
-            }
+            throw new NotFoundException("No appointments found for the given criteria");
         }
 
         return currentAppointments.stream()
                 .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
                 .collect(Collectors.toSet());
     }
-
 
     public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
         appointmentValidator.validate(appointmentDto);
