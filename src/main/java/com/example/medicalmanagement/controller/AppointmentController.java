@@ -20,7 +20,7 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("/doctor-patient")
+    @GetMapping("")
     public ResponseEntity<Set<AppointmentDto>> getAppointmentsForDoctorAndPatient(
             @RequestParam(required = false) Long doctorId,
             @RequestParam(required = false) Long patientId) {
