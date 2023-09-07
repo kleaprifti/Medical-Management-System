@@ -14,9 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,28 +37,23 @@ public class AppointmentService {
         this.emailService = builder.getEmailService();
     }
 
-    public Set<AppointmentDto> getAppointments(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-
-       Optional<User> doctor = userRepository.findById(doctorId);
-       if (doctor.isEmpty()) {
-                throw  new NotFoundException("Doctor with Id " + doctorId + " was not found");
-       }
+    public Set<AppointmentDto> getAppointments(Long doctorId, Long patientId) {
         List<Appointment> currentAppointments;
-        if (startDateTime != null && endDateTime != null) {
 
-            currentAppointments = appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(doctorId, endDateTime, startDateTime);
-        } else {
+        if (doctorId != null && patientId != null) {
+            currentAppointments = appointmentRepository.findByDoctorIdAndPatientId(doctorId, patientId);
+        } else if (doctorId != null) {
             currentAppointments = appointmentRepository.findByDoctorId(doctorId);
-        }
-        if (currentAppointments.isEmpty()) {
-            throw new NotFoundException("This doctor has no appointments at the given time");
+        } else if (patientId != null) {
+            currentAppointments = appointmentRepository.findByPatientId(patientId);
+        } else {
+            currentAppointments = appointmentRepository.findAll();
         }
 
         return currentAppointments.stream()
                 .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
                 .collect(Collectors.toSet());
     }
-
 
     public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
         appointmentValidator.validate(appointmentDto);
@@ -95,20 +88,5 @@ public class AppointmentService {
             emailService.sendEmail(userEmail, subject, cancellationEmailContent);
 
         }
-    }
-    public Set<AppointmentDto> getAppointmentsForPatient(Long patientId) {
-        Optional<User> patient = userRepository.findById(patientId);
-        if (patient.isEmpty()) {
-            throw new NotFoundException("Patient with ID " + patientId + " was not found");
-        }
-
-        List<Appointment> patientAppointments = appointmentRepository.findByPatientId(patientId);
-        if (patientAppointments.isEmpty()) {
-            throw new NotFoundException("This patient has no appointments");
-        }
-
-        return patientAppointments.stream()
-                .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
-                .collect(Collectors.toSet());
     }
 }

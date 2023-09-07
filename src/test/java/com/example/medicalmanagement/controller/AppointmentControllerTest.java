@@ -10,12 +10,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,21 +29,7 @@ class AppointmentControllerTest  {
      void setUp() {
          MockitoAnnotations.openMocks(this);
      }
-    @Test
-     void getAppointments() {
-        Long doctorId = 1L;
-        LocalDateTime startDateTime = LocalDateTime.of(2023, 6, 1, 9, 0);
-        LocalDateTime endDateTime = LocalDateTime.of(2023, 6, 1, 12, 0);
-        Set<AppointmentDto> appointments = new HashSet<>();
 
-        when(appointmentService.getAppointments(doctorId, startDateTime, endDateTime)).thenReturn(appointments);
-
-        Set<AppointmentDto> result = appointmentController.getAppointments(doctorId, startDateTime, endDateTime);
-
-        verify(appointmentService).getAppointments(doctorId, startDateTime, endDateTime);
-
-        assertEquals(appointments, result);
-    }
 
     @Test
      void addAppointment() {
@@ -60,5 +45,21 @@ class AppointmentControllerTest  {
          assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
          assertEquals(addedAppointment, response.getBody());
+    }
+
+    @Test
+    public void getAppointmentsForDoctorAndPatient() {
+        Set<AppointmentDto> sampleAppointments = new HashSet<>();
+
+        when(appointmentService.getAppointments(anyLong(), anyLong()))
+                .thenReturn(sampleAppointments);
+
+        ResponseEntity<Set<AppointmentDto>> responseEntity = appointmentController
+                .getAppointmentsForDoctorAndPatient(1L, 2L);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+
+        Set<AppointmentDto> resultAppointments = responseEntity.getBody();
+        assertEquals(sampleAppointments.size(), resultAppointments.size());
     }
 }

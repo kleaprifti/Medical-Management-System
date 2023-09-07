@@ -3,12 +3,10 @@ package com.example.medicalmanagement.controller;
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @RestController
@@ -22,16 +20,14 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
+    @GetMapping("")
+    public ResponseEntity<Set<AppointmentDto>> getAppointmentsForDoctorAndPatient(
+            @RequestParam(required = false) Long doctorId,
+            @RequestParam(required = false) Long patientId) {
 
-    @GetMapping("/{doctorId}")
-    public Set<AppointmentDto> getAppointments(
-            @PathVariable Long doctorId,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDateTime,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDateTime) {
-
-        return appointmentService.getAppointments(doctorId, startDateTime, endDateTime);
+        Set<AppointmentDto> appointments=appointmentService.getAppointments(doctorId,patientId);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
-
 
     @PostMapping("/add")
     public ResponseEntity<AppointmentDto> addAppointment(@RequestBody AppointmentDto appointmentDto) {
@@ -43,12 +39,4 @@ public class AppointmentController {
         appointmentService.deleteAppointment(appointmentId,wantNotification);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/patient/{patientId}")
-    public ResponseEntity<Set<AppointmentDto>> getAppointmentsForPatient(@PathVariable Long patientId) {
-        Set<AppointmentDto> appointments = appointmentService.getAppointmentsForPatient(patientId);
-        return new ResponseEntity<>(appointments, HttpStatus.OK);
-    }
 }
-
-
-
