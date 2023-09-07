@@ -47,14 +47,21 @@ public class AppointmentService {
         } else if (patientId != null) {
             currentAppointments = appointmentRepository.findByPatientId(patientId);
         } else {
-            throw new IllegalArgumentException("Both doctorId and patientId cannot be null.");
-        }
-
-        if (currentAppointments.isEmpty()) {
-            throw new NotFoundException("No appointments found for the given criteria");
+            currentAppointments = appointmentRepository.findAll();
         }
 
         return currentAppointments.stream()
+                .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
+                .collect(Collectors.toSet());
+    }
+    public Set<AppointmentDto> getAllAppointments() {
+        List<Appointment> allAppointments = appointmentRepository.findAll();
+
+        if (allAppointments.isEmpty()) {
+            throw new NotFoundException("No appointments found.");
+        }
+
+        return allAppointments.stream()
                 .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
                 .collect(Collectors.toSet());
     }

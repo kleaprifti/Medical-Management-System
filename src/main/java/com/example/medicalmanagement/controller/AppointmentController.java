@@ -34,7 +34,7 @@ public class AppointmentController {
         } else if (patientId != null) {
             appointments = appointmentService.getAppointments(null, patientId);
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            appointments = appointmentService.getAllAppointments();
         }
 
         return new ResponseEntity<>(appointments, HttpStatus.OK);
