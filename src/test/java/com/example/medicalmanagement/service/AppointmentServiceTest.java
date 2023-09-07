@@ -6,7 +6,6 @@ import com.example.medicalmanagement.builder.AppointmentServiceBuilder;
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.model.Appointment;
-import com.example.medicalmanagement.model.ContactInfo;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
@@ -18,7 +17,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,71 +61,6 @@ class AppointmentServiceTest {
                 emailService
         ).build();
     }
-
-    @Test
-    void getAppointments_ValidInput_ReturnsAppointments() {
-
-        Long doctorId = 1L;
-        LocalDateTime startDateTime = LocalDateTime.now();
-        LocalDateTime endDateTime = LocalDateTime.now().plusHours(2);
-
-        User doctor = new User();
-        when(userRepository.findById(doctorId)).thenReturn(Optional.of(doctor));
-
-        List<Appointment> appointments = new ArrayList<>();
-        appointments.add(new Appointment());
-        when(appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
-                doctorId, endDateTime, startDateTime)).thenReturn(appointments);
-
-        AppointmentDto appointmentDto = new AppointmentDto();
-        when(modelMapper.map(any(Appointment.class), eq(AppointmentDto.class))).thenReturn(appointmentDto);
-
-
-        Set<AppointmentDto> result = appointmentService.getAppointments(doctorId, startDateTime, endDateTime);
-
-
-        assertFalse(result.isEmpty());
-        assertEquals(1, result.size());
-        verify(userRepository, times(1)).findById(doctorId);
-        verify(appointmentRepository, times(1)).findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
-                doctorId, endDateTime, startDateTime);
-        verifyNoMoreInteractions(userRepository, appointmentRepository);
-    }
-
-    @Test
-    void getAppointments_InvalidDoctorId_ThrowsNotFoundException() {
-
-        Long doctorId = 1L;
-        LocalDateTime startDateTime = LocalDateTime.now();
-        LocalDateTime endDateTime = LocalDateTime.now().plusHours(2);
-
-        when(userRepository.findById(doctorId)).thenReturn(Optional.empty());
-
-        // Act & Assert
-        assertThrows(NotFoundException.class, () -> appointmentService.getAppointments(doctorId, startDateTime, endDateTime));
-        verify(userRepository, times(1)).findById(doctorId);
-        verifyNoMoreInteractions(userRepository, appointmentRepository);
-    }
-
-    @Test
-    void getAppointments_NoAppointmentsFound_ThrowsNotFoundException() {
-
-        Long doctorId = 1L;
-        LocalDateTime startDateTime = LocalDateTime.now();
-        LocalDateTime endDateTime = LocalDateTime.now().plusHours(2);
-
-        User doctor = new User();
-        when(userRepository.findById(doctorId)).thenReturn(Optional.of(doctor));
-        when(appointmentRepository.findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
-                doctorId, endDateTime, startDateTime)).thenReturn(new ArrayList<>());
-
-        assertThrows(NotFoundException.class, () -> appointmentService.getAppointments(doctorId, startDateTime, endDateTime));
-        verify(userRepository, times(1)).findById(doctorId);
-        verify(appointmentRepository, times(1)).findByDoctorIdAndAppointmentDateStartTimeBeforeAndAppointmentDateEndTimeAfter(
-                doctorId, endDateTime, startDateTime);
-        verifyNoMoreInteractions(userRepository, appointmentRepository);
-    }
-
     @Test
     void addAppointment_ValidInput_ReturnsAppointmentDto() {
         AppointmentDto appointmentDto = new AppointmentDto();
@@ -204,58 +137,31 @@ class AppointmentServiceTest {
 
         assertThrows(NotFoundException.class, () -> appointmentService.deleteAppointment(appointmentId, true));
     }
-
     @Test
-    void getAppointmentsForPatient() {
-        Long patientId = 1L;
+    public void getAppointments() {
+        List<Appointment> sampleAppointments = new ArrayList<>();
 
-        User patient = new User();
-        when(userRepository.findById(patientId)).thenReturn(Optional.of(patient));
+        when(appointmentRepository.findByDoctorIdAndPatientId(anyLong(), anyLong()))
+                .thenReturn(sampleAppointments);
 
-        List<Appointment> appointments = new ArrayList<>();
-        appointments.add(new Appointment());
-        when(appointmentRepository.findByPatientId(patientId)).thenReturn(appointments);
+        when(modelMapper.map(any(Appointment.class), eq(AppointmentDto.class)))
+                .thenAnswer(invocation -> {
+                    Appointment appointment = invocation.getArgument(0);
 
-        Set<AppointmentDto> appointmentDtos = appointmentService.getAppointmentsForPatient(patientId);
+                    return new AppointmentDto();
+                });
 
-        assertNotNull(appointmentDtos);
-        assertEquals(appointments.size(), appointmentDtos.size());
+        Set<AppointmentDto> result1 = appointmentService.getAppointments(null, null);
+        assertEquals(sampleAppointments.size(), result1.size());
 
-        verify(userRepository, times(1)).findById(patientId);
+        Set<AppointmentDto> result2 = appointmentService.getAppointments(1L, null);
+        assertEquals(sampleAppointments.size(), result2.size());
 
-        verify(appointmentRepository, times(1)).findByPatientId(patientId);
+        Set<AppointmentDto> result3 = appointmentService.getAppointments(null, 2L);
+        assertEquals(sampleAppointments.size(), result3.size());
+
+        Set<AppointmentDto> result4 = appointmentService.getAppointments(1L, 2L);
+        assertEquals(sampleAppointments.size(), result4.size());
     }
 
-    @Test
-    void getAppointmentsForPatient_PatientNotFound() {
-        Long patientId = 1L;
-
-        when(userRepository.findById(patientId)).thenReturn(Optional.empty());
-
-        assertThrows(NotFoundException.class, () -> {
-            appointmentService.getAppointmentsForPatient(patientId);
-        });
-
-        verify(userRepository, times(1)).findById(patientId);
-
-        verify(appointmentRepository, never()).findByPatientId(anyLong());
-    }
-
-    @Test
-    void getAppointmentsForPatient_NoAppointments() {
-        Long patientId = 1L;
-
-        User patient = new User();
-        when(userRepository.findById(patientId)).thenReturn(Optional.of(patient));
-
-        when(appointmentRepository.findByPatientId(patientId)).thenReturn(new ArrayList<>());
-
-        assertThrows(NotFoundException.class, () -> {
-            appointmentService.getAppointmentsForPatient(patientId);
-        });
-
-        verify(userRepository, times(1)).findById(patientId);
-
-        verify(appointmentRepository, times(1)).findByPatientId(patientId);
-    }
 }

@@ -54,17 +54,6 @@ public class AppointmentService {
                 .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
                 .collect(Collectors.toSet());
     }
-    public Set<AppointmentDto> getAllAppointments() {
-        List<Appointment> allAppointments = appointmentRepository.findAll();
-
-        if (allAppointments.isEmpty()) {
-            throw new NotFoundException("No appointments found.");
-        }
-
-        return allAppointments.stream()
-                .map(appointment -> modelMapper.map(appointment, AppointmentDto.class))
-                .collect(Collectors.toSet());
-    }
 
     public AppointmentDto addAppointment(AppointmentDto appointmentDto) {
         appointmentValidator.validate(appointmentDto);

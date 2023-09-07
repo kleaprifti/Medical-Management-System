@@ -25,18 +25,7 @@ public class AppointmentController {
             @RequestParam(required = false) Long doctorId,
             @RequestParam(required = false) Long patientId) {
 
-        Set<AppointmentDto> appointments;
-
-        if (doctorId != null && patientId != null) {
-            appointments = appointmentService.getAppointments(doctorId, patientId);
-        } else if (doctorId != null) {
-            appointments = appointmentService.getAppointments(doctorId, null);
-        } else if (patientId != null) {
-            appointments = appointmentService.getAppointments(null, patientId);
-        } else {
-            appointments = appointmentService.getAllAppointments();
-        }
-
+        Set<AppointmentDto> appointments=appointmentService.getAppointments(doctorId,patientId);
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
