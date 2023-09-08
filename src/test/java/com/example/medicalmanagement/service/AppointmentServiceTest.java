@@ -138,7 +138,7 @@ class AppointmentServiceTest {
         assertThrows(NotFoundException.class, () -> appointmentService.deleteAppointment(appointmentId, true));
     }
     @Test
-    public void getAppointments() {
+     void getAppointments() {
         List<Appointment> sampleAppointments = new ArrayList<>();
 
         when(appointmentRepository.findByDoctorIdAndPatientId(anyLong(), anyLong()))

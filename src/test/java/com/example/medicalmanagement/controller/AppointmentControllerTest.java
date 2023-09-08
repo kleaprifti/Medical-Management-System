@@ -48,7 +48,7 @@ class AppointmentControllerTest  {
     }
 
     @Test
-    public void getAppointmentsForDoctorAndPatient() {
+     void getAppointmentsForDoctorAndPatient() {
         Set<AppointmentDto> sampleAppointments = new HashSet<>();
 
         when(appointmentService.getAppointments(anyLong(), anyLong()))

@@ -33,7 +33,7 @@ class SpecialitiesRequiredForDoctorValidatorTest {
     @Test
      void isValidWithNullUserDto() {
         assertTrue(validator.isValid(null, constraintValidatorContext));
-        validator.initialize(null); // You can pass null to the initialize method if no specific initialization is needed.
+        validator.initialize(null);
 
     }
 
