@@ -17,21 +17,18 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     @Column(name = "full_name")
     private String fullName;
 
     @Column(name = "birth_date")
-
     private LocalDate birthDate;
 
     @Column(name = "id_medicalCard", nullable = false,unique = true)
-
     private String idMedicalCard;
 
     @ManyToMany
