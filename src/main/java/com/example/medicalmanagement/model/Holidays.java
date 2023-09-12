@@ -6,23 +6,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name = "speciality")
+@Table(name = "doctor_holidays")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Speciality {
+public class Holidays {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
+
+    @Column(name = "holiday_date")
+    private LocalDate holidayDate;
+
+    @Column(name = "holiday_name")
     private String name;
 
 
-    @ManyToMany(mappedBy = "specialities")
+    @ManyToMany(mappedBy = "holidays")
     private List<User> users;
+
 
 }
