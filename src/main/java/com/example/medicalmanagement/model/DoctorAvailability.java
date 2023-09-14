@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,8 +34,7 @@ public class DoctorAvailability {
     @Enumerated(EnumType.STRING)
     private Set<DayOfWeek> workingDays;
 
+    @ManyToMany(mappedBy = "doctorAvailabilities")
+    private List<User> users;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    private User doctor;
 }

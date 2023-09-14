@@ -263,3 +263,53 @@ INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_ti
 VALUES ('2023-08-18 16:00:00', '2023-08-18 15:00:00', (SELECT id FROM users WHERE full_name = 'Stephen Strange'),
         (SELECT id FROM users WHERE id_medical_card = '7641852093765412'));
 
+#Insert into doctor availability
+
+INSERT INTO `medical_management_system`.`doctor_availability` ( `end_time`, `start_time`) VALUES ('14:00:00', '08:00:00');
+INSERT INTO `medical_management_system`.`doctor_availability` ( `end_time`, `start_time`) VALUES ( '18:00:00', '08:00:00');
+INSERT INTO `medical_management_system`.`doctor_availability` ( `end_time`, `start_time`) VALUES ('21:00:00', '15:00:00');
+INSERT INTO `medical_management_system`.`doctor_availability` ( `end_time`, `start_time`) VALUES ( '15:00:00', '09:00:00');
+INSERT INTO `medical_management_system`.`doctor_availability` (`end_time`, `start_time`) VALUES ('22:00:00', '16:00:00');
+INSERT INTO `medical_management_system`.`doctor_availability` ( `end_time`, `start_time`) VALUES ( '05:00:00', '21:00:00');
+INSERT INTO `medical_management_system`.`doctor_availability` (`end_time`, `start_time`) VALUES ( '01:00:00', '17:00:00');
+
+#Insert into doctor holidays
+INSERT INTO `medical_management_system`.`doctor_holidays` ( `holiday_date`, `holiday_name`) VALUES ( '2023-12-25', 'Christmas');
+INSERT INTO `medical_management_system`.`doctor_holidays` ( `holiday_date`, `holiday_name`) VALUES ( '2023-01-01', 'New Years Day');
+INSERT INTO `medical_management_system`.`doctor_holidays` ( `holiday_date`, `holiday_name`) VALUES ( '2024-03-31', 'Easter');
+INSERT INTO `medical_management_system`.`doctor_holidays` ( `holiday_date`, `holiday_name`) VALUES ( '2024-05-01', 'Labor Day');
+
+#Insert into doctor working days
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '14:00:00'), 'Monday');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '22:00:00'), 'Monday');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '18:00:00'), 'Wednesday');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '01:00:00'), 'Wednesday');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '21:00:00'), 'Tuesday');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '15:00:00'), 'Thursday');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '05:00:00'), 'Friday');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '18:00:00'), 'Saturday');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '01:00:00'), 'Sunday');
+
+#Insert into user availability
+INSERT INTO medical_management_system.user_availability (user_id, doctor_availability_id) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'), (SELECT id FROM doctor_availability WHERE end_time = '14:00:00'));
+INSERT INTO medical_management_system.user_availability (user_id, doctor_availability_id) VALUES ((SELECT id FROM users WHERE full_name='Gregory House'), (SELECT id FROM doctor_availability WHERE end_time = '18:00:00'));
+INSERT INTO medical_management_system.user_availability (user_id, doctor_availability_id) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'), (SELECT id FROM doctor_availability WHERE end_time = '22:00:00'));
+INSERT INTO medical_management_system.user_availability (user_id, doctor_availability_id) VALUES ((SELECT id FROM users WHERE full_name='Stephen Strange'), (SELECT id FROM doctor_availability WHERE end_time = '21:00:00'));
+INSERT INTO medical_management_system.user_availability (user_id, doctor_availability_id) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'), (SELECT id FROM doctor_availability WHERE end_time = '15:00:00'));
+INSERT INTO medical_management_system.user_availability (user_id, doctor_availability_id) VALUES ((SELECT id FROM users WHERE full_name='Stephen Strange'), (SELECT id FROM doctor_availability WHERE end_time = '01:00:00'));
+INSERT INTO medical_management_system.user_availability (user_id, doctor_availability_id) VALUES ((SELECT id FROM users WHERE full_name='Gregory House'), (SELECT id FROM doctor_availability WHERE end_time = '05:00:00'));
+
+
+#Insert into user holidays
+
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'), (SELECT id FROM doctor_holidays WHERE holiday_name='Christmas'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Gregory House'), (SELECT id FROM doctor_holidays WHERE holiday_name='Christmas'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Stephen Strange'), (SELECT id FROM doctor_holidays WHERE holiday_name='Christmas'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'), (SELECT id FROM doctor_holidays WHERE holiday_name='New Years Day'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Gregory House'), (SELECT id FROM doctor_holidays WHERE holiday_name='New Years Day'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Stephen Strange'), (SELECT id FROM doctor_holidays WHERE holiday_name='New Years Day'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'), (SELECT id FROM doctor_holidays WHERE holiday_name='Easter'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Gregory House'), (SELECT id FROM doctor_holidays WHERE holiday_name='Easter'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'), (SELECT id FROM doctor_holidays WHERE holiday_name='Labor Day'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Gregory House'), (SELECT id FROM doctor_holidays WHERE holiday_name='Labor Day'));
+INSERT INTO medical_management_system.user_holidays (user_id, holiday_id) VALUES ((SELECT id FROM users WHERE full_name='Stephen Strange'), (SELECT id FROM doctor_holidays WHERE holiday_name='Labor Day'));

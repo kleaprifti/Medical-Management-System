@@ -57,7 +57,10 @@ public class User {
     @JoinColumn(name = "contact_info_id", referencedColumnName = "id")
     private ContactInfo contactInfo;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @ManyToMany
+        @JoinTable    (name = "user_availability",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "doctor_availability_id") )
     private List<DoctorAvailability> doctorAvailabilities;
 
     @ManyToMany
