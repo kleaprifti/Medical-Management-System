@@ -26,7 +26,7 @@ public class DoctorAvailability {
     @Column(name = "start_time")
     private LocalTime startTime;
 
-    @Column(name = "end_time")
+    @Column(name = "end_time",unique = true)
     private LocalTime endTime;
     @ElementCollection
     @CollectionTable(name = "doctor_working_days", joinColumns = @JoinColumn(name = "doctor_availability_id"))

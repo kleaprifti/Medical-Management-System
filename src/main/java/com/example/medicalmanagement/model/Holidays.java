@@ -24,12 +24,10 @@ public class Holidays {
     @Column(name = "holiday_date")
     private LocalDate holidayDate;
 
-    @Column(name = "holiday_name")
+    @Column(name = "holiday_name",unique = true)
     private String name;
-
 
     @ManyToMany(mappedBy = "holidays")
     private List<User> users;
-
 
 }
