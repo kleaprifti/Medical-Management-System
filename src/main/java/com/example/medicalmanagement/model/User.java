@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -17,21 +18,18 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     @Column(name = "full_name")
     private String fullName;
 
     @Column(name = "birth_date")
-
     private LocalDate birthDate;
 
     @Column(name = "id_medicalCard", nullable = false,unique = true)
-
     private String idMedicalCard;
 
     @ManyToMany
@@ -59,4 +57,17 @@ public class User {
     @JoinColumn(name = "contact_info_id", referencedColumnName = "id")
     private ContactInfo contactInfo;
 
+    @ManyToMany
+        @JoinTable    (name = "user_availability",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "doctor_availability_id") )
+    private List<DoctorAvailability> doctorAvailabilities;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_holidays",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "holiday_id")
+    )
+    private List<Holidays> holidays;
 }

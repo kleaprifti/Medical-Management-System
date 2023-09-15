@@ -2,6 +2,7 @@ package com.example.medicalmanagement.dto;
 
 import com.example.medicalmanagement.customvalidators.SpecialitiesRequiredForDoctor;
 import com.example.medicalmanagement.model.ContactInfo;
+import com.example.medicalmanagement.model.DoctorAvailability;
 import com.example.medicalmanagement.model.NotificationType;
 import com.example.medicalmanagement.model.UserRole;
 import jakarta.validation.Valid;
