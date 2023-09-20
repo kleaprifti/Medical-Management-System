@@ -154,9 +154,9 @@ VALUES ((SELECT id FROM users WHERE id_medical_card = '6329485107945308'), (SELE
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
 VALUES ((SELECT id FROM users WHERE id_medical_card = '8150246794832169'), (SELECT id FROM role WHERE roles = 'PATIENT'));
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
-VALUES ((SELECT id FROM users WHERE id_medical_card = '1374298658102397'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+VALUES ((SELECT id FROM users WHERE id_medical_card = '1374298658102397'), (SELECT id FROM role WHERE roles = 'DOCTOR'));
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
-VALUES ((SELECT id FROM users WHERE id_medical_card = '2480935467102834'), (SELECT id FROM role WHERE roles = 'DOCTOR'));
+VALUES ((SELECT id FROM users WHERE id_medical_card = '2480935467102834'), (SELECT id FROM role WHERE roles = 'PATIENT'));
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
 VALUES ((SELECT id FROM users WHERE id_medical_card = '7946210385627104'), (SELECT id FROM role WHERE roles = 'PATIENT'));
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
@@ -172,11 +172,11 @@ VALUES ((SELECT id FROM users WHERE id_medical_card = '1657432987815023'), (SELE
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
 VALUES ((SELECT id FROM users WHERE id_medical_card = '3298174650281796'), (SELECT id FROM role WHERE roles = 'PATIENT'));
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
-VALUES ((SELECT id FROM users WHERE id_medical_card = '5021948317562049'), (SELECT id FROM role WHERE roles = 'PATIENT'));
+VALUES ((SELECT id FROM users WHERE id_medical_card = '5021948317562049'), (SELECT id FROM role WHERE roles = 'DOCTOR'));
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
 VALUES ((SELECT id FROM users WHERE id_medical_card = '7865123490671345'), (SELECT id FROM role WHERE roles = 'DOCTOR'));
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
-VALUES ((SELECT id FROM users WHERE id_medical_card = '9362107542815637'), (SELECT id FROM role WHERE roles = 'DOCTOR'));
+VALUES ((SELECT id FROM users WHERE id_medical_card = '9362107542815637'), (SELECT id FROM role WHERE roles = 'PATIENT'));
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
 VALUES ((SELECT id FROM users WHERE id_medical_card = '4103985274618392'), (SELECT id FROM role WHERE roles = 'PATIENT'));
 INSERT INTO `medical_management_system`.`user_role` (`user_id`, `role_id`)
@@ -214,10 +214,10 @@ VALUES ('SLACK');
 #Map User notification preference to user
 INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'),(SELECT notification_id FROM user_notification_type WHERE notification_type = 'WHATSAPP'));
 INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`)
-VALUES ((SELECT id FROM users WHERE full_name = 'Daniel Ricciardo'),
+VALUES ((SELECT id FROM users WHERE full_name = 'Gregory House'),
         (SELECT notification_id FROM user_notification_type WHERE notification_type = 'EMAIL'));
 INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`)
-VALUES ((SELECT id FROM users WHERE full_name = 'John Watson'),
+VALUES ((SELECT id FROM users WHERE full_name = 'Gregory House'),
         (SELECT notification_id FROM user_notification_type WHERE notification_type = 'EMAIL'));
 INSERT INTO `medical_management_system`.`user_notification_mapping` (`user_id`, `notification_id`)
 VALUES ((SELECT id FROM users WHERE full_name = 'Stephen Strange'),
@@ -229,26 +229,26 @@ VALUES ((SELECT id FROM users WHERE full_name = 'Stephen Strange'),
 
 #Insert into Appointments
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`, `doctor_id`, `patient_id`)
-    VALUES ('2023-07-28 10:00:00', '2023-07-28 09:00:00', (SELECT id FROM users WHERE full_name='Daniel Ricciardo') ,(SELECT id FROM users WHERE id_medical_card = '0837462958176432'));
+    VALUES ('2023-07-28 10:00:00', '2023-07-28 09:00:00', (SELECT id FROM users WHERE full_name='Charles Leclerc') ,(SELECT id FROM users WHERE id_medical_card = '0837462958176432'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-07-30 12:00:00', '2023-07-30 11:00:00', (SELECT id FROM users WHERE full_name = 'Daniel Ricciardo'),
+VALUES ('2023-07-30 12:00:00', '2023-07-30 11:00:00', (SELECT id FROM users WHERE full_name = 'Charles Leclerc'),
         (SELECT id FROM users WHERE id_medical_card = '4536912702841967'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-08-13 14:00:00', '2023-08-13 13:00:00', (SELECT id FROM users WHERE full_name = 'Daniel Ricciardo'),
+VALUES ('2023-08-13 14:00:00', '2023-08-13 13:00:00', (SELECT id FROM users WHERE full_name = 'Charles Leclerc'),
         (SELECT id FROM users WHERE id_medical_card = '1468295710397256'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-07-29 16:00:00', '2023-07-29 15:00:00', (SELECT id FROM users WHERE full_name = 'John Watson'),
+VALUES ('2023-07-29 16:00:00', '2023-07-29 15:00:00', (SELECT id FROM users WHERE full_name = 'Gregory House'),
         (SELECT id FROM users WHERE id_medical_card = '3208941659278413'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-07-27 18:00:00', '2023-07-27 17:00:00', (SELECT id FROM users WHERE full_name = 'John Watson'),
+VALUES ('2023-07-27 18:00:00', '2023-07-27 17:00:00', (SELECT id FROM users WHERE full_name = 'Gregory House'),
         (SELECT id FROM users WHERE id_medical_card = '5736489215649132'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
-VALUES ('2023-08-08 11:30:00', '2023-08-08 10:30:00', (SELECT id FROM users WHERE full_name = 'John Watson'),
+VALUES ('2023-08-08 11:30:00', '2023-08-08 10:30:00', (SELECT id FROM users WHERE full_name = 'Gregory House'),
         (SELECT id FROM users WHERE id_medical_card = '7904825613249051'));
 INSERT INTO `medical_management_system`.`appointments` (`appointment_date_end_time`, `appointment_date_start_time`,
                                                         `doctor_id`, `patient_id`)
@@ -280,15 +280,15 @@ INSERT INTO `medical_management_system`.`doctor_holidays` ( `holiday_date`, `hol
 INSERT INTO `medical_management_system`.`doctor_holidays` ( `holiday_date`, `holiday_name`) VALUES ( '2024-05-01', 'Labor Day');
 
 #Insert into doctor working days
-INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '14:00:00'), 'Monday');
-INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '22:00:00'), 'Monday');
-INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '18:00:00'), 'Wednesday');
-INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '01:00:00'), 'Wednesday');
-INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '21:00:00'), 'Tuesday');
-INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '15:00:00'), 'Thursday');
-INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '05:00:00'), 'Friday');
-INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '18:00:00'), 'Saturday');
-INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '01:00:00'), 'Sunday');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '14:00:00'), 'MONDAY');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '22:00:00'), 'MONDAY');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '18:00:00'), 'WEDNESDAY');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '01:00:00'), 'WEDNESDAY');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '21:00:00'), 'TUESDAY');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '15:00:00'), 'THURSDAY');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '05:00:00'), 'FRIDAY');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '18:00:00'), 'SATURDAY');
+INSERT INTO medical_management_system.doctor_working_days (doctor_availability_id, working_day) VALUES ((SELECT id FROM doctor_availability WHERE end_time = '01:00:00'), 'SUNDAY');
 
 #Insert into user availability
 INSERT INTO medical_management_system.user_availability (user_id, doctor_availability_id) VALUES ((SELECT id FROM users WHERE full_name='Charles Leclerc'), (SELECT id FROM doctor_availability WHERE end_time = '14:00:00'));
