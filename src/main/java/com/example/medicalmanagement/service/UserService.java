@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -122,8 +123,8 @@ public class UserService {
 
     }
 
-    private boolean isTimeRangeOverlap(LocalDateTime start1, LocalDateTime end1, LocalDateTime start2, LocalDateTime end2) {
-        return !start1.toLocalTime().isAfter(end2.toLocalTime()) && !start2.toLocalTime().isAfter(end1.toLocalTime());
+    private boolean isTimeRangeOverlap(LocalTime start1, LocalTime end1, LocalDateTime start2, LocalDateTime end2) {
+        return !start1.isAfter(end2.toLocalTime()) && !start2.toLocalTime().isAfter(end1);
     }
 
 }
