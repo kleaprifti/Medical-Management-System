@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -92,5 +95,35 @@ public class UserService {
 
         userRepository.save(newUser);
         return true;
+    }
+
+    public String checkDoctorAvailability(Long doctorId, LocalTime startTime, LocalTime endTime, DayOfWeek workday) {
+        Optional<User> doctorOptional = userRepository.findById(doctorId);
+
+        if (doctorOptional.isPresent()) {
+            User doctor = doctorOptional.get();
+
+            boolean isAvailable = isDoctorAvailableInTimeRange(doctor, startTime, endTime, workday);
+
+            if (isAvailable) {
+                return "Doctor is available in the specified time range on " + workday + ".";
+            } else {
+                return "Doctor is not available in the specified time range on " + workday + ".";
+            }
+        } else {
+            return "Doctor with ID " + doctorId + " does not exist.";
+        }
+    }
+
+    private boolean isDoctorAvailableInTimeRange(User doctor, LocalTime startTime, LocalTime endTime, DayOfWeek workday) {
+        List<DoctorAvailability> availabilitySchedule = doctor.getDoctorAvailabilities();
+
+        return availabilitySchedule.stream()
+                .filter(availability -> availability.getWorkingDays().contains(workday))
+                .anyMatch(availability -> isTimeRangeOverlap(availability.getStartTime(), availability.getEndTime(), startTime, endTime));
+    }
+
+    private boolean isTimeRangeOverlap(LocalTime start1, LocalTime end1, LocalTime start2, LocalTime end2) {
+        return !start1.isAfter(end2) && !start2.isAfter(end1);
     }
 }
