@@ -7,6 +7,7 @@ import com.example.medicalmanagement.exceptionhandlers.TimeException;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.AppointmentRepository;
+import com.example.medicalmanagement.validator.AppointmentValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -60,7 +61,6 @@ class AppointmentValidatorTest {
 
         appointmentValidator.checkConflictingAppointments(appointmentDto);
 
-        // No exception should be thrown
         verify(appointmentRepository, times(1)).findConflictingAppointments(anyLong(), anyLong(), any(LocalDateTime.class), any(LocalDateTime.class));
     }
 

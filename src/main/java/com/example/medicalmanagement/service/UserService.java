@@ -1,17 +1,16 @@
 package com.example.medicalmanagement.service;
 
+import com.example.medicalmanagement.validator.UserValidator;
 import com.example.medicalmanagement.dto.UserDto;
 import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,13 +19,17 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private SpecialityRepository specialityRepository;
-
-    @Autowired
+    private UserValidator userValidator;
     private RoleRepository roleRepository;
+
+    public UserService(UserRepository userRepository, SpecialityRepository specialityRepository, UserValidator userValidator, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.specialityRepository = specialityRepository;
+        this.userValidator = userValidator;
+        this.roleRepository = roleRepository;
+    }
 
     public List<UserDto> getAllUsers(UserRole userRole) {
         Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
@@ -104,7 +107,7 @@ public class UserService {
     if (optionalDoctor.isPresent()) {
         User doctor = optionalDoctor.get();
         DayOfWeek workday = startTime.getDayOfWeek();
-        boolean isAvailable = isDoctorAvailableInTimeRange(doctor, startTime, endTime);
+        boolean isAvailable = userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime);
 
         return Optional.of(isAvailable
                 ? "Doctor is available in the specified time range on " + workday + "."
@@ -114,16 +117,4 @@ public class UserService {
     }
 }
 
-    private boolean isDoctorAvailableInTimeRange(User doctor, LocalDateTime startTime, LocalDateTime endTime) {
-        List<DoctorAvailability> availabilitySchedule = doctor.getDoctorAvailabilities();
-
-        return availabilitySchedule.stream()
-                .filter(availability -> availability.getWorkingDays().contains(startTime.getDayOfWeek()))
-                .anyMatch(availability -> isTimeRangeOverlap(availability.getStartTime(), availability.getEndTime(), startTime, endTime));
-
-    }
-
-    private boolean isTimeRangeOverlap(LocalTime start1, LocalTime end1, LocalDateTime start2, LocalDateTime end2) {
-        return !start1.isAfter(end2.toLocalTime()) && !start2.toLocalTime().isAfter(end1);
-    }
 }
