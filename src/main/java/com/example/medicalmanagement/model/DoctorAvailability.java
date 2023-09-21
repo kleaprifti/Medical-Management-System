@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -23,10 +23,10 @@ public class DoctorAvailability {
     private Long id;
 
     @Column(name = "start_time")
-    private LocalDateTime startTime;
+    private LocalTime startTime;
 
     @Column(name = "end_time",unique = true)
-    private LocalDateTime endTime;
+    private LocalTime endTime;
     @ElementCollection
     @CollectionTable(name = "doctor_working_days", joinColumns = @JoinColumn(name = "doctor_availability_id"))
     @Column(name = "working_day")
