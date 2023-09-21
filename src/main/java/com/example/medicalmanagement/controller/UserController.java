@@ -9,8 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DayOfWeek;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -41,11 +40,11 @@ public class UserController {
     @GetMapping("/{doctorId}/check-availability")
     public ResponseEntity<String> checkDoctorAvailability(
             @PathVariable Long doctorId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime,
-            @RequestParam DayOfWeek workday) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime startTime,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime endTime)
+         {
 
-        String message = userService.checkDoctorAvailability(doctorId, startTime, endTime, workday);
+        String message = userService.checkDoctorAvailability(doctorId, startTime, endTime);
         return ResponseEntity.ok(message);
     }
 

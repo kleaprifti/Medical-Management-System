@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -97,13 +97,14 @@ public class UserService {
         return true;
     }
 
-    public String checkDoctorAvailability(Long doctorId, LocalTime startTime, LocalTime endTime, DayOfWeek workday) {
+    public String checkDoctorAvailability(Long doctorId, LocalDateTime startTime, LocalDateTime endTime) {
         Optional<User> doctorOptional = userRepository.findById(doctorId);
 
         if (doctorOptional.isPresent()) {
             User doctor = doctorOptional.get();
+            DayOfWeek workday = startTime.getDayOfWeek();
 
-            boolean isAvailable = isDoctorAvailableInTimeRange(doctor, startTime, endTime, workday);
+            boolean isAvailable = isDoctorAvailableInTimeRange(doctor, startTime, endTime);
 
             if (isAvailable) {
                 return "Doctor is available in the specified time range on " + workday + ".";
@@ -115,15 +116,15 @@ public class UserService {
         }
     }
 
-    private boolean isDoctorAvailableInTimeRange(User doctor, LocalTime startTime, LocalTime endTime, DayOfWeek workday) {
+    private boolean isDoctorAvailableInTimeRange(User doctor, LocalDateTime startTime, LocalDateTime endTime) {
         List<DoctorAvailability> availabilitySchedule = doctor.getDoctorAvailabilities();
 
         return availabilitySchedule.stream()
-                .filter(availability -> availability.getWorkingDays().contains(workday))
+                .filter(availability -> availability.getWorkingDays().contains(startTime.getDayOfWeek()))
                 .anyMatch(availability -> isTimeRangeOverlap(availability.getStartTime(), availability.getEndTime(), startTime, endTime));
     }
-
-    private boolean isTimeRangeOverlap(LocalTime start1, LocalTime end1, LocalTime start2, LocalTime end2) {
+    private boolean isTimeRangeOverlap(LocalDateTime start1, LocalDateTime end1, LocalDateTime start2, LocalDateTime end2) {
         return !start1.isAfter(end2) && !start2.isAfter(end1);
     }
+
 }
