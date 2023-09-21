@@ -97,24 +97,21 @@ public class UserService {
         return true;
     }
 
-    public String checkDoctorAvailability(Long doctorId, LocalDateTime startTime, LocalDateTime endTime) {
-        Optional<User> doctorOptional = userRepository.findById(doctorId);
+    public Optional<String> checkDoctorAvailability(Long doctorId, LocalDateTime startTime, LocalDateTime endTime) {
+      Optional<User> optionalDoctor = userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
 
-        if (doctorOptional.isPresent()) {
-            User doctor = doctorOptional.get();
-            DayOfWeek workday = startTime.getDayOfWeek();
+    if (optionalDoctor.isPresent()) {
+        User doctor = optionalDoctor.get();
+        DayOfWeek workday = startTime.getDayOfWeek();
+        boolean isAvailable = isDoctorAvailableInTimeRange(doctor, startTime, endTime);
 
-            boolean isAvailable = isDoctorAvailableInTimeRange(doctor, startTime, endTime);
-
-            if (isAvailable) {
-                return "Doctor is available in the specified time range on " + workday + ".";
-            } else {
-                return "Doctor is not available in the specified time range on " + workday + ".";
-            }
-        } else {
-            return "Doctor with ID " + doctorId + " does not exist.";
-        }
+        return Optional.of(isAvailable
+                ? "Doctor is available in the specified time range on " + workday + "."
+                : "Doctor is not available in the specified time range on " + workday + ".");
+    } else {
+        return Optional.of("Doctor not found");
     }
+}
 
     private boolean isDoctorAvailableInTimeRange(User doctor, LocalDateTime startTime, LocalDateTime endTime) {
         List<DoctorAvailability> availabilitySchedule = doctor.getDoctorAvailabilities();
@@ -122,9 +119,11 @@ public class UserService {
         return availabilitySchedule.stream()
                 .filter(availability -> availability.getWorkingDays().contains(startTime.getDayOfWeek()))
                 .anyMatch(availability -> isTimeRangeOverlap(availability.getStartTime(), availability.getEndTime(), startTime, endTime));
+
     }
+
     private boolean isTimeRangeOverlap(LocalDateTime start1, LocalDateTime end1, LocalDateTime start2, LocalDateTime end2) {
-        return !start1.isAfter(end2) && !start2.isAfter(end1);
+        return !start1.toLocalTime().isAfter(end2.toLocalTime()) && !start2.toLocalTime().isAfter(end1.toLocalTime());
     }
 
 }

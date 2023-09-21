@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -41,11 +42,10 @@ public class UserController {
     public ResponseEntity<String> checkDoctorAvailability(
             @PathVariable Long doctorId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime startTime,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime endTime)
-         {
-
-        String message = userService.checkDoctorAvailability(doctorId, startTime, endTime);
-        return ResponseEntity.ok(message);
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime endTime
+    ) {
+        Optional<String> message = userService.checkDoctorAvailability(doctorId, startTime, endTime);
+        return message.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
 }

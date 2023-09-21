@@ -17,12 +17,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -134,4 +138,28 @@ class UserServiceTest {
     private Speciality createSpeciality() {
         return new Speciality();
     }
+
+    @Test
+     void checkDoctorAvailability() {
+        MockitoAnnotations.initMocks(this);
+        User doctor = new User();
+        Long doctorId = 1L;
+        doctor.setId(doctorId);
+        LocalDateTime startTime = LocalDateTime.of(2023, 11, 27, 10, 0); // Example start time
+        LocalDateTime endTime = LocalDateTime.of(2023, 11, 27, 12, 0);   // Example end time
+        List<DoctorAvailability> availabilitySchedule = new ArrayList<>();
+        DoctorAvailability availability = new DoctorAvailability();
+        availability.setWorkingDays(Collections.singleton(DayOfWeek.MONDAY)); // Example day
+        availability.setStartTime(LocalDateTime.of(2023, 11, 27, 8, 0)); // Example availability start time
+        availability.setEndTime(LocalDateTime.of(2023, 11, 27, 16, 0)); // Example availability end time
+        availabilitySchedule.add(availability);
+        doctor.setDoctorAvailabilities(availabilitySchedule);
+
+        Mockito.when(userRepository.findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR))).thenReturn(Optional.of(doctor));
+
+        Optional<String> result = userService.checkDoctorAvailability(doctorId, startTime, endTime);
+
+        assertEquals("Doctor is available in the specified time range on MONDAY.", result.orElse(null));
+    }
+
 }
