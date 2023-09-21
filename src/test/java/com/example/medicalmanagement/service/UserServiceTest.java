@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -150,8 +151,8 @@ class UserServiceTest {
         List<DoctorAvailability> availabilitySchedule = new ArrayList<>();
         DoctorAvailability availability = new DoctorAvailability();
         availability.setWorkingDays(Collections.singleton(DayOfWeek.MONDAY)); // Example day
-        availability.setStartTime(LocalDateTime.of(2023, 11, 27, 8, 0)); // Example availability start time
-        availability.setEndTime(LocalDateTime.of(2023, 11, 27, 16, 0)); // Example availability end time
+        availability.setStartTime(LocalTime.from(LocalDateTime.of(2023, 11, 27, 8, 0))); // Example availability start time
+        availability.setEndTime(LocalTime.from(LocalDateTime.of(2023, 11, 27, 16, 0))); // Example availability end time
         availabilitySchedule.add(availability);
         doctor.setDoctorAvailabilities(availabilitySchedule);
 
