@@ -1,7 +1,7 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.appointmentcreator.AppointmentCreator;
-import com.example.medicalmanagement.appointmentvalidator.AppointmentValidator;
+import com.example.medicalmanagement.validator.AppointmentValidator;
 import com.example.medicalmanagement.builder.AppointmentServiceBuilder;
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.NotFoundException;

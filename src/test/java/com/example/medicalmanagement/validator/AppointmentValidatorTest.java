@@ -1,4 +1,4 @@
-package com.example.medicalmanagement.appointmentvalidator;
+package com.example.medicalmanagement.validator;
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.AlreadyExistsException;
 import com.example.medicalmanagement.exceptionhandlers.DurationException;
@@ -60,7 +60,6 @@ class AppointmentValidatorTest {
 
         appointmentValidator.checkConflictingAppointments(appointmentDto);
 
-        // No exception should be thrown
         verify(appointmentRepository, times(1)).findConflictingAppointments(anyLong(), anyLong(), any(LocalDateTime.class), any(LocalDateTime.class));
     }
 

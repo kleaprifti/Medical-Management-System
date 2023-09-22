@@ -1,4 +1,4 @@
-package com.example.medicalmanagement.appointmentvalidator;
+package com.example.medicalmanagement.validator;
 
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.AlreadyExistsException;
@@ -30,14 +30,14 @@ public class AppointmentValidator {
         validateDuration(appointmentDto.getAppointmentDateStartTime(), appointmentDto.getAppointmentDateEndTime());
     }
 
-    void validateAppointmentTime(LocalDateTime appointmentDateTime) {
+    public void validateAppointmentTime(LocalDateTime appointmentDateTime) {
         LocalDateTime now = LocalDateTime.now();
         if (appointmentDateTime.isBefore(now)) {
             throw new TimeException("Appointment time cannot be in the past");
         }
     }
 
-    void checkConflictingAppointments(AppointmentDto appointmentDto) {
+    public void checkConflictingAppointments(AppointmentDto appointmentDto) {
         List<Appointment> conflictingAppointment = appointmentRepository.findConflictingAppointments(
                 appointmentDto.getPatientId(), appointmentDto.getDoctorId(),
                 appointmentDto.getAppointmentDateStartTime(), appointmentDto.getAppointmentDateEndTime());
@@ -46,7 +46,7 @@ public class AppointmentValidator {
         }
     }
 
-    void validateDuration(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public void validateDuration(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         if (startDateTime.plusHours(1).isAfter(endDateTime) || startDateTime.isEqual(endDateTime)|| startDateTime.plusHours(1).isBefore(endDateTime)) {
             throw new DurationException("Appointment duration should be one hour");
         }

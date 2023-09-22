@@ -1,28 +1,35 @@
 package com.example.medicalmanagement.service;
 
+import com.example.medicalmanagement.validator.UserValidator;
 import com.example.medicalmanagement.dto.UserDto;
 import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private SpecialityRepository specialityRepository;
-
-    @Autowired
+    private UserValidator userValidator;
     private RoleRepository roleRepository;
+
+    public UserService(UserRepository userRepository, SpecialityRepository specialityRepository, UserValidator userValidator, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.specialityRepository = specialityRepository;
+        this.userValidator = userValidator;
+        this.roleRepository = roleRepository;
+    }
 
     public List<UserDto> getAllUsers(UserRole userRole) {
         Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
@@ -93,4 +100,21 @@ public class UserService {
         userRepository.save(newUser);
         return true;
     }
+
+    public Optional<String> checkDoctorAvailability(Long doctorId, LocalDateTime startTime, LocalDateTime endTime) {
+      Optional<User> optionalDoctor = userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
+
+    if (optionalDoctor.isPresent()) {
+        User doctor = optionalDoctor.get();
+        DayOfWeek workday = startTime.getDayOfWeek();
+        boolean isAvailable = userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime);
+
+        return Optional.of(isAvailable
+                ? "Doctor is available in the specified time range on " + workday + "."
+                : "Doctor is not available in the specified time range on " + workday + ".");
+    } else {
+        return Optional.of("Doctor not found");
+    }
+}
+
 }

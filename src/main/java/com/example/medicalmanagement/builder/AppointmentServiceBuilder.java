@@ -4,7 +4,7 @@ import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import com.example.medicalmanagement.appointmentcreator.AppointmentCreator;
 import com.example.medicalmanagement.service.AppointmentService;
-import com.example.medicalmanagement.appointmentvalidator.AppointmentValidator;
+import com.example.medicalmanagement.validator.AppointmentValidator;
 import com.example.medicalmanagement.service.EmailService;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;

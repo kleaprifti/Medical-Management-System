@@ -5,6 +5,7 @@ import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.validator.UserValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +18,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -36,6 +42,8 @@ class UserServiceTest {
     @Mock
     private SpecialityRepository specialityRepository;
 
+    @Mock
+    private UserValidator userValidator;
     @Mock
     private RoleRepository roleRepository;
 
@@ -133,5 +141,55 @@ class UserServiceTest {
 
     private Speciality createSpeciality() {
         return new Speciality();
+    }
+    @Test
+    void checkDoctorAvailabilityDoctorExistsAndIsAvailable() {
+        Long doctorId = 1L;
+        LocalDateTime startTime = LocalDateTime.now();
+        LocalDateTime endTime = startTime.plusHours(1);
+
+        User doctor = new User();
+        doctor.setId(doctorId);
+        when(userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR)).thenReturn(Optional.of(doctor));
+        when(userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime)).thenReturn(true);
+
+        Optional<String> result = userService.checkDoctorAvailability(doctorId, startTime, endTime);
+
+        assertEquals("Doctor is available in the specified time range on " + startTime.getDayOfWeek() + ".", result.orElse(""));
+        verify(userRepository, times(1)).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
+        verify(userValidator, times(1)).isDoctorAvailableInTimeRange(doctor, startTime, endTime);
+    }
+
+    @Test
+    void checkDoctorAvailabilityDoctorExistsAndIsNotAvailable() {
+        Long doctorId = 1L;
+        LocalDateTime startTime = LocalDateTime.now();
+        LocalDateTime endTime = startTime.plusHours(1);
+
+        User doctor = new User();
+        doctor.setId(doctorId);
+        when(userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR)).thenReturn(Optional.of(doctor));
+        when(userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime)).thenReturn(false);
+
+        Optional<String> result = userService.checkDoctorAvailability(doctorId, startTime, endTime);
+
+        assertEquals("Doctor is not available in the specified time range on " + startTime.getDayOfWeek() + ".", result.orElse(""));
+        verify(userRepository, times(1)).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
+        verify(userValidator, times(1)).isDoctorAvailableInTimeRange(doctor, startTime, endTime);
+    }
+
+    @Test
+    void checkDoctorAvailabilityDoctorNotFound() {
+        Long doctorId = 1L;
+        LocalDateTime startTime = LocalDateTime.now();
+        LocalDateTime endTime = startTime.plusHours(1);
+
+        when(userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR)).thenReturn(Optional.empty());
+
+        Optional<String> result = userService.checkDoctorAvailability(doctorId, startTime, endTime);
+
+        assertEquals("Doctor not found", result.orElse(""));
+        verify(userRepository, times(1)).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
+        verify(userValidator, never()).isDoctorAvailableInTimeRange(any(), any(), any());
     }
 }
