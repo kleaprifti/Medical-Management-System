@@ -102,19 +102,27 @@ public class UserService {
     }
 
     public Optional<String> checkDoctorAvailability(Long doctorId, LocalDateTime startTime, LocalDateTime endTime) {
-      Optional<User> optionalDoctor = userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
+        Optional<User> optionalDoctor = userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
 
-    if (optionalDoctor.isPresent()) {
-        User doctor = optionalDoctor.get();
-        DayOfWeek workday = startTime.getDayOfWeek();
-        boolean isAvailable = userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime);
+        if (optionalDoctor.isPresent()) {
+            User doctor = optionalDoctor.get();
+            DayOfWeek workday = startTime.getDayOfWeek();
 
-        return Optional.of(isAvailable
-                ? "Doctor is available in the specified time range on " + workday + "."
-                : "Doctor is not available in the specified time range on " + workday + ".");
-    } else {
-        return Optional.of("Doctor not found");
+            boolean isHoliday = doctor.getHolidays()
+                    .stream()
+                    .anyMatch(holiday -> holiday.getHolidayDate().equals(startTime.toLocalDate()));
+
+            if (isHoliday) {
+                return Optional.of("Doctor is on holiday on " + startTime.toLocalDate() + ".");
+            } else {
+                boolean isAvailable = userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime);
+                return Optional.of(isAvailable
+                        ? "Doctor is available in the specified time range on " + workday + "."
+                        : "Doctor is not available in the specified time range on " + workday + ".");
+            }
+        } else {
+            return Optional.of("Doctor not found");
+        }
     }
-}
 
 }
