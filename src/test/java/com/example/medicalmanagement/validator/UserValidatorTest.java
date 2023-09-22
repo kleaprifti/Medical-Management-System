@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
     }
 
     @Test
-    void testIsDoctorAvailableInTimeRangeDoctorAvailable() {
+    void isDoctorAvailableInTimeRangeDoctorAvailable() {
         User doctor = new User();
         List<DoctorAvailability> availabilitySchedule = new ArrayList<>();
         DoctorAvailability doctorAvailability = Mockito.mock(DoctorAvailability.class);
@@ -48,7 +48,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
     }
 
     @Test
-    void testIsDoctorAvailableInTimeRangeDoctorNotAvailable() {
+    void isDoctorAvailableInTimeRangeDoctorNotAvailable() {
         User doctor = new User();
         List<DoctorAvailability> availabilitySchedule = new ArrayList<>();
         DoctorAvailability doctorAvailability = Mockito.mock(DoctorAvailability.class);
