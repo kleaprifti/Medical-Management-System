@@ -9,7 +9,7 @@ import com.example.medicalmanagement.repository.UserRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,19 +106,17 @@ public class UserService {
 
         if (optionalDoctor.isPresent()) {
             User doctor = optionalDoctor.get();
-            DayOfWeek workday = startTime.getDayOfWeek();
+            LocalDate date = startTime.toLocalDate();
 
-            boolean isHoliday = doctor.getHolidays()
-                    .stream()
-                    .anyMatch(holiday -> holiday.getHolidayDate().equals(startTime.toLocalDate()));
+            boolean isOnHoliday = userValidator.isDoctorOnHoliday(doctor, date);
 
-            if (isHoliday) {
-                return Optional.of("Doctor is on holiday on " + startTime.toLocalDate() + ".");
+            if (isOnHoliday) {
+                return Optional.of("Doctor is on holiday on " + date + ".");
             } else {
                 boolean isAvailable = userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime);
                 return Optional.of(isAvailable
-                        ? "Doctor is available in the specified time range on " + workday + "."
-                        : "Doctor is not available in the specified time range on " + workday + ".");
+                        ? "Doctor is available in the specified time range on " + date.getDayOfWeek() + "."
+                        : "Doctor is not available in the specified time range on " + date.getDayOfWeek() + ".");
             }
         } else {
             return Optional.of("Doctor not found");

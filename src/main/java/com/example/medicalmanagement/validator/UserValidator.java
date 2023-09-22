@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -28,6 +29,12 @@ public class UserValidator {
                 .filter(availability -> availability.getWorkingDays().contains(startTime.getDayOfWeek()))
                 .anyMatch(availability -> isTimeRangeOverlap(availability.getStartTime(), availability.getEndTime(), startTime, endTime));
 
+    }
+
+    public boolean isDoctorOnHoliday(User doctor, LocalDate date) {
+        return doctor.getHolidays()
+                .stream()
+                .anyMatch(holiday -> holiday.getHolidayDate().equals(date));
     }
 
     private boolean isTimeRangeOverlap(LocalTime start1, LocalTime end1, LocalDateTime start2, LocalDateTime end2) {
