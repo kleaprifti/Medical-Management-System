@@ -16,10 +16,10 @@ import java.util.List;
 public class UserValidator {
     @Autowired
     private UserRepository userRepository;
-
     public UserValidator(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
 
     public boolean isDoctorAvailableInTimeRange(User doctor, LocalDateTime startTime, LocalDateTime endTime) {
         List<DoctorAvailability> availabilitySchedule = doctor.getDoctorAvailabilities();

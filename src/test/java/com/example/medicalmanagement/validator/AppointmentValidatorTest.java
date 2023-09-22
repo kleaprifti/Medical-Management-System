@@ -1,4 +1,4 @@
-package com.example.medicalmanagement.appointmentvalidator;
+package com.example.medicalmanagement.validator;
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.AlreadyExistsException;
 import com.example.medicalmanagement.exceptionhandlers.DurationException;
@@ -7,7 +7,6 @@ import com.example.medicalmanagement.exceptionhandlers.TimeException;
 import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.AppointmentRepository;
-import com.example.medicalmanagement.validator.AppointmentValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
