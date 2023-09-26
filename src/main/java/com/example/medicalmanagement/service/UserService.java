@@ -1,11 +1,11 @@
 package com.example.medicalmanagement.service;
 
-import com.example.medicalmanagement.validator.UserValidator;
 import com.example.medicalmanagement.dto.UserDto;
 import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.validator.UserValidator;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -101,7 +101,7 @@ public class UserService {
         return true;
     }
 
-    public Optional<String> checkDoctorAvailability(Long doctorId, LocalDateTime startTime, LocalDateTime endTime) {
+    public boolean isDoctorAvailable(Long doctorId, LocalDateTime startTime, LocalDateTime endTime) {
         Optional<User> optionalDoctor = userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
 
         if (optionalDoctor.isPresent()) {
@@ -111,16 +111,15 @@ public class UserService {
             boolean isOnHoliday = userValidator.isDoctorOnHoliday(doctor, date);
 
             if (isOnHoliday) {
-                return Optional.of("Doctor is on holiday on " + date + ".");
+                return false;
             } else {
                 boolean isAvailable = userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime);
-                return Optional.of(isAvailable
-                        ? "Doctor is available in the specified time range on " + date.getDayOfWeek() + "."
-                        : "Doctor is not available in the specified time range on " + date.getDayOfWeek() + ".");
+                return isAvailable;
             }
         } else {
-            return Optional.of("Doctor not found");
+            return false;
         }
+
     }
 
 }
