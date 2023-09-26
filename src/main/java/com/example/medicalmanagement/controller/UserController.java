@@ -6,6 +6,7 @@ import com.example.medicalmanagement.exceptionhandlers.DoctorNotAvailableExcepti
 import com.example.medicalmanagement.exceptionhandlers.DoctorOnHolidayException;
 import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.model.UserRole;
+import com.example.medicalmanagement.repository.UserRepository;
 import com.example.medicalmanagement.service.UserService;
 import com.example.medicalmanagement.validator.UserValidator;
 import jakarta.validation.Valid;
@@ -25,7 +26,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private UserValidator userValidator;
 
@@ -46,25 +48,26 @@ public class UserController {
     }
 
 
-@GetMapping("/{doctorId}/check-availability")
-public ResponseEntity<DoctorAvailabilityCheckResult> checkDoctorAvailability(
-        @PathVariable Long doctorId,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime startTime,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime endTime) {
-    try {
-        boolean isAvailable = userService.isDoctorAvailable(doctorId, startTime, endTime);
-        DoctorAvailabilityCheckResult result = userValidator.validateDoctorAvailability(doctorId, startTime, endTime);
+    @GetMapping("/{doctorId}/check-availability")
+    public ResponseEntity<DoctorAvailabilityCheckResult> checkDoctorAvailability(
+            @PathVariable Long doctorId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime startTime,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime endTime) {
+        try {
+            boolean isAvailable = userService.isDoctorAvailable(doctorId, startTime, endTime);
+            DoctorAvailabilityCheckResult result = userValidator.validateDoctorAvailability(doctorId, startTime, endTime);
 
-        result.setAvailable(isAvailable);
+            result.setAvailable(isAvailable);
 
-        return ResponseEntity.ok(result);
-    } catch (NotFoundException e) {
-        return ResponseEntity.notFound().build();
-    } catch (DoctorNotAvailableException e) {
-        return ResponseEntity.ok(new DoctorAvailabilityCheckResult(false, e.getMessage()));
-    } catch (DoctorOnHolidayException e) {
-        return ResponseEntity.ok(new DoctorAvailabilityCheckResult(false, e.getMessage()));
+            return ResponseEntity.ok(result);
+        } catch (NotFoundException e) {
+            return ResponseEntity.ok(new DoctorAvailabilityCheckResult(false, "User is not a doctor"));
+
+        } catch (DoctorNotAvailableException e) {
+            return ResponseEntity.ok(new DoctorAvailabilityCheckResult(false, e.getMessage()));
+        } catch (DoctorOnHolidayException e) {
+            return ResponseEntity.ok(new DoctorAvailabilityCheckResult(false, e.getMessage()));
+        }
     }
 
-    }
 }
