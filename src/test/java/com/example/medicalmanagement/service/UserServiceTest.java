@@ -143,7 +143,7 @@ class UserServiceTest {
         return new Speciality();
     }
     @Test
-    void testIsDoctorAvailable() {
+    void isDoctorAvailable() {
         Long doctorId = 1L;
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.now().plusHours(1);
