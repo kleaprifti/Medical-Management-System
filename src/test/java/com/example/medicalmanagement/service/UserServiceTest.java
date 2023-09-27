@@ -18,17 +18,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -157,7 +154,7 @@ class UserServiceTest {
         when(userValidator.isDoctorAvailableInTimeRange(any(), any(), any()))
                 .thenReturn(true);
 
-        boolean result = userService.isDoctorAvailable(doctorId, startTime, endTime);
+        userService.isDoctorAvailable(doctorId, startTime, endTime);
 
         verify(userRepository).findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR));
         verify(userValidator).isDoctorOnHoliday(any(), any());
