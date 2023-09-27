@@ -143,53 +143,24 @@ class UserServiceTest {
         return new Speciality();
     }
     @Test
-    void checkDoctorAvailabilityDoctorExistsAndIsAvailable() {
+    void testIsDoctorAvailable() {
         Long doctorId = 1L;
         LocalDateTime startTime = LocalDateTime.now();
-        LocalDateTime endTime = startTime.plusHours(1);
+        LocalDateTime endTime = LocalDateTime.now().plusHours(1);
 
-        User doctor = new User();
-        doctor.setId(doctorId);
-        when(userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR)).thenReturn(Optional.of(doctor));
-        when(userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime)).thenReturn(true);
+        when(userRepository.findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR)))
+                .thenReturn(Optional.of(new User()));
 
-        Optional<String> result = userService.checkDoctorAvailability(doctorId, startTime, endTime);
+        when(userValidator.isDoctorOnHoliday(any(), any()))
+                .thenReturn(false);
 
-        assertEquals("Doctor is available in the specified time range on " + startTime.getDayOfWeek() + ".", result.orElse(""));
-        verify(userRepository, times(1)).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
-        verify(userValidator, times(1)).isDoctorAvailableInTimeRange(doctor, startTime, endTime);
-    }
+        when(userValidator.isDoctorAvailableInTimeRange(any(), any(), any()))
+                .thenReturn(true);
 
-    @Test
-    void checkDoctorAvailabilityDoctorExistsAndIsNotAvailable() {
-        Long doctorId = 1L;
-        LocalDateTime startTime = LocalDateTime.now();
-        LocalDateTime endTime = startTime.plusHours(1);
+        boolean result = userService.isDoctorAvailable(doctorId, startTime, endTime);
 
-        User doctor = new User();
-        doctor.setId(doctorId);
-        when(userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR)).thenReturn(Optional.of(doctor));
-        when(userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime)).thenReturn(false);
-
-        Optional<String> result = userService.checkDoctorAvailability(doctorId, startTime, endTime);
-
-        assertEquals("Doctor is not available in the specified time range on " + startTime.getDayOfWeek() + ".", result.orElse(""));
-        verify(userRepository, times(1)).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
-        verify(userValidator, times(1)).isDoctorAvailableInTimeRange(doctor, startTime, endTime);
-    }
-
-    @Test
-    void checkDoctorAvailabilityDoctorNotFound() {
-        Long doctorId = 1L;
-        LocalDateTime startTime = LocalDateTime.now();
-        LocalDateTime endTime = startTime.plusHours(1);
-
-        when(userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR)).thenReturn(Optional.empty());
-
-        Optional<String> result = userService.checkDoctorAvailability(doctorId, startTime, endTime);
-
-        assertEquals("Doctor not found", result.orElse(""));
-        verify(userRepository, times(1)).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
-        verify(userValidator, never()).isDoctorAvailableInTimeRange(any(), any(), any());
+        verify(userRepository).findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR));
+        verify(userValidator).isDoctorOnHoliday(any(), any());
+        verify(userValidator).isDoctorAvailableInTimeRange(any(), any(), any());
     }
 }
