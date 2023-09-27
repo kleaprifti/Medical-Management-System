@@ -29,6 +29,9 @@ public class UserValidator {
 
     public DoctorAvailabilityCheckResult validateDoctorAvailability(Long doctorId, LocalDateTime startTime, LocalDateTime endTime)
             throws DoctorNotAvailableException, NotFoundException, DoctorOnHolidayException {
+        if (startTime.isAfter(endTime) || startTime.equals(endTime)) {
+            throw new IllegalArgumentException("Start time must be before the end time.");
+        }
 
         Optional<User> optionalDoctor = userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
 
