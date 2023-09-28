@@ -70,7 +70,7 @@ public class UserValidator {
                 .anyMatch(holiday -> holiday.getHolidayDate().equals(date));
     }
 
-    private boolean isTimeRangeOverlap(LocalTime start1, LocalTime end1, LocalDateTime start2, LocalDateTime end2) {
+    public boolean isTimeRangeOverlap(LocalTime start1, LocalTime end1, LocalDateTime start2, LocalDateTime end2) {
         return !start1.isAfter(end2.toLocalTime()) && !start2.toLocalTime().isAfter(end1);
     }
 }
