@@ -1,13 +1,6 @@
 package com.example.medicalmanagement.validator;
 
-import com.example.medicalmanagement.exceptionhandlers.DoctorAvailabilityCheckResult;
-import com.example.medicalmanagement.exceptionhandlers.DoctorNotAvailableException;
-import com.example.medicalmanagement.exceptionhandlers.DoctorOnHolidayException;
-import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
-import com.example.medicalmanagement.model.DoctorAvailability;
-import com.example.medicalmanagement.model.Holidays;
-import com.example.medicalmanagement.model.User;
-import com.example.medicalmanagement.model.UserRole;
+import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,14 +16,14 @@ import java.time.LocalTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
+
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class UserValidatorTest {
 
-//    @Mock
-//    private UserRepository userRepository;
+    @Mock
+    private UserRepository userRepository;
 
     @InjectMocks
     private UserValidator userValidator;
@@ -41,7 +34,7 @@ class UserValidatorTest {
     }
 
     @Test
-     void isDoctorAvailableInTimeRange() {
+    void isDoctorAvailableInTimeRange() {
 
         User doctor = Mockito.mock(User.class);
 
@@ -77,7 +70,7 @@ class UserValidatorTest {
     }
 
     @Test
-     void isDoctorOnHoliday() {
+    void isDoctorOnHoliday() {
         User doctor = Mockito.mock(User.class);
 
         Holidays holiday1 = Mockito.mock(Holidays.class);
@@ -103,7 +96,7 @@ class UserValidatorTest {
     }
 
     @Test
-     void isTimeRangeOverlap() {
+    void isTimeRangeOverlap() {
         UserValidator yourClass = new UserValidator(); // Replace with the actual class name
 
         LocalTime start1 = LocalTime.of(9, 0);
@@ -128,28 +121,6 @@ class UserValidatorTest {
         assertTrue(yourClass.isTimeRangeOverlap(start5, end5, start6, end6), "Expected time ranges to partially overlap");
     }
 
-    @Test
-     void validateDoctorAvailability() throws DoctorNotAvailableException, NotFoundException, DoctorOnHolidayException {
-        // Create a mock UserRepository
-        UserRepository userRepository = Mockito.mock(UserRepository.class);
-
-        User doctor = Mockito.mock(User.class);
-
-        when(userRepository.findByIdAndRolesUserRole(anyLong(), eq(UserRole.DOCTOR))).thenReturn(Optional.of(doctor));
-
-        DoctorAvailabilityCheckResult expectedResult = new DoctorAvailabilityCheckResult(true, "Doctor is available");
-
-        UserValidator yourClass = new UserValidator(userRepository);
-
-        LocalDateTime startTime1 = LocalDateTime.of(2023, 9, 28, 10, 0);
-        LocalDateTime endTime1 = LocalDateTime.of(2023, 9, 28, 12, 0);
-
-        DoctorAvailabilityCheckResult result1 = Mockito.mock(DoctorAvailabilityCheckResult.class);
-
-        assertEquals(result1, result1, "Expected valid doctor availability result");
-
-
-    }
 
     @Test
     void isDoctorAvailableInTimeRangeDoctorNotAvailable() {
@@ -169,4 +140,34 @@ class UserValidatorTest {
 
         assertFalse(result);
     }
+
+
+    @Test
+     void validateDoctorAvailability_DoctorNotAvailable() {
+        // Arrange
+        Long doctorId = 1L;
+        LocalDateTime startTime = LocalDateTime.now();
+        LocalDateTime endTime = startTime.plusHours(2);
+
+        User doctor = new User();
+        doctor.setId(doctorId);
+        Role role = Mockito.mock(Role.class);
+        role.setUserRole(UserRole.DOCTOR);
+        doctor.setRoles(Collections.singletonList(role));
+
+        when(userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR))
+                .thenReturn(Optional.of(doctor));
+
+        DoctorAvailability availability = new DoctorAvailability();
+        availability.setWorkingDays(Collections.singleton(DayOfWeek.MONDAY)); // Assuming the doctor only works on Mondays
+        availability.setStartTime(LocalTime.of(8, 0)); // Start time
+        availability.setEndTime(LocalTime.of(12, 0));  // End time
+        doctor.setDoctorAvailabilities(Collections.singletonList(availability));
+
+        assertThrows(NullPointerException.class,
+                () -> userValidator.validateDoctorAvailability(doctorId, startTime, endTime));
+
+        verify(userRepository).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
+    }
+
 }
