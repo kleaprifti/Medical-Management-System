@@ -56,5 +56,16 @@ public class GlobalExceptionHandler {
         );
         return errorMap;
     }
+    @ExceptionHandler(DoctorOnHolidayException.class)
+    public ResponseEntity<ApiError> handleDoctorHoliday(DoctorOnHolidayException ex) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
 
+    }
+    @ExceptionHandler(DoctorNotAvailableException.class)
+    public ResponseEntity<ApiError> handleNotAvailable(DoctorNotAvailableException ex) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+
+    }
 }

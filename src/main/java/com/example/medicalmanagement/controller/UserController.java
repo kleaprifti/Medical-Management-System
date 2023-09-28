@@ -1,8 +1,14 @@
 package com.example.medicalmanagement.controller;
 
 import com.example.medicalmanagement.dto.UserDto;
+import com.example.medicalmanagement.exceptionhandlers.DoctorAvailabilityCheckResult;
+import com.example.medicalmanagement.exceptionhandlers.DoctorNotAvailableException;
+import com.example.medicalmanagement.exceptionhandlers.DoctorOnHolidayException;
+import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.model.UserRole;
+import com.example.medicalmanagement.repository.UserRepository;
 import com.example.medicalmanagement.service.UserService;
+import com.example.medicalmanagement.validator.UserValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -21,6 +26,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserValidator userValidator;
 
     @PostMapping("/add")
     public ResponseEntity<String> addUser(@RequestBody @Valid UserDto userDto) {
@@ -38,14 +47,27 @@ public class UserController {
         return userService.getAllUsers(userRole);
     }
 
+
     @GetMapping("/{doctorId}/check-availability")
-    public ResponseEntity<String> checkDoctorAvailability(
+    public ResponseEntity<DoctorAvailabilityCheckResult> checkDoctorAvailability(
             @PathVariable Long doctorId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime startTime,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime endTime
-    ) {
-        Optional<String> message = userService.checkDoctorAvailability(doctorId, startTime, endTime);
-        return message.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalDateTime endTime) {
+        try {
+            boolean isAvailable = userService.isDoctorAvailable(doctorId, startTime, endTime);
+            DoctorAvailabilityCheckResult result = userValidator.validateDoctorAvailability(doctorId, startTime, endTime);
+
+            result.setAvailable(isAvailable);
+
+            return ResponseEntity.ok(result);
+        } catch (NotFoundException e) {
+            return ResponseEntity.ok(new DoctorAvailabilityCheckResult(false, "User is not a doctor"));
+
+        } catch (DoctorNotAvailableException e) {
+            return ResponseEntity.ok(new DoctorAvailabilityCheckResult(false, e.getMessage()));
+        } catch (DoctorOnHolidayException e) {
+            return ResponseEntity.ok(new DoctorAvailabilityCheckResult(false, e.getMessage()));
+        }
     }
 
 }
