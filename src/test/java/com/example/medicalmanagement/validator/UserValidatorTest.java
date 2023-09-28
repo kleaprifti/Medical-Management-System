@@ -41,7 +41,7 @@ class UserValidatorTest {
     }
 
     @Test
-    public void testIsDoctorAvailableInTimeRange() {
+     void isDoctorAvailableInTimeRange() {
 
         User doctor = Mockito.mock(User.class);
 
@@ -77,7 +77,7 @@ class UserValidatorTest {
     }
 
     @Test
-    public void testIsDoctorOnHoliday() {
+     void isDoctorOnHoliday() {
         User doctor = Mockito.mock(User.class);
 
         Holidays holiday1 = Mockito.mock(Holidays.class);
@@ -103,7 +103,7 @@ class UserValidatorTest {
     }
 
     @Test
-    public void testIsTimeRangeOverlap() {
+     void isTimeRangeOverlap() {
         UserValidator yourClass = new UserValidator(); // Replace with the actual class name
 
         LocalTime start1 = LocalTime.of(9, 0);
@@ -129,7 +129,7 @@ class UserValidatorTest {
     }
 
     @Test
-    public void testValidateDoctorAvailability() throws DoctorNotAvailableException, NotFoundException, DoctorOnHolidayException {
+     void validateDoctorAvailability() throws DoctorNotAvailableException, NotFoundException, DoctorOnHolidayException {
         // Create a mock UserRepository
         UserRepository userRepository = Mockito.mock(UserRepository.class);
 
