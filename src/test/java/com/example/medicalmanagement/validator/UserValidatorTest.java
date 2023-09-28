@@ -76,8 +76,8 @@ class UserValidatorTest {
         Holidays holiday1 = Mockito.mock(Holidays.class);
         Holidays holiday2 = Mockito.mock(Holidays.class);
 
-        LocalDate date1 = LocalDate.of(2023, 9, 28); // Example holiday date
-        LocalDate date2 = LocalDate.of(2023, 9, 29); // Another example holiday date
+        LocalDate date1 = LocalDate.of(2023, 9, 28);
+        LocalDate date2 = LocalDate.of(2023, 9, 29);
 
         when(holiday1.getHolidayDate()).thenReturn(date1);
         when(holiday2.getHolidayDate()).thenReturn(date2);
@@ -86,39 +86,38 @@ class UserValidatorTest {
 
         when(doctor.getHolidays()).thenReturn(holidayList);
 
-        UserValidator yourClass = new UserValidator(); // Replace with the actual class name
+        UserValidator validator = new UserValidator();
+        LocalDate holidayDate = LocalDate.of(2023, 9, 28);
+        assertTrue(validator.isDoctorOnHoliday(doctor, holidayDate), "Expected doctor to be on holiday on this date");
 
-        LocalDate holidayDate = LocalDate.of(2023, 9, 28); // Example holiday date
-        assertTrue(yourClass.isDoctorOnHoliday(doctor, holidayDate), "Expected doctor to be on holiday on this date");
-
-        LocalDate nonHolidayDate = LocalDate.of(2023, 9, 30); // A date that is not a holiday
-        assertFalse(yourClass.isDoctorOnHoliday(doctor, nonHolidayDate), "Expected doctor not to be on holiday on this date");
+        LocalDate nonHolidayDate = LocalDate.of(2023, 9, 30);
+        assertFalse(validator.isDoctorOnHoliday(doctor, nonHolidayDate), "Expected doctor not to be on holiday on this date");
     }
 
     @Test
     void isTimeRangeOverlap() {
-        UserValidator yourClass = new UserValidator(); // Replace with the actual class name
+        UserValidator validator = new UserValidator();
 
         LocalTime start1 = LocalTime.of(9, 0);
         LocalTime end1 = LocalTime.of(12, 0);
         LocalDateTime start2 = LocalDateTime.of(2023, 9, 28, 10, 0);
         LocalDateTime end2 = LocalDateTime.of(2023, 9, 28, 11, 0);
 
-        assertTrue(yourClass.isTimeRangeOverlap(start1, end1, start2, end2), "Expected time ranges to overlap");
+        assertTrue(validator.isTimeRangeOverlap(start1, end1, start2, end2), "Expected time ranges to overlap");
 
         LocalTime start3 = LocalTime.of(14, 0);
         LocalTime end3 = LocalTime.of(16, 0);
         LocalDateTime start4 = LocalDateTime.of(2023, 9, 28, 17, 0);
         LocalDateTime end4 = LocalDateTime.of(2023, 9, 28, 18, 0);
 
-        assertFalse(yourClass.isTimeRangeOverlap(start3, end3, start4, end4), "Expected time ranges not to overlap");
+        assertFalse(validator.isTimeRangeOverlap(start3, end3, start4, end4), "Expected time ranges not to overlap");
 
         LocalTime start5 = LocalTime.of(9, 0);
         LocalTime end5 = LocalTime.of(12, 0);
         LocalDateTime start6 = LocalDateTime.of(2023, 9, 28, 11, 0);
         LocalDateTime end6 = LocalDateTime.of(2023, 9, 28, 14, 0);
 
-        assertTrue(yourClass.isTimeRangeOverlap(start5, end5, start6, end6), "Expected time ranges to partially overlap");
+        assertTrue(validator.isTimeRangeOverlap(start5, end5, start6, end6), "Expected time ranges to partially overlap");
     }
 
 
@@ -159,9 +158,9 @@ class UserValidatorTest {
                 .thenReturn(Optional.of(doctor));
 
         DoctorAvailability availability = new DoctorAvailability();
-        availability.setWorkingDays(Collections.singleton(DayOfWeek.MONDAY)); // Assuming the doctor only works on Mondays
-        availability.setStartTime(LocalTime.of(8, 0)); // Start time
-        availability.setEndTime(LocalTime.of(12, 0));  // End time
+        availability.setWorkingDays(Collections.singleton(DayOfWeek.MONDAY));
+        availability.setStartTime(LocalTime.of(8, 0));
+        availability.setEndTime(LocalTime.of(12, 0));
         doctor.setDoctorAvailabilities(Collections.singletonList(availability));
 
         assertThrows(NullPointerException.class,
