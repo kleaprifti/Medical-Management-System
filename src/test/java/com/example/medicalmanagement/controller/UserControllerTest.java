@@ -27,43 +27,15 @@ class UserControllerTest  {
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-     @Test
-      void getAllUsersByRoleForDoctors() {
-         UserService userService = mock(UserService.class);
-         UserRole role=UserRole.DOCTOR;
-         List<UserDto> doctorDtos = new ArrayList<>();
-         UserDto userDto1 = Mockito.mock(UserDto.class);
-         UserDto userDto2 = Mockito.mock(UserDto.class);
-         userDto1.setRoles(List.of(role));
-         userDto2.setRoles(List.of(role));
+    @Test
+     void getAllUsersByRole() {
+        UserRole userRole = UserRole.DOCTOR; // Replace with the desired role
+        List<UserDto> expectedUserDtos = new ArrayList<>();
 
-         doctorDtos.add(userDto1);
-         doctorDtos.add(userDto2);
+        when(userService.getAllUsers(userRole)).thenReturn(expectedUserDtos);
 
-         when(userService.getAllUsers(UserRole.DOCTOR)).thenReturn(doctorDtos);
+        List<UserDto> actualUserDtos = userController.getAllUsersByRole(userRole);
 
-
-         List<UserDto> result = userService.getAllUsers(UserRole.DOCTOR);
-
-         assertEquals(doctorDtos.size(), result.size());
-     }
-
-     @Test
-      void getAllUsersByRoleForPatients() {
-         UserService userService = mock(UserService.class);
-         List<UserDto> patientDtos = new ArrayList<>();
-         UserDto userDto1 = Mockito.mock(UserDto.class);
-         UserDto userDto2 = Mockito.mock(UserDto.class);
-         patientDtos.add(userDto1);
-         patientDtos.add(userDto2);
-
-         when(userService.getAllUsers(UserRole.PATIENT)).thenReturn(patientDtos);
-
-         UserController userController = mock(UserController.class);
-
-         List<UserDto> result = userService.getAllUsers(UserRole.PATIENT);
-
-         assertEquals(patientDtos.size(), result.size());
-         // You can add more assertions based on your mapping logic
-     }
+        assertEquals(expectedUserDtos, actualUserDtos);
+    }
 }
