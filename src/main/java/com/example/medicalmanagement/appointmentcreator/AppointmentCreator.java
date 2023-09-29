@@ -26,6 +26,7 @@ public class AppointmentCreator {
         appointmentDto.setDoctorId(appointment.getDoctor().getId());
         appointmentDto.setPatientId(appointment.getPatient().getId());
         appointmentDto.setPatientFullName(appointment.getPatient().getFullName());
+        appointmentDto.setDoctorFullName(appointment.getDoctor().getFullName());
         return appointmentDto;
     }
 }
