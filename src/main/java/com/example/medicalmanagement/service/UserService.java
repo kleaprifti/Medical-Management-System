@@ -113,8 +113,7 @@ public class UserService {
             if (isOnHoliday) {
                 return false;
             } else {
-                boolean isAvailable = userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime);
-                return isAvailable;
+                return userValidator.isDoctorAvailableInTimeRange(doctor, startTime, endTime);
             }
         } else {
             return false;
