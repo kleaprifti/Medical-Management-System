@@ -31,6 +31,11 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
+    public UserService() {
+
+    }
+
+
     public List<UserDto> getAllUsers(UserRole userRole) {
         Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
         if (userRole != null) {
