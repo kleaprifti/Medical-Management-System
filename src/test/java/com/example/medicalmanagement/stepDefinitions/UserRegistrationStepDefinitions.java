@@ -32,10 +32,6 @@ public class UserRegistrationStepDefinitions {
     private UserDto userDto;
     @Mock
     private UserService userService;
-    @Mock
-    private List<UserRole> userRoles;
-    @Mock
-    private Map<String, String> userRow;
 
     @Before
     public void setUp() {
@@ -59,7 +55,7 @@ public class UserRegistrationStepDefinitions {
 
             List<UserRole> userRoles = Arrays.stream(roleStrings)
                     .map(UserRole::valueOf)
-                    .collect(Collectors.toList());
+                    .toList();
         } else {
             throw new IllegalArgumentException("User information not found in the DataTable.");
         }
@@ -67,8 +63,6 @@ public class UserRegistrationStepDefinitions {
 
     @When("the user is added")
     public void the_user_is_added() {
-
-        UserService userService = new UserService();
 
         userDto.setFullName("John Doe");
         userDto.setBirthDate(LocalDate.of(1990, 1, 1));
