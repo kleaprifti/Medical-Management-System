@@ -69,5 +69,18 @@ public class User {
     )
     private List<Holidays> holidays;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        User user = (User) o;
+
+        return idMedicalCard != null ? idMedicalCard.equals(user.idMedicalCard) : user.idMedicalCard == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return idMedicalCard != null ? idMedicalCard.hashCode() : 0;
+    }
 }
