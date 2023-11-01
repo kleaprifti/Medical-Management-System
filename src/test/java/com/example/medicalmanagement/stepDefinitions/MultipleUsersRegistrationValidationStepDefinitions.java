@@ -67,12 +67,12 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
                 user1.getIdMedicalCard().equals(user2.getIdMedicalCard());
     }
 
-    @After
-    public void cleanUpData() {
-        if (existingUsers != null) {
-            for (User user : existingUsers) {
-                userRepository.delete(user);
-            }
-        }
-    }
+  @After
+  public void cleanUpData() {
+      if (usersToAdd != null) {
+          for (User user : usersToAdd) {
+              userRepository.delete(user);
+          }
+      }
+  }
 }
