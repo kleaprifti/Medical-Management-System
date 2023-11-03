@@ -7,6 +7,7 @@ import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import com.example.medicalmanagement.validator.UserValidator;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,9 +32,6 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-    public UserService() {
-
-    }
 
 
     public List<UserDto> getAllUsers(UserRole userRole) {
