@@ -27,9 +27,6 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
     @Given("a user with the following information:")
     public void aUserWithTheFollowingInformation(List<User> users) {
         usersToAdd = users;
-        for (User user : usersToAdd) {
-            userRepository.save(user);
-        }
     }
 
     @When("the users are added")
