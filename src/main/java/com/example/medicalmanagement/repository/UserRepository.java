@@ -1,5 +1,6 @@
 package com.example.medicalmanagement.repository;
 
+import com.example.medicalmanagement.model.ContactInfo;
 import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
 import org.springframework.data.domain.Sort;
