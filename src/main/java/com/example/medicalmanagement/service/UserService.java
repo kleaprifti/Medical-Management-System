@@ -1,17 +1,12 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.dto.UserDto;
-import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.model.*;
-import com.example.medicalmanagement.repository.ContactInfoRepository;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
 import com.example.medicalmanagement.repository.UserRepository;
 import com.example.medicalmanagement.validator.UserValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
