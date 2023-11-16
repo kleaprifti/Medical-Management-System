@@ -6,64 +6,64 @@ INSERT INTO `medical_management_system`.`role` (`roles`) VALUES ('DOCTOR');
 INSERT INTO `medical_management_system`.`role` (`roles`) VALUES ('PATIENT');
 
 #INSERT into contact_info
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('sildiricku3@gmail.com', '123-456-7890', 's1');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('sildiricku3@gmail.com', '123-456-7891', 's2');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('sildiricku3@gmail.com', '123-456-7892', 's3');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('sildiricku3@gmail.com', '123-456-7893', 's4');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('sildiricku3@gmail.com', '123-456-7894', 's5');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('sildiricku3@gmail.com', '123-456-7895', 's6');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('sildiricku3@gmail.com', '123-456-7896', 's7');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('sildiricku3@gmail.com', '123-456-7897', 's8');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('sildiricku3@gmail.com', '123-456-7898', 's9');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-7899', 's10');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-78910', 's11');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-78911', 's12');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-78912', 's13');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-78913', 's14');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-78914', 's15');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-78915', 's16');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-78916', 's17');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-78917', 's18');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('kleaprifti21@gmail.com', '123-456-78918', 's19');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78919', 's20');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78920', 's21');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78921', 's22');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78922', 's23');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78923', 's24');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78924', 's25');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78925', 's26');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78926', 's27');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78927', 's28');
-INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username)
-VALUES ('romeisaaliu1@gmail.com', '123-456-78928', 's29');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('sildiricku13@gmail.com', '123-456-7890', 's1','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('sildiricku33@gmail.com', '123-456-7891', 's2','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('sildiricku23@gmail.com', '123-456-7892', 's3','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('sildiricku37@gmail.com', '123-456-7893', 's4','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('sildiricku39@gmail.com', '123-456-7894', 's5','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('sildiricku31@gmail.com', '123-456-7895', 's6','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('sildiricku30@gmail.com', '123-456-7896', 's7','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('sildiricku32@gmail.com', '123-456-7897', 's8','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('sildiricku3@gmail.com', '123-456-7898', 's9','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti21@gmail.com', '123-456-7899', 's10','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti221@gmail.com', '123-456-78910', 's11','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti231@gmail.com', '123-456-78911', 's12','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti241@gmail.com', '123-456-78912', 's13','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti251@gmail.com', '123-456-78913', 's14','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti261@gmail.com', '123-456-78914', 's15','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti271@gmail.com', '123-456-78915', 's16','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti281@gmail.com', '123-456-78916', 's17','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti291@gmail.com', '123-456-78917', 's18','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('kleaprifti321@gmail.com', '123-456-78918', 's19','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu1@gmail.com', '123-456-78919', 's20','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu12@gmail.com', '123-456-78920', 's21','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu13@gmail.com', '123-456-78921', 's22','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu14@gmail.com', '123-456-78922', 's23','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu15@gmail.com', '123-456-78923', 's24','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu16@gmail.com', '123-456-78924', 's25','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu17@gmail.com', '123-456-78925', 's26','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu18@gmail.com', '123-456-78926', 's27','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu19@gmail.com', '123-456-78927', 's28','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
+INSERT INTO `medical_management_system`.`contact_info` (email, phone_number, slack_Username, password)
+VALUES ('romeisaaliu123@gmail.com', '123-456-78928', 's29','$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2');
 
 
 #Insert into Users
