@@ -25,6 +25,8 @@ public class ContactInfo {
     @Email(message = "Bad Email Format")
     @Column(name = "email")
     private String email;
+    @Column(name="password")
+    private String password;
     @NotBlank(message = "Phone Number cant be blank")
     @Pattern(regexp = "^\\d+$", message = "Bad phone number format, should contain only digits")
     @Column(name = "phone_number", unique = true)
@@ -34,6 +36,8 @@ public class ContactInfo {
     @OneToOne(mappedBy = "contactInfo")
     @JsonBackReference
     private User user;
+
+
 }
 
 
