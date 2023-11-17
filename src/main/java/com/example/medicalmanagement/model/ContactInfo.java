@@ -36,6 +36,8 @@ public class ContactInfo {
     @OneToOne(mappedBy = "contactInfo")
     @JsonBackReference
     private User user;
+
+
 }
 
 
