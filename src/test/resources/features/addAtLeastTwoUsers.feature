@@ -13,6 +13,6 @@ Feature: User Registration
 
     Examples:
       | Full Name   | Birth Date | ID Medical Card  | Roles           | Specialities        |
-      | John Doe    | 1990-01-01 | 3238294157862003 | DOCTOR, PATIENT | Surgery, Pediatrics |
+      | John Doe    | 1990-01-01 | 3238294157862007 | DOCTOR, PATIENT | Surgery, Pediatrics |
 
 

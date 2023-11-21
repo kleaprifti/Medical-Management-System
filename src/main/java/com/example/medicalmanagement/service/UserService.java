@@ -8,7 +8,6 @@ import com.example.medicalmanagement.repository.UserRepository;
 import com.example.medicalmanagement.validator.UserValidator;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,7 +17,6 @@ import java.util.Optional;
 
 
 @Service
-@Transactional
 public class UserService {
 
     private UserRepository userRepository;
@@ -67,7 +65,6 @@ public class UserService {
     public void deleteAllUsers() {
         userRepository.deleteAll();
     }
-
 
     public boolean addUser(UserDto userDto) {
         User newUser = new User();
