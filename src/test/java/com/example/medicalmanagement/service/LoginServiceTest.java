@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 class LoginServiceTest {
     @InjectMocks
-    private LoginService loginRequestService;
+    private LoginService loginService;
 
     @Mock
     private ContactInfoRepository contactInfoRepository;
@@ -33,12 +33,12 @@ class LoginServiceTest {
     void authenticateUserWithValidCredentials() {
         ContactInfo contactInfo = new ContactInfo();
         contactInfo.setEmail("test@example.com");
-        contactInfo.setPassword("encodedPassword");
+        contactInfo.setPassword("Password");
         when(contactInfoRepository.findByEmail("test@example.com")).thenReturn(contactInfo);
 
-        when(passwordEncoder.matches("password123", "encodedPassword")).thenReturn(true);
+        when(passwordEncoder.matches("password12", "Password")).thenReturn(true);
 
-        boolean result = loginRequestService.authenticateUser("test@example.com", "password123");
+        boolean result = loginService.authenticateUser("test@example.com", "password12");
 
         assertTrue(result);
     }
@@ -47,7 +47,7 @@ class LoginServiceTest {
     void authenticateUserWithInvalidUsername() {
         when(contactInfoRepository.findByEmail(anyString())).thenReturn(null);
 
-        boolean result = loginRequestService.authenticateUser("nonexistent@example.com", "password123");
+        boolean result = loginService.authenticateUser("nonexistent@example.com", "password12");
 
         assertFalse(result);
     }
@@ -56,12 +56,12 @@ class LoginServiceTest {
     void authenticateUserWithInvalidPassword() {
         ContactInfo contactInfo = new ContactInfo();
         contactInfo.setEmail("test@example.com");
-        contactInfo.setPassword("encodedPassword"); // Assuming this is encoded password
+        contactInfo.setPassword("password");
         when(contactInfoRepository.findByEmail("test@example.com")).thenReturn(contactInfo);
 
-        when(passwordEncoder.matches("incorrectPassword", "encodedPassword")).thenReturn(false);
+        when(passwordEncoder.matches("incorrectPassword", "password")).thenReturn(false);
 
-        boolean result = loginRequestService.authenticateUser("test@example.com", "incorrectPassword");
+        boolean result = loginService.authenticateUser("test@example.com", "incorrectPassword");
 
         assertFalse(result);
     }
