@@ -25,7 +25,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration
-public class MultipleUsersRegistrationValidationStepDefinitions {
+ class MultipleUsersRegistrationValidationStepDefinitions {
     @Autowired
     private UserRepository userRepository;
 
@@ -46,24 +46,19 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
     }
 
     @Test
-    public void testUserRegistration() {
-        // Stub the external service response using WireMock
+     void testUserRegistration() {
         stubFor(post(urlEqualTo("/external/service"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"status\": \"success\"}")));
 
-        // Your test logic here
         aUserWithTheFollowingInformation(usersToAdd);
         theUsersAreAdded();
 
-        // Verify that the expected request was made to the WireMock server
         verify(postRequestedFor(urlEqualTo("/external/service"))
                 .withRequestBody(containing("expectedRequestBody")));
 
-        // Assert the result of your application logic
-        // This could be checking the database state, responses, etc.
         theFollowingUsersShouldBePresentInDatabase(existingUsers);
     }
 
