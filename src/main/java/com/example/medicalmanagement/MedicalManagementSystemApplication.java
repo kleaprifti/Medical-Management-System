@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @SpringBootApplication
-@ComponentScan(basePackages = "com.example.medicalmanagement")
 public class MedicalManagementSystemApplication {
 
 	public static void main(String[] args) {
