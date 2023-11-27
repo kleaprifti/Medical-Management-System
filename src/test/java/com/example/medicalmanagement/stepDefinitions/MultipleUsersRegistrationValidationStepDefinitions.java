@@ -31,6 +31,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration
+@ActiveProfiles("wiremock")
 public class MultipleUsersRegistrationValidationStepDefinitions {
     @Autowired
     private UserRepository userRepository;
