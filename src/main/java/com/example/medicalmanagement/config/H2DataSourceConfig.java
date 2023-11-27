@@ -7,8 +7,8 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
-@Profile("h2")
 @Configuration
+@Profile("h2")
 public class H2DataSourceConfig {
     @Bean
     public DataSource dataSource() {

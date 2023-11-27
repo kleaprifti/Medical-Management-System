@@ -29,9 +29,9 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 @ContextConfiguration
-@ActiveProfiles("h2")
-
+@ActiveProfiles("wiremock")
 
 public class MultipleUsersRegistrationValidationStepDefinitions {
     @Autowired
@@ -39,17 +39,21 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
 
     private List<User> usersToAdd;
 
-    private WireMockServer wireMockServer;
     @Autowired
     private EntityManager entityManager;
 
 
+    private boolean wireMockEnabled;
+
+    private WireMockServer wireMockServer;
 
     @Before
     public void setupWireMockServer() {
-        wireMockServer = new WireMockServer(options().port(8080).usingFilesUnderClasspath("wiremock"));
-        wireMockServer.start();
-        configureWireMock(wireMockServer);
+        if (wireMockEnabled) {
+            wireMockServer = new WireMockServer(options().port(8080));
+            wireMockServer.start();
+            configureWireMock(wireMockServer);
+        }
     }
 
     private WireMockConfiguration options() {
@@ -57,7 +61,6 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
     }
 
     private void configureWireMock(WireMockServer wireMockServer) {
-
         wireMockServer.stubFor(post(urlEqualTo("/add"))
                 .withRequestBody(matchingJsonPath("$.fullName", equalTo("John Doe")))
                 .withRequestBody(matchingJsonPath("$.birthDate", matchingDate("yyyy-MM-dd", "1990-01-01")))
@@ -69,18 +72,23 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
         return null;
     }
 
+    // Other methods...
+
     @After
     public void shutdownWireMockServer() {
-        wireMockServer.stop();
+        if (wireMockEnabled && wireMockServer != null) {
+            wireMockServer.stop();
+        }
     }
-/*    @After
+
+    @After
     public void cleanUpData() {
         if (usersToAdd != null) {
             for (User user : usersToAdd) {
                 userRepository.delete(user);
             }
         }
-    }*/
+    }
 
 
 
