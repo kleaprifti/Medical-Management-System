@@ -15,13 +15,13 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
-public void sendEmail(String recipient, String subject, String content) {
-    SimpleMailMessage message = new SimpleMailMessage();
-    message.setTo(recipient);
-    message.setSubject(subject);
-    message.setText(content);
+    public void sendEmail(String recipient, String subject, String content) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(recipient);
+        message.setSubject(subject);
+        message.setText(content);
 
-    javaMailSender.send(message);
-}
+        javaMailSender.send(message);
+    }
 }
 

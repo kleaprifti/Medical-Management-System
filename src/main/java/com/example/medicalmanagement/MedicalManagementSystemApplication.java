@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 public class MedicalManagementSystemApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MedicalManagementSystemApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(MedicalManagementSystemApplication.class, args);
 
-	}
+    }
 
 }

@@ -78,11 +78,11 @@ public class AppointmentService {
 
         appointmentRepository.delete(appointment);
 
-        if(wantNotification) {
+        if (wantNotification) {
             User patient = appointment.getPatient();
-            User doctor= appointment.getDoctor();
+            User doctor = appointment.getDoctor();
             String userEmail = patient.getContactInfo().getEmail();
-            String cancellationEmailContent = EmailContent.generateEmail(patient.getFullName(),doctor.getFullName(), appointment.getAppointmentDateStartTime());
+            String cancellationEmailContent = EmailContent.generateEmail(patient.getFullName(), doctor.getFullName(), appointment.getAppointmentDateStartTime());
 
             String subject = "Cancellation of appointment";
             emailService.sendEmail(userEmail, subject, cancellationEmailContent);
