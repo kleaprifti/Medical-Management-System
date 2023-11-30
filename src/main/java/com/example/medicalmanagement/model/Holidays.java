@@ -27,6 +27,6 @@ public class Holidays {
     private String name;
 
     @ManyToMany(mappedBy = "holidays")
-    private List<User> users;
+    private List<UserDetails> users;
 
 }

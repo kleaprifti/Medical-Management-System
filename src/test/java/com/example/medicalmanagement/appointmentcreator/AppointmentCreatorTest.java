@@ -3,7 +3,7 @@ package com.example.medicalmanagement.appointmentcreator;
 
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.model.Appointment;
-import com.example.medicalmanagement.model.User;
+import com.example.medicalmanagement.model.UserDetails;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,9 +19,9 @@ class AppointmentCreatorTest {
     @Mock
     private AppointmentDto appointmentDto;
     @Mock
-    private User patient;
+    private UserDetails patient;
     @Mock
-    private User doctor;
+    private UserDetails doctor;
     @InjectMocks
     private AppointmentCreator appointmentCreator;
 
@@ -63,10 +63,10 @@ class AppointmentCreatorTest {
         appointment.setAppointmentDateStartTime(LocalDateTime.of(2023,06,22,9,0));
         appointment.setAppointmentDateEndTime(LocalDateTime.of(2023,06,22,10,00));
 
-        User doctor = new User();
+        UserDetails doctor = new UserDetails();
         doctor.setId(2L);
 
-        User patient = new User();
+        UserDetails patient = new UserDetails();
         patient.setId(3L);
 
         appointment.setDoctor(doctor);

@@ -6,7 +6,7 @@ import com.example.medicalmanagement.exceptionhandlers.DoctorNotAvailableExcepti
 import com.example.medicalmanagement.exceptionhandlers.DoctorOnHolidayException;
 import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.model.UserRole;
-import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.repository.UserDetailsRepository;
 import com.example.medicalmanagement.service.UserService;
 import com.example.medicalmanagement.validator.UserValidator;
 import jakarta.validation.Valid;
@@ -27,7 +27,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserRepository userRepository;
+    private UserDetailsRepository userDetailsRepository;
     @Autowired
     private UserValidator userValidator;
 

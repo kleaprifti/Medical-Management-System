@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ContactInfoRepository extends JpaRepository<ContactInfo, Long> {
-    ContactInfo findByEmail(String email);
     List<ContactInfo> findAll();
 
 }

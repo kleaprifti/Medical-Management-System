@@ -4,7 +4,7 @@ import com.example.medicalmanagement.dto.UserDto;
 import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
-import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.repository.UserDetailsRepository;
 import com.example.medicalmanagement.validator.UserValidator;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -19,13 +19,13 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private UserDetailsRepository userDetailsRepository;
     private SpecialityRepository specialityRepository;
     private UserValidator userValidator;
     private RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository, SpecialityRepository specialityRepository, UserValidator userValidator, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserDetailsRepository userDetailsRepository, SpecialityRepository specialityRepository, UserValidator userValidator, RoleRepository roleRepository) {
+        this.userDetailsRepository = userDetailsRepository;
         this.specialityRepository = specialityRepository;
         this.userValidator = userValidator;
         this.roleRepository = roleRepository;
@@ -34,14 +34,14 @@ public class UserService {
     public List<UserDto> getAllUsers(UserRole userRole) {
         Sort sort = Sort.by(Sort.Direction.ASC, "fullName");
         if (userRole != null) {
-            return userRepository.findByRolesUserRole(userRole, sort)
+            return userDetailsRepository.findByRolesUserRole(userRole, sort)
                     .stream()
                     .map(this::mapToDto)
                     .toList();
-        } else return userRepository.findAll(sort).stream().map(this::mapToDto).toList();
+        } else return userDetailsRepository.findAll(sort).stream().map(this::mapToDto).toList();
     }
 
-    public UserDto mapToDto(User user) {
+    public UserDto mapToDto(UserDetails user) {
         List<NotificationType> notificationTypes = new ArrayList<>();
         if (!user.getNotificationTypes().isEmpty()) {
             notificationTypes = user.getNotificationTypes().stream()
@@ -63,11 +63,11 @@ public class UserService {
     }
 
     public void deleteAllUsers() {
-        userRepository.deleteAll();
+        userDetailsRepository.deleteAll();
     }
 
     public boolean addUser(UserDto userDto) {
-        User newUser = new User();
+        UserDetails newUser = new UserDetails();
         newUser.setContactInfo(userDto.getContactInfo());
         newUser.setFullName(userDto.getFullName());
         newUser.setBirthDate(userDto.getBirthDate());
@@ -97,15 +97,15 @@ public class UserService {
             newUser.setSpecialities(new ArrayList<>());
         }
 
-        userRepository.save(newUser);
+        userDetailsRepository.save(newUser);
         return true;
     }
 
     public boolean isDoctorAvailable(Long doctorId, LocalDateTime startTime, LocalDateTime endTime) {
-        Optional<User> optionalDoctor = userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
+        Optional<UserDetails> optionalDoctor = userDetailsRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
 
         if (optionalDoctor.isPresent()) {
-            User doctor = optionalDoctor.get();
+            UserDetails doctor = optionalDoctor.get();
             LocalDate date = startTime.toLocalDate();
 
             boolean isOnHoliday = userValidator.isDoctorOnHoliday(doctor, date);

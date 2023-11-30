@@ -6,7 +6,7 @@ import com.example.medicalmanagement.exceptionhandlers.DurationException;
 import com.example.medicalmanagement.exceptionhandlers.SamePersonException;
 import com.example.medicalmanagement.exceptionhandlers.TimeException;
 import com.example.medicalmanagement.model.Appointment;
-import com.example.medicalmanagement.model.User;
+import com.example.medicalmanagement.model.UserDetails;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class AppointmentValidator {
         }
     }
 
-    public void checkSamePerson(User patient, User doctor) {
+    public void checkSamePerson(UserDetails patient, UserDetails doctor) {
         if (doctor.getId().equals(patient.getId())) {
             throw new SamePersonException("Doctor and patient cannot be the same person");
         }

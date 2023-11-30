@@ -1,7 +1,7 @@
 package com.example.medicalmanagement.builder;
 
 import com.example.medicalmanagement.repository.AppointmentRepository;
-import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.repository.UserDetailsRepository;
 import com.example.medicalmanagement.appointmentcreator.AppointmentCreator;
 import com.example.medicalmanagement.service.AppointmentService;
 import com.example.medicalmanagement.validator.AppointmentValidator;
@@ -14,15 +14,15 @@ import org.springframework.stereotype.Service;
 @Getter
 public class AppointmentServiceBuilder {
     private AppointmentRepository appointmentRepository;
-    private UserRepository userRepository;
+    private UserDetailsRepository userDetailsRepository;
     private ModelMapper modelMapper;
     private AppointmentValidator appointmentValidator;
     private AppointmentCreator appointmentCreator;
     private EmailService emailService;
 
-    public AppointmentServiceBuilder(AppointmentRepository appointmentRepository, UserRepository userRepository, ModelMapper modelMapper, AppointmentValidator appointmentValidator, AppointmentCreator appointmentCreator,EmailService emailService) {
+    public AppointmentServiceBuilder(AppointmentRepository appointmentRepository, UserDetailsRepository userDetailsRepository, ModelMapper modelMapper, AppointmentValidator appointmentValidator, AppointmentCreator appointmentCreator, EmailService emailService) {
         this.appointmentRepository = appointmentRepository;
-        this.userRepository = userRepository;
+        this.userDetailsRepository = userDetailsRepository;
         this.modelMapper = modelMapper;
         this.appointmentValidator = appointmentValidator;
         this.appointmentCreator = appointmentCreator;
@@ -32,8 +32,8 @@ public class AppointmentServiceBuilder {
         this.appointmentRepository = appointmentRepository;
         return this;
     }
-    public AppointmentServiceBuilder setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AppointmentServiceBuilder setUserDetailsRepository(UserDetailsRepository userDetailsRepository) {
+        this.userDetailsRepository = userDetailsRepository;
         return this;
     }
     public AppointmentServiceBuilder setModelMapper(ModelMapper modelMapper) {

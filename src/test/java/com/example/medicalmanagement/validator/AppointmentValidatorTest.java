@@ -5,7 +5,7 @@ import com.example.medicalmanagement.exceptionhandlers.DurationException;
 import com.example.medicalmanagement.exceptionhandlers.SamePersonException;
 import com.example.medicalmanagement.exceptionhandlers.TimeException;
 import com.example.medicalmanagement.model.Appointment;
-import com.example.medicalmanagement.model.User;
+import com.example.medicalmanagement.model.UserDetails;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -101,10 +101,10 @@ class AppointmentValidatorTest {
 
     @Test
     void checkSamePerson_differentPersons_noExceptionThrown() {
-        User patient = new User();
+        UserDetails patient = new UserDetails();
         patient.setId(1L);
 
-        User doctor = new User();
+        UserDetails doctor = new UserDetails();
         doctor.setId(2L);
 
         appointmentValidator.checkSamePerson(patient, doctor);
@@ -113,7 +113,7 @@ class AppointmentValidatorTest {
 
     @Test
     void checkSamePerson_samePerson_exceptionThrown() {
-        User user = new User();
+        UserDetails user = new UserDetails();
         user.setId(1L);
 
         assertThrows(SamePersonException.class, () -> appointmentValidator.checkSamePerson(user, user));

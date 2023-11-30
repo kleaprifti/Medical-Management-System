@@ -4,7 +4,7 @@ import com.example.medicalmanagement.dto.UserDto;
 import com.example.medicalmanagement.model.*;
 import com.example.medicalmanagement.repository.RoleRepository;
 import com.example.medicalmanagement.repository.SpecialityRepository;
-import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.repository.UserDetailsRepository;
 import com.example.medicalmanagement.validator.UserValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ class UserServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
     @Mock
-    private UserRepository userRepository;
+    private UserDetailsRepository userDetailsRepository;
     @Mock
     private SpecialityRepository specialityRepository;
 
@@ -47,7 +47,7 @@ class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    private List<User> mockUsers;
+    private List<UserDetails> mockUsers;
 
     @BeforeEach
     public void setup() {
@@ -56,13 +56,13 @@ class UserServiceTest {
 
     @Test
      void getAllUsersForDoctors() {
-        List<User> doctorUsers = new ArrayList<>();
-        User user1 = Mockito.mock(User.class);
-        User user2 = Mockito.mock(User.class);
+        List<UserDetails> doctorUsers = new ArrayList<>();
+        UserDetails user1 = Mockito.mock(UserDetails.class);
+        UserDetails user2 = Mockito.mock(UserDetails.class);
         doctorUsers.add(user1);
         doctorUsers.add(user2);
 
-        when(userRepository.findByRolesUserRole(UserRole.DOCTOR, Sort.by(Sort.Direction.ASC, "fullName")))
+        when(userDetailsRepository.findByRolesUserRole(UserRole.DOCTOR, Sort.by(Sort.Direction.ASC, "fullName")))
                 .thenReturn(doctorUsers);
 
         List<UserDto> doctorDtos = userService.getAllUsers(UserRole.DOCTOR);
@@ -73,13 +73,13 @@ class UserServiceTest {
 
     @Test
      void getAllUsersForPatients() {
-        List<User> patientUsers = new ArrayList<>();
-        User user1 = Mockito.mock(User.class);
-        User user2 = Mockito.mock(User.class);
+        List<UserDetails> patientUsers = new ArrayList<>();
+        UserDetails user1 = Mockito.mock(UserDetails.class);
+        UserDetails user2 = Mockito.mock(UserDetails.class);
         patientUsers.add(user1);
         patientUsers.add(user2);
 
-        when(userRepository.findByRolesUserRole(UserRole.PATIENT, Sort.by(Sort.Direction.ASC, "fullName")))
+        when(userDetailsRepository.findByRolesUserRole(UserRole.PATIENT, Sort.by(Sort.Direction.ASC, "fullName")))
                 .thenReturn(patientUsers);
 
         List<UserDto> patientDtos = userService.getAllUsers(UserRole.PATIENT);
@@ -95,7 +95,7 @@ class UserServiceTest {
     void deleteAllUsers() {
         userService.deleteAllUsers();
 
-        verify(userRepository, times(1)).deleteAll();
+        verify(userDetailsRepository, times(1)).deleteAll();
     }
 
 
@@ -114,13 +114,13 @@ class UserServiceTest {
 
         userService.addUser(userDto);
 
-        Mockito.verify(userRepository, times(1)).save(any(User.class));
+        Mockito.verify(userDetailsRepository, times(1)).save(any(UserDetails.class));
     }
 
 
     private UserDto createUserDto() {
         UserDto userDto = new UserDto();
-        User user = new User();
+        UserDetails user = new UserDetails();
         ContactInfo contactInfo = new ContactInfo(2L,"aldoshehu@gmail.com","password","1234","aldius",user);
         userDto.setFullName("Aldo Shehu");
         userDto.setBirthDate(LocalDate.of(1998, 11, 17));
@@ -145,8 +145,8 @@ class UserServiceTest {
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.now().plusHours(1);
 
-        when(userRepository.findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR)))
-                .thenReturn(Optional.of(new User()));
+        when(userDetailsRepository.findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR)))
+                .thenReturn(Optional.of(new UserDetails()));
 
         when(userValidator.isDoctorOnHoliday(any(), any()))
                 .thenReturn(false);
@@ -156,7 +156,7 @@ class UserServiceTest {
 
         userService.isDoctorAvailable(doctorId, startTime, endTime);
 
-        verify(userRepository).findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR));
+        verify(userDetailsRepository).findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR));
         verify(userValidator).isDoctorOnHoliday(any(), any());
         verify(userValidator).isDoctorAvailableInTimeRange(any(), any(), any());
     }

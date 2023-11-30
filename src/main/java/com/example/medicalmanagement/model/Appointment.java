@@ -33,11 +33,11 @@ public class Appointment {
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     @JsonIgnore
-    private User doctor;
+    private UserDetails doctor;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
-    private User patient;
+    private UserDetails patient;
 
 
     @Override
