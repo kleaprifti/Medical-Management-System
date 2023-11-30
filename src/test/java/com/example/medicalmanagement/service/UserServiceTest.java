@@ -121,7 +121,7 @@ class UserServiceTest {
     private UserDto createUserDto() {
         UserDto userDto = new UserDto();
         UserDetails user = new UserDetails();
-        ContactInfo contactInfo = new ContactInfo(2L,"aldoshehu@gmail.com","password","1234","aldius",user);
+        ContactInfo contactInfo = new ContactInfo(2L,"1234","aldius",user);
         userDto.setFullName("Aldo Shehu");
         userDto.setBirthDate(LocalDate.of(1998, 11, 17));
         userDto.setContactInfo(contactInfo);
