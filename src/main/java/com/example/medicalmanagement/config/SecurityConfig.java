@@ -25,7 +25,7 @@ public class SecurityConfig  {
 
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/login/").authenticated()
+                        .requestMatchers("/login").authenticated()
                         .anyRequest().permitAll()
                 )
                 .httpBasic(withDefaults())
