@@ -145,7 +145,7 @@ class UserServiceTest {
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.now().plusHours(1);
 
-        when(userDetailsRepository.findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR)))
+        when(userDetailsRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR))
                 .thenReturn(Optional.of(new UserDetails()));
 
         when(userValidator.isDoctorOnHoliday(any(), any()))
@@ -156,7 +156,7 @@ class UserServiceTest {
 
         userService.isDoctorAvailable(doctorId, startTime, endTime);
 
-        verify(userDetailsRepository).findByIdAndRolesUserRole(eq(doctorId), eq(UserRole.DOCTOR));
+        verify(userDetailsRepository).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
         verify(userValidator).isDoctorOnHoliday(any(), any());
         verify(userValidator).isDoctorAvailableInTimeRange(any(), any(), any());
     }

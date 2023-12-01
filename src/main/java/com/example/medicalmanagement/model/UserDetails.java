@@ -78,9 +78,9 @@ public class UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserDetails user = (UserDetails) o;
+        UserDetails userDetails = (UserDetails) o;
 
-        return idMedicalCard != null ? idMedicalCard.equals(user.idMedicalCard) : user.idMedicalCard == null;
+        return idMedicalCard != null ? idMedicalCard.equals(userDetails.idMedicalCard) : userDetails.idMedicalCard == null;
     }
 
     @Override
