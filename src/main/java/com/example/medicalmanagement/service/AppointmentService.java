@@ -81,11 +81,11 @@ public class AppointmentService {
         if (wantNotification) {
             UserDetails patient = appointment.getPatient();
             UserDetails doctor = appointment.getDoctor();
-//            String userEmail = patient.getContactInfo().getEmail();
+            String userEmail = patient.getUser().getEmail();
             String cancellationEmailContent = EmailContent.generateEmail(patient.getFullName(), doctor.getFullName(), appointment.getAppointmentDateStartTime());
 
             String subject = "Cancellation of appointment";
-            emailService.sendEmail("userEmail", subject, cancellationEmailContent);
+            emailService.sendEmail(userEmail, subject, cancellationEmailContent);
 
         }
     }
