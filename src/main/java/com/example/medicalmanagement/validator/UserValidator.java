@@ -5,9 +5,9 @@ import com.example.medicalmanagement.exceptionhandlers.DoctorNotAvailableExcepti
 import com.example.medicalmanagement.exceptionhandlers.DoctorOnHolidayException;
 import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.model.DoctorAvailability;
-import com.example.medicalmanagement.model.User;
+import com.example.medicalmanagement.model.UserDetails;
 import com.example.medicalmanagement.model.UserRole;
-import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.repository.UserDetailsRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +22,9 @@ import java.util.Optional;
 @NoArgsConstructor
 public class UserValidator {
     @Autowired
-    private UserRepository userRepository;
-    public UserValidator(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private UserDetailsRepository userDetailsRepository;
+    public UserValidator(UserDetailsRepository userDetailsRepository) {
+        this.userDetailsRepository = userDetailsRepository;
     }
 
     public DoctorAvailabilityCheckResult validateDoctorAvailability(Long doctorId, LocalDateTime startTime, LocalDateTime endTime)
@@ -33,10 +33,10 @@ public class UserValidator {
             throw new IllegalArgumentException("Start time must be before the end time.");
         }
 
-        Optional<User> optionalDoctor = userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
+        Optional<UserDetails> optionalDoctor = userDetailsRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
 
         if (optionalDoctor.isPresent()) {
-            User doctor = optionalDoctor.get();
+            UserDetails doctor = optionalDoctor.get();
             LocalDate date = startTime.toLocalDate();
 
             boolean isOnHoliday = isDoctorOnHoliday(doctor, date);
@@ -55,7 +55,7 @@ public class UserValidator {
         }
     }
 
-    public boolean isDoctorAvailableInTimeRange(User doctor, LocalDateTime startTime, LocalDateTime endTime) {
+    public boolean isDoctorAvailableInTimeRange(UserDetails doctor, LocalDateTime startTime, LocalDateTime endTime) {
         List<DoctorAvailability> availabilitySchedule = doctor.getDoctorAvailabilities();
 
         return availabilitySchedule.stream()
@@ -64,7 +64,7 @@ public class UserValidator {
 
     }
 
-    public boolean isDoctorOnHoliday(User doctor, LocalDate date) {
+    public boolean isDoctorOnHoliday(UserDetails doctor, LocalDate date) {
         return doctor.getHolidays()
                 .stream()
                 .anyMatch(holiday -> holiday.getHolidayDate().equals(date));

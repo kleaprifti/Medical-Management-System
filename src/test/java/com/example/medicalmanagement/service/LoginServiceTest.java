@@ -1,7 +1,9 @@
 package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.model.ContactInfo;
+import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.ContactInfoRepository;
+import com.example.medicalmanagement.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,7 +21,7 @@ class LoginServiceTest {
     private LoginService loginService;
 
     @Mock
-    private ContactInfoRepository contactInfoRepository;
+    private UserRepository contactInfoRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -31,7 +33,7 @@ class LoginServiceTest {
 
     @Test
     void authenticateUserWithValidCredentials() {
-        ContactInfo contactInfo = new ContactInfo();
+        User contactInfo = new User();
         contactInfo.setEmail("test@example.com");
         contactInfo.setPassword("Password");
         when(contactInfoRepository.findByEmail("test@example.com")).thenReturn(contactInfo);
@@ -54,7 +56,7 @@ class LoginServiceTest {
 
     @Test
     void authenticateUserWithInvalidPassword() {
-        ContactInfo contactInfo = new ContactInfo();
+        User contactInfo = new User();
         contactInfo.setEmail("test@example.com");
         contactInfo.setPassword("password");
         when(contactInfoRepository.findByEmail("test@example.com")).thenReturn(contactInfo);

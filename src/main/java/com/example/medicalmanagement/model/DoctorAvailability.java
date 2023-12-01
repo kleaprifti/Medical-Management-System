@@ -34,6 +34,6 @@ public class DoctorAvailability {
     private Set<DayOfWeek> workingDays;
 
     @ManyToMany(mappedBy = "doctorAvailabilities")
-    private List<User> users;
+    private List<UserDetails> users;
 
 }

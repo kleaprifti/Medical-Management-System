@@ -1,7 +1,7 @@
 package com.example.medicalmanagement.validator;
 
 import com.example.medicalmanagement.model.*;
-import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.repository.UserDetailsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 class UserValidatorTest {
 
     @Mock
-    private UserRepository userRepository;
+    private UserDetailsRepository userDetailsRepository;
 
     @InjectMocks
     private UserValidator userValidator;
@@ -36,7 +36,7 @@ class UserValidatorTest {
     @Test
     void isDoctorAvailableInTimeRange() {
 
-        User doctor = Mockito.mock(User.class);
+        UserDetails doctor = Mockito.mock(UserDetails.class);
 
         DoctorAvailability availability1 = Mockito.mock(DoctorAvailability.class);
         DoctorAvailability availability2 = Mockito.mock(DoctorAvailability.class);
@@ -71,7 +71,7 @@ class UserValidatorTest {
 
     @Test
     void isDoctorOnHoliday() {
-        User doctor = Mockito.mock(User.class);
+        UserDetails doctor = Mockito.mock(UserDetails.class);
 
         Holidays holiday1 = Mockito.mock(Holidays.class);
         Holidays holiday2 = Mockito.mock(Holidays.class);
@@ -123,7 +123,7 @@ class UserValidatorTest {
 
     @Test
     void isDoctorAvailableInTimeRangeDoctorNotAvailable() {
-        User doctor = new User();
+        UserDetails doctor = new UserDetails();
         List<DoctorAvailability> availabilitySchedule = new ArrayList<>();
         DoctorAvailability doctorAvailability = Mockito.mock(DoctorAvailability.class);
         DoctorAvailability doctorAvailability1 = Mockito.mock(DoctorAvailability.class);
@@ -148,13 +148,13 @@ class UserValidatorTest {
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.plusHours(2);
 
-        User doctor = new User();
+        UserDetails doctor = new UserDetails();
         doctor.setId(doctorId);
         Role role = Mockito.mock(Role.class);
         role.setUserRole(UserRole.DOCTOR);
         doctor.setRoles(Collections.singletonList(role));
 
-        when(userRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR))
+        when(userDetailsRepository.findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR))
                 .thenReturn(Optional.of(doctor));
 
         DoctorAvailability availability = new DoctorAvailability();
@@ -166,7 +166,7 @@ class UserValidatorTest {
         assertThrows(NullPointerException.class,
                 () -> userValidator.validateDoctorAvailability(doctorId, startTime, endTime));
 
-        verify(userRepository).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
+        verify(userDetailsRepository).findByIdAndRolesUserRole(doctorId, UserRole.DOCTOR);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.example.medicalmanagement.stepDefinitions;
 
-import com.example.medicalmanagement.model.User;
-import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.model.UserDetails;
+import com.example.medicalmanagement.repository.UserDetailsRepository;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.matching.StringValuePattern;
@@ -14,9 +14,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,16 +24,15 @@ import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertTrue;
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration
 public class MultipleUsersRegistrationValidationStepDefinitions {
     @Autowired
-    private UserRepository userRepository;
+    private UserDetailsRepository userDetailsRepository;
 
-    private List<User> usersToAdd;
+    private List<UserDetails> usersToAdd;
 
     @Autowired
     private EntityManager entityManager;
@@ -82,8 +79,8 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
     @After
     public void cleanUpData() {
         if (usersToAdd != null) {
-            for (User user : usersToAdd) {
-                userRepository.delete(user);
+            for (UserDetails user : usersToAdd) {
+                userDetailsRepository.delete(user);
             }
         }
     }
@@ -92,7 +89,7 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
 
 
     @Given("a user with the following information:")
-    public void aUserWithTheFollowingInformation(List<User> users) {
+    public void aUserWithTheFollowingInformation(List<UserDetails> users) {
         usersToAdd = users;
     }
 
@@ -101,15 +98,15 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
 
     public void theUsersAreAdded() {
         if (usersToAdd != null) {
-            System.out.println("Before saving: " + userRepository.findAll()); // Print existing users before saving
+            System.out.println("Before saving: " + userDetailsRepository.findAll()); // Print existing users before saving
             System.out.println("Users to add: " + usersToAdd);
-            for (User user : usersToAdd) {
+            for (UserDetails user : usersToAdd) {
 
                 System.out.println("Saving user to the database: " + user);
 
                 try {
 
-                    userRepository.save(user);
+                    userDetailsRepository.save(user);
 
                     System.out.println("User saved successfully: " + user);
                 } catch (Exception e) {
@@ -118,18 +115,18 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
                 }
             }
 
-            System.out.println("After saving: " + userRepository.findAll());
+            System.out.println("After saving: " + userDetailsRepository.findAll());
         }
     }
 
     @Then("the following users should be present in the database:")
-    public void theFollowingUsersShouldBePresentInDatabase(List<User> expectedUsers) {
-        List<User> actualUsers = queryDatabase();
+    public void theFollowingUsersShouldBePresentInDatabase(List<UserDetails> expectedUsers) {
+        List<UserDetails> actualUsers = queryDatabase();
 
 
         if (actualUsers != null) {
 
-            for (User expectedUser : expectedUsers) {
+            for (UserDetails expectedUser : expectedUsers) {
                 assertUserExistsInDatabase(expectedUser, actualUsers);
             }
         } else {
@@ -138,23 +135,23 @@ public class MultipleUsersRegistrationValidationStepDefinitions {
         }
     }
 
-    private void assertUserExistsInDatabase(User expectedUser, List<User> actualUsers) {
+    private void assertUserExistsInDatabase(UserDetails expectedUser, List<UserDetails> actualUsers) {
         assertTrue("User not found in the database", actualUsers.contains(expectedUser));
     }
 
-    private boolean areUsersEqual(User user1, User user2) {
+    private boolean areUsersEqual(UserDetails user1, UserDetails user2) {
         if (user1 == null || user2 == null) {
             return false;
         }
         return true;
     }
 
-    private List<User> queryDatabase() {
-        List<User> users = new ArrayList<>();
+    private List<UserDetails> queryDatabase() {
+        List<UserDetails> users = new ArrayList<>();
 
         try {
 
-            Query query = entityManager.createQuery("SELECT u FROM User u");
+            Query query = entityManager.createQuery("SELECT u FROM UserDetails u");
             users = query.getResultList();
 
             System.out.println("Users retrieved from the database: " + users);

@@ -2,7 +2,9 @@ package com.example.medicalmanagement.service;
 
 import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.model.ContactInfo;
+import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.repository.ContactInfoRepository;
+import com.example.medicalmanagement.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +19,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CustomUserDetailsServiceTest {
     @Mock
-    private ContactInfoRepository contactInfoRepository;
+    private UserRepository contactInfoRepository;
 
     @InjectMocks
     private CustomUserDetailsService customUserDetailsService;
@@ -25,11 +27,12 @@ class CustomUserDetailsServiceTest {
     @Test
      void loadUserByUsername() throws UsernameNotFoundException {
         String username = "test@example.com";
-        ContactInfo mockContactInfo = new ContactInfo(1L, username, "password123", "1234567890", "slack123", null);
-
+        User mockContactInfo = new User();
+        mockContactInfo.setPassword("password123");
+        mockContactInfo.setEmail(username);
         when(contactInfoRepository.findByEmail(username)).thenReturn(mockContactInfo);
 
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(mockContactInfo.getEmail());
 
 
         assertEquals(username, userDetails.getUsername());

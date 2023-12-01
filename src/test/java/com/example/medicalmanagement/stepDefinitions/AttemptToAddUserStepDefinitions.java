@@ -1,8 +1,8 @@
 package com.example.medicalmanagement.stepDefinitions;
 
 
-import com.example.medicalmanagement.model.User;
-import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.model.UserDetails;
+import com.example.medicalmanagement.repository.UserDetailsRepository;
 import io.cucumber.java.After;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.Given;
@@ -23,22 +23,22 @@ import java.util.Map;
 public class AttemptToAddUserStepDefinitions {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDetailsRepository userDetailsRepository;
 
-    private User existingUser;
+    private UserDetails existingUser;
     private boolean attemptedToAddUser;
     private String errorMessage;
-    private User user;
+    private UserDetails user;
 
     @Given("an existing user with the following information:")
-    public void anExistingUserWithTheFollowingInformation(User user) {
-        existingUser = userRepository.save(user);
+    public void anExistingUserWithTheFollowingInformation(UserDetails user) {
+        existingUser = userDetailsRepository.save(user);
     }
 
     @When("I attempt to add the user")
     public void iAttemptToAddTheUser() {
         try {
-            userRepository.save(user);
+            userDetailsRepository.save(user);
             attemptedToAddUser = true;
         } catch (Exception e) {
             attemptedToAddUser = false;
@@ -53,8 +53,8 @@ public class AttemptToAddUserStepDefinitions {
     }
 
     @DataTableType
-    public User userEntry(Map<String, String> entry) {
-        User user = new User();
+    public UserDetails userEntry(Map<String, String> entry) {
+        UserDetails user = new UserDetails();
         user.setFullName(entry.get("Full Name"));
         user.setBirthDate(LocalDate.parse(entry.get("Birth Date")));
         user.setIdMedicalCard(entry.get("ID Medical Card"));
@@ -64,10 +64,10 @@ public class AttemptToAddUserStepDefinitions {
     @After
     public void cleanUpData() {
         if (existingUser != null) {
-            userRepository.delete(existingUser);
+            userDetailsRepository.delete(existingUser);
         }
         if (user != null) {
-            userRepository.delete(user);
+            userDetailsRepository.delete(user);
         }
     }
 }

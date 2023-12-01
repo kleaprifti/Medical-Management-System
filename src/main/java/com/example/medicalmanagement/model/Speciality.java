@@ -23,6 +23,6 @@ public class Speciality {
 
 
     @ManyToMany(mappedBy = "specialities")
-    private List<User> users;
+    private List<UserDetails> users;
 
 }

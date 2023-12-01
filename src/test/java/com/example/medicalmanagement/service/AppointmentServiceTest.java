@@ -6,9 +6,9 @@ import com.example.medicalmanagement.builder.AppointmentServiceBuilder;
 import com.example.medicalmanagement.dto.AppointmentDto;
 import com.example.medicalmanagement.exceptionhandlers.NotFoundException;
 import com.example.medicalmanagement.model.Appointment;
-import com.example.medicalmanagement.model.User;
+import com.example.medicalmanagement.model.UserDetails;
 import com.example.medicalmanagement.repository.AppointmentRepository;
-import com.example.medicalmanagement.repository.UserRepository;
+import com.example.medicalmanagement.repository.UserDetailsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
 class AppointmentServiceTest {
 
     @Mock
-    private UserRepository userRepository;
+    private UserDetailsRepository userDetailsRepository;
 
     @Mock
     private AppointmentRepository appointmentRepository;
@@ -54,7 +54,7 @@ class AppointmentServiceTest {
         MockitoAnnotations.openMocks(this);
         appointmentService = new AppointmentServiceBuilder(
                 appointmentRepository,
-                userRepository,
+                userDetailsRepository,
                 modelMapper,
                 appointmentValidator,
                 appointmentCreator,
@@ -67,11 +67,11 @@ class AppointmentServiceTest {
         appointmentDto.setPatientId(1L);
         appointmentDto.setDoctorId(2L);
 
-        User patient = new User();
-        when(userRepository.findById(appointmentDto.getPatientId())).thenReturn(Optional.of(patient));
+        UserDetails patient = new UserDetails();
+        when(userDetailsRepository.findById(appointmentDto.getPatientId())).thenReturn(Optional.of(patient));
 
-        User doctor = new User();
-        when(userRepository.findById(appointmentDto.getDoctorId())).thenReturn(Optional.of(doctor));
+        UserDetails doctor = new UserDetails();
+        when(userDetailsRepository.findById(appointmentDto.getDoctorId())).thenReturn(Optional.of(doctor));
 
         when(appointmentCreator.createAppointment(any(AppointmentDto.class), eq(patient), eq(doctor))).thenReturn(new Appointment());
 
@@ -86,13 +86,13 @@ class AppointmentServiceTest {
 
         assertNotNull(result);
         verify(appointmentValidator, times(1)).validate(appointmentDto);
-        verify(userRepository, times(1)).findById(appointmentDto.getPatientId());
-        verify(userRepository, times(1)).findById(appointmentDto.getDoctorId());
+        verify(userDetailsRepository, times(1)).findById(appointmentDto.getPatientId());
+        verify(userDetailsRepository, times(1)).findById(appointmentDto.getDoctorId());
         verify(appointmentValidator, times(1)).checkSamePerson(patient, doctor);
         verify(appointmentCreator, times(1)).createAppointment(appointmentDto, patient, doctor);
         verify(appointmentRepository, times(1)).save(any(Appointment.class));
         verify(appointmentCreator, times(1)).createAppointmentDto(savedAppointment);
-        verifyNoMoreInteractions(appointmentValidator, userRepository, appointmentCreator, appointmentRepository);
+        verifyNoMoreInteractions(appointmentValidator, userDetailsRepository, appointmentCreator, appointmentRepository);
     }
 
     @Test
@@ -102,12 +102,12 @@ class AppointmentServiceTest {
         appointmentDto.setPatientId(1L);
         appointmentDto.setDoctorId(2L);
 
-        when(userRepository.findById(appointmentDto.getPatientId())).thenReturn(Optional.empty());
+        when(userDetailsRepository.findById(appointmentDto.getPatientId())).thenReturn(Optional.empty());
 
 
         assertThrows(NotFoundException.class, () -> appointmentService.addAppointment(appointmentDto));
-        verify(userRepository, times(1)).findById(appointmentDto.getPatientId());
-        verifyNoMoreInteractions(userRepository, appointmentRepository);
+        verify(userDetailsRepository, times(1)).findById(appointmentDto.getPatientId());
+        verifyNoMoreInteractions(userDetailsRepository, appointmentRepository);
     }
 
     @Test
@@ -116,15 +116,15 @@ class AppointmentServiceTest {
         appointmentDto.setPatientId(1L);
         appointmentDto.setDoctorId(2L);
 
-        User patient = new User();
-        when(userRepository.findById(appointmentDto.getPatientId())).thenReturn(Optional.of(patient));
+        UserDetails patient = new UserDetails();
+        when(userDetailsRepository.findById(appointmentDto.getPatientId())).thenReturn(Optional.of(patient));
 
-        when(userRepository.findById(appointmentDto.getDoctorId())).thenReturn(Optional.empty());
+        when(userDetailsRepository.findById(appointmentDto.getDoctorId())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> appointmentService.addAppointment(appointmentDto));
-        verify(userRepository, times(1)).findById(appointmentDto.getPatientId());
-        verify(userRepository, times(1)).findById(appointmentDto.getDoctorId());
-        verifyNoMoreInteractions(userRepository, appointmentRepository);
+        verify(userDetailsRepository, times(1)).findById(appointmentDto.getPatientId());
+        verify(userDetailsRepository, times(1)).findById(appointmentDto.getDoctorId());
+        verifyNoMoreInteractions(userDetailsRepository, appointmentRepository);
     }
 
 
