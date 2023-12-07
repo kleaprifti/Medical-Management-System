@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/login")
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin
 public class LoginController {
     @Autowired
     private LoginService loginService;
 
     @GetMapping("")
-    public ResponseEntity<String> login(@RequestBody LoginInfoDto login) {
+    public ResponseEntity<String> login(@RequestBody LoginInfoDto loginInfoDto) {
 
-        boolean isAuthenticated = loginService.authenticateUser(login.getUsername(), login.getPassword());
+        boolean isAuthenticated = loginService.authenticateUser(loginInfoDto.getUsername(), loginInfoDto.getPassword());
 
         if (isAuthenticated) {
             return ResponseEntity.ok("Login successful");
