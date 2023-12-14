@@ -26,7 +26,7 @@ public class LoginController {
             Map<String, String> response = Collections.singletonMap("message", "Login successful");
             return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyMap());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message","Invalid credentials"));
         }
     }
 }
