@@ -9,10 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@CrossOrigin
 @EnableWebSecurity
 public class SecurityConfig  {
     @Autowired
@@ -24,7 +26,8 @@ public class SecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .authorizeHttpRequests(authz -> authz
+                .cors(withDefaults())
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login").authenticated()
                         .anyRequest().permitAll()
                 )
@@ -34,14 +37,11 @@ public class SecurityConfig  {
         return http.build();
     }
 
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
 
+
 }
-
-
-
