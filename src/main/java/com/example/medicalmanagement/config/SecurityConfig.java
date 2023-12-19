@@ -32,6 +32,7 @@ public class SecurityConfig  {
                         .anyRequest().permitAll()
                 )
                 .httpBasic(withDefaults())
+                .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecretKey").tokenValiditySeconds(86400))
                 .csrf(csrf -> csrf.disable());
 
         return http.build();
