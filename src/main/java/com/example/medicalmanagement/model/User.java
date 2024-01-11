@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user")
@@ -24,4 +25,8 @@ public class User {
     @JsonManagedReference
     @JoinColumn(name = "user_details_id", referencedColumnName = "id")
     private UserDetails userDetails;
+
+    public String getAuthToken() {
+        return UUID.randomUUID().toString();
+    }
 }

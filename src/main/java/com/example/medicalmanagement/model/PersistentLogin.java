@@ -1,7 +1,6 @@
 package com.example.medicalmanagement.model;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
@@ -25,28 +24,43 @@ public class PersistentLogin {
     @Column(nullable = false)
     private Date lastUsed;
 
-
-    public String getToken() {
-        return getToken();
+    public Long getId() {
+        return id;
     }
 
-    public String getEmail() {
-        return getEmail();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setSeries(String series) {
-    }
-
-    public void setToken(String tokenValue) {
-    }
-
-    public void setLastUsed(Date lastUsed) {
+    public User getUser() {
+        return user;
     }
 
     public void setUser(User user) {
+        this.user = user;
     }
 
-    public PersistentLogin getUser() {
-        return  getUser();
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getLastUsed() {
+        return lastUsed;
+    }
+
+    public void setLastUsed(Date lastUsed) {
+        this.lastUsed = lastUsed;
     }
 }
