@@ -18,4 +18,8 @@ public class AuthenticationResult {
     public String getAuthToken() {
         return authToken;
     }
+
+    public Object getUsername() {
+        return getUsername();
+    }
 }

@@ -29,4 +29,8 @@ public class User {
     public String getAuthToken() {
         return UUID.randomUUID().toString();
     }
+
+    public Long getUsername() {
+        return getUsername();
+    }
 }

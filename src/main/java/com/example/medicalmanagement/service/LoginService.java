@@ -34,4 +34,19 @@ public class LoginService {
     private String generateAuthToken(String userId) {
         return UUID.randomUUID().toString();
     }
+
+
+//    public AuthenticationResult getUserInfoByAuthToken(String token) {
+//        return getUserInfoByAuthToken(token);
+//    }
+//
+//    public AuthenticationResult getUserInfoByAuthTokenAndUsername(String token, String username) {
+//        User user = userRepository.findByTokenAndUsername(token, username);
+//
+//        if (user != null) {
+//            return new AuthenticationResult(true, user.getUsername(), user.getAuthToken());
+//        } else {
+//            return new AuthenticationResult(false, null, null);
+//        }
+//    }
 }
