@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -25,17 +24,14 @@ import java.util.Map;
 public class LoginController {
 
     private final LoginService loginService;
-    private final UserDetailsService userDetailsService;
     private final RememberMeServices rememberMeServices;
     private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     public LoginController(LoginService loginService,
-                           UserDetailsService userDetailsService,
                            RememberMeServices rememberMeServices,
                            JwtTokenUtil jwtTokenUtil) {
         this.loginService = loginService;
-        this.userDetailsService = userDetailsService;
         this.rememberMeServices = rememberMeServices;
         this.jwtTokenUtil = jwtTokenUtil;
     }
@@ -57,7 +53,7 @@ public class LoginController {
         responseBody.put("isAuthenticated", isAuthenticated);
 
         if (isAuthenticated) {
-            handleSuccessfulLogin(loginInfoDto, rememberMe, request, response, responseBody);
+            handleSuccessfulLogin( rememberMe, request, response, responseBody);
         } else {
             handleFailedLogin(responseBody);
         }
@@ -65,17 +61,15 @@ public class LoginController {
         return ResponseEntity.status(isAuthenticated ? HttpStatus.OK : HttpStatus.UNAUTHORIZED).body(responseBody);
     }
 
-    private void handleSuccessfulLogin(LoginInfoDto loginInfoDto, boolean rememberMe, HttpServletRequest request, HttpServletResponse response, Map<String, Object> responseBody) {
+    private void handleSuccessfulLogin(boolean rememberMe, HttpServletRequest request, HttpServletResponse response, Map<String, Object> responseBody) {
         responseBody.put("message", "Login successful");
 
         if (rememberMe) {
             UserDetails userDetails = getUserDetailsFromToken(request);
 
             if (userDetails != null) {
-                String token = generateTokenAndSetCookie(userDetails, response);
                 handleRememberMe(request, response);
                 responseBody.put("username", userDetails.getUsername());
-//                responseBody.put("token", token); // Include the token in the response
             } else {
                 handleNullUserDetails();
             }
@@ -89,7 +83,6 @@ public class LoginController {
             UserDetails userDetails = getUserDetailsFromToken(request);
 
             if (userDetails != null) {
-                String token = generateTokenAndSetCookie(userDetails, response);
                 handleRememberMe(request, response);
                 return true;
             }
@@ -119,11 +112,6 @@ public class LoginController {
         return null;
     }
 
-    private String generateTokenAndSetCookie(UserDetails userDetails, HttpServletResponse response) {
-        String token = jwtTokenUtil.generateToken(userDetails);
-//        response.addCookie(new Cookie("jwtToken", token));
-        return token;
-    }
 
     private void handleRememberMe(HttpServletRequest request, HttpServletResponse response) {
         if (rememberMeServices != null) {
