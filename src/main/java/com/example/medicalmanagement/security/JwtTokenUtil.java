@@ -1,8 +1,10 @@
 package com.example.medicalmanagement.security;
 
+import com.example.medicalmanagement.service.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -17,7 +19,8 @@ public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;
 
     public static final long JWT_TOKEN_VALIDITY =  (long)5 * 60 * 60;
-
+    @Autowired
+private CustomUserDetailsService customUserDetailsService;
     @Value("${jwt.secret}")
     private String secret;
 
@@ -45,6 +48,7 @@ public class JwtTokenUtil implements Serializable {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("username", userDetails.getUsername());
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
@@ -55,6 +59,13 @@ public class JwtTokenUtil implements Serializable {
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
+    public UserDetails extractUserDetails(String token) {
+        String username = getUsernameFromToken(token);
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+
+        return userDetails;
+    }
+
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);

@@ -1,6 +1,6 @@
 package com.example.medicalmanagement.dto;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
 public class LoginInfoDto {
