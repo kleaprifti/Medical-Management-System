@@ -3,6 +3,8 @@ package com.example.medicalmanagement.controller;
 import com.example.medicalmanagement.dto.LoginInfoDto;
 import com.example.medicalmanagement.security.JwtTokenUtil;
 import com.example.medicalmanagement.service.LoginService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ public class LoginController {
     private final LoginService loginService;
     private final RememberMeServices rememberMeServices;
     private final JwtTokenUtil jwtTokenUtil;
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     public LoginController(LoginService loginService,
@@ -74,7 +77,7 @@ public class LoginController {
                 handleNullUserDetails();
             }
         } else {
-            System.err.println("RememberMe is false or LoginInfoDto is null");
+            logger.info("RememberMe is false or LoginInfoDto is null");
         }
     }
 
@@ -97,7 +100,7 @@ public class LoginController {
         if (token != null) {
             return jwtTokenUtil.extractUserDetails(token);
         } else {
-            System.err.println("Token is null");
+            logger.info("Token is null");
             return null;
         }
     }
@@ -121,16 +124,16 @@ public class LoginController {
             handleRememberMeServicesNotConfigured();
         }
     }
-
     private void handleFailedLogin(Map<String, Object> responseBody) {
         responseBody.put("message", "Invalid credentials");
+        logger.error("Invalid credentials");
     }
 
     private void handleRememberMeServicesNotConfigured() {
-        System.err.println("RememberMeServices is not configured");
+        logger.error("RememberMeServices is not configured");
     }
 
     private void handleNullUserDetails() {
-        System.err.println("UserDetails is null");
+        logger.error("UserDetails is null");
     }
 }
