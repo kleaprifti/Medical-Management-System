@@ -14,8 +14,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import javax.sql.DataSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -35,34 +41,58 @@ public class SecurityConfig {
     private JwtRequestFilter jwtRequestFilter;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        return tokenRepository;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .cors(withDefaults())
+                .csrf(csrf -> csrf.disable())
+                .authorizeRequests(authorize -> authorize
+                        .requestMatchers("/authenticate/a").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .rememberMe()
+                .key("secret")
+                .tokenValiditySeconds(300)
+                .rememberMeParameter("rememberMe")
+                .userDetailsService(userDetailsService)
+                .tokenRepository(persistentTokenRepository());
+
         if (!jwtEnabled) {
             http
-                    .cors(withDefaults())
-                    .authorizeHttpRequests(authorize -> authorize
+                    .authorizeRequests(authorize -> authorize
                             .requestMatchers("/login").authenticated()
                             .anyRequest().permitAll()
                     )
-                    .httpBasic(withDefaults())
-                    .csrf(csrf -> csrf.disable());
-        } else {
-            http
-                    .cors(withDefaults())
-                    .csrf(csrf -> csrf.disable())
-                    .authorizeHttpRequests(authorize -> authorize
-                            .requestMatchers("/authenticate/a").permitAll()
-                            .anyRequest().authenticated()
-
-                    )
-                    .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
-                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
+                    .httpBasic(withDefaults());
         }
+
         return http.build();
     }
+    @Bean
+    public RememberMeServices rememberMeServices() {
+        return new PersistentTokenBasedRememberMeServices("secret", userDetailsService, persistentTokenRepository());
+    }
+
+    @Autowired
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService)
+                .passwordEncoder(passwordEncoder);
+    }
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

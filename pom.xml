@@ -253,6 +253,8 @@
                         <exclude>**/model/**</exclude>
                         <exclude>**/dto/**</exclude>
                         <exclude>**/helpers/**</exclude>
+                        <exclude>**/security/**</exclude>
+                        <exclude>**/controller/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
