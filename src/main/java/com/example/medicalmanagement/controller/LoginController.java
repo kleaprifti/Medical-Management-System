@@ -64,7 +64,7 @@ public class LoginController {
         return ResponseEntity.status(isAuthenticated ? HttpStatus.OK : HttpStatus.UNAUTHORIZED).body(responseBody);
     }
 
-    private void handleSuccessfulLogin(boolean rememberMe, HttpServletRequest request, HttpServletResponse response, Map<String, Object> responseBody) {
+    public void handleSuccessfulLogin(boolean rememberMe, HttpServletRequest request, HttpServletResponse response, Map<String, Object> responseBody) {
         responseBody.put("message", "Login successful");
 
         if (rememberMe) {
@@ -81,7 +81,7 @@ public class LoginController {
         }
     }
 
-    private boolean handleRememberMeLogin(boolean rememberMe, HttpServletRequest request, HttpServletResponse response) {
+    public boolean handleRememberMeLogin(boolean rememberMe, HttpServletRequest request, HttpServletResponse response) {
         if (rememberMe) {
             UserDetails userDetails = getUserDetailsFromToken(request);
 
@@ -124,7 +124,7 @@ public class LoginController {
             handleRememberMeServicesNotConfigured();
         }
     }
-    private void handleFailedLogin(Map<String, Object> responseBody) {
+    public void handleFailedLogin(Map<String, Object> responseBody) {
         responseBody.put("message", "Invalid credentials");
         logger.error("Invalid credentials");
     }
