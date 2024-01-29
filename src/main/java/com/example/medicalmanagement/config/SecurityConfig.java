@@ -31,16 +31,22 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
     @Value("${security.jwt.enabled}")
     private boolean jwtEnabled;
+
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
+
     @Autowired
     private UserDetailsService userDetailsService;
+
     @Autowired
     private DataSource dataSource;
 
@@ -48,29 +54,12 @@ public class SecurityConfig {
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
+        tokenRepository.setCreateTableOnStartup(false);
         return tokenRepository;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .cors(withDefaults())
-                .csrf(csrf -> csrf.disable())
-                .authorizeRequests(authorize -> authorize
-                        .requestMatchers("/authenticate/a").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-                .rememberMe()
-                .key("secret")
-                .tokenValiditySeconds(300)
-                .rememberMeParameter("rememberMe")
-                .userDetailsService(userDetailsService)
-                .tokenRepository(persistentTokenRepository());
-
         if (!jwtEnabled) {
             http
                     .authorizeRequests(authorize -> authorize
@@ -78,10 +67,29 @@ public class SecurityConfig {
                             .anyRequest().permitAll()
                     )
                     .httpBasic(withDefaults());
+        } else {
+            http
+                    .cors(withDefaults())
+                    .csrf(csrf -> csrf.disable())
+                    .authorizeRequests(authorize -> authorize
+                            .requestMatchers("/authenticate/a").permitAll()
+                            .anyRequest().authenticated()
+                    )
+                    .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
+                    .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                    .httpBasic(withDefaults())
+                    .rememberMe()
+                    .key("secret")
+                    .tokenValiditySeconds(300)
+                    .rememberMeParameter("rememberMe")
+                    .userDetailsService(userDetailsService)
+                    .tokenRepository(persistentTokenRepository());
         }
-
         return http.build();
     }
+
     @Bean
     public RememberMeServices rememberMeServices() {
         return new PersistentTokenBasedRememberMeServices("secret", userDetailsService, persistentTokenRepository());
@@ -93,12 +101,9 @@ public class SecurityConfig {
                 .passwordEncoder(passwordEncoder);
     }
 
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
-
-
 }
