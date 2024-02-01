@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +27,10 @@ public class JwtAuthenticationController {
     @Autowired
     private RememberMeServices rememberMeServices;
 
-    @GetMapping("/a")
+    @GetMapping("")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginInfoDto authenticationRequest,
-                                                       @RequestParam(value = "rememberMe", defaultValue = "false") boolean rememberMe, HttpServletRequest request,
+                                                       @RequestParam(value = "rememberMe", defaultValue = "false") boolean rememberMe,
+                                                       HttpServletRequest request,
                                                        HttpServletResponse response) {
 
         boolean isAuthenticated = loginService.authenticateUser(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -40,9 +40,8 @@ public class JwtAuthenticationController {
             final String token = jwtTokenUtil.generateToken(userDetails);
 
             if (rememberMe) {
-                Authentication authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, userDetails.isCredentialsNonExpired(), userDetails.getAuthorities());
-                rememberMeServices.loginSuccess(request, response, authentication);
+                rememberMeServices.loginSuccess(request, response, new UsernamePasswordAuthenticationToken(
+                        userDetails, userDetails.isCredentialsNonExpired(), userDetails.getAuthorities()));
             }
 
             return ResponseEntity.ok(new JwtResponse(token));
@@ -50,4 +49,5 @@ public class JwtAuthenticationController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
 }
