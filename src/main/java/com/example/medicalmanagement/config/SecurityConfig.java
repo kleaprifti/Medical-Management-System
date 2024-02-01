@@ -73,6 +73,10 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/login").permitAll()
                                 .anyRequest().authenticated();
+                    }else {
+                        authorize
+                                .requestMatchers("/login").authenticated()
+                                .anyRequest().permitAll();
                     }
                 })
                 .httpBasic(withDefaults());
