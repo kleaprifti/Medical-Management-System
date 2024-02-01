@@ -1,6 +1,7 @@
 package com.example.medicalmanagement.config;
  import com.example.medicalmanagement.security.JwtAuthenticationEntryPoint;
  import com.example.medicalmanagement.security.JwtRequestFilter;
+ import com.example.medicalmanagement.security.JwtTokenUtil;
  import com.example.medicalmanagement.service.CustomUserDetailsService;
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ package com.example.medicalmanagement.config;
  import org.springframework.security.config.annotation.web.builders.HttpSecurity;
  import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
  import org.springframework.security.config.http.SessionCreationPolicy;
+ import org.springframework.security.core.userdetails.UserDetails;
  import org.springframework.security.core.userdetails.UserDetailsService;
  import org.springframework.security.crypto.password.PasswordEncoder;
  import org.springframework.security.web.SecurityFilterChain;
@@ -18,6 +20,7 @@ package com.example.medicalmanagement.config;
  import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
  import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
  import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+ import org.springframework.util.StringUtils;
  import org.springframework.web.bind.annotation.CrossOrigin;
 
  import javax.sql.DataSource;
@@ -30,6 +33,9 @@ public class SecurityConfig {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -65,12 +71,8 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> {
                     if (jwtEnabled) {
                         authorize
-                                .requestMatchers("/authenticate/a").permitAll()
+                                .requestMatchers("/login").permitAll()
                                 .anyRequest().authenticated();
-                    } else {
-                        authorize
-                                .requestMatchers("/login").authenticated()
-                                .anyRequest().permitAll();
                     }
                 })
                 .httpBasic(withDefaults());
@@ -96,6 +98,13 @@ public class SecurityConfig {
                         .rememberMeParameter("rememberMe")
                         .userDetailsService(userDetailsService)
                         .tokenRepository(persistentTokenRepository())
+                        .authenticationSuccessHandler((request, response, authentication) -> {
+                            if (StringUtils.isEmpty(request.getHeader("Authorization"))) {
+                                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                                String jwtToken = jwtTokenUtil.generateToken(userDetails);
+                                response.setHeader("Authorization", "Bearer " + jwtToken);
+                            }
+                        })
                 );
     }
 

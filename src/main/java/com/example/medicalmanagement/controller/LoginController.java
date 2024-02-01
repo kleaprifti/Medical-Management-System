@@ -1,7 +1,9 @@
 package com.example.medicalmanagement.controller;
 
 import com.example.medicalmanagement.dto.LoginInfoDto;
+import com.example.medicalmanagement.security.JwtResponse;
 import com.example.medicalmanagement.security.JwtTokenUtil;
+import com.example.medicalmanagement.service.CustomUserDetailsService;
 import com.example.medicalmanagement.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,8 @@ public class LoginController {
     private final LoginService loginService;
     private final RememberMeServices rememberMeServices;
     private final JwtTokenUtil jwtTokenUtil;
+    private final CustomUserDetailsService userDetailsService;
+
     @Value("${security.jwt.enabled}")
     private boolean jwtEnabled;
 
@@ -38,37 +42,83 @@ public class LoginController {
     @Autowired
     public LoginController(LoginService loginService,
                            RememberMeServices rememberMeServices,
-                           JwtTokenUtil jwtTokenUtil) {
+                           JwtTokenUtil jwtTokenUtil, CustomUserDetailsService userDetailsService) {
         this.loginService = loginService;
         this.rememberMeServices = rememberMeServices;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.userDetailsService = userDetailsService;
     }
+    @GetMapping("")
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginInfoDto authenticationRequest)  {
+        boolean isAuthenticated = loginService.authenticateUser(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
+        if (isAuthenticated) {
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+            final String token = jwtTokenUtil.generateToken(userDetails);
+            return ResponseEntity.ok(new JwtResponse(token));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
     @PostMapping("")
     public ResponseEntity<Map<String, Object>> login(@RequestBody(required = false) LoginInfoDto loginInfoDto,
                                                      @RequestParam(value = "rememberMe", defaultValue = "false") boolean rememberMe,
                                                      HttpServletRequest request,
                                                      HttpServletResponse response) {
 
-        boolean isAuthenticated;
-
-        if (loginInfoDto == null || StringUtils.isEmpty(loginInfoDto.getUsername()) || StringUtils.isEmpty(loginInfoDto.getPassword())) {
-            isAuthenticated = handleRememberMeLogin(rememberMe && jwtEnabled, request, response);
-        } else {
-            isAuthenticated = loginService.authenticateUser(loginInfoDto.getUsername(), loginInfoDto.getPassword());
-        }
+        boolean isAuthenticated = authenticateUser(loginInfoDto, rememberMe,request,response);
 
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("isAuthenticated", isAuthenticated);
 
         if (isAuthenticated) {
             handleSuccessfulLogin(rememberMe && jwtEnabled, request, response, responseBody);
+            return ResponseEntity.ok(responseBody);
         } else {
             handleFailedLogin(responseBody);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
+        }
+    }
+
+    private boolean authenticateUser(LoginInfoDto loginInfoDto, boolean rememberMe, HttpServletRequest request,
+                                     HttpServletResponse response) {
+        if (loginInfoDto == null || StringUtils.isEmpty(loginInfoDto.getUsername()) || StringUtils.isEmpty(loginInfoDto.getPassword())) {
+            return handleRememberMeLogin(rememberMe && jwtEnabled,request,response);
+        } else {
+            return loginService.authenticateUser(loginInfoDto.getUsername(), loginInfoDto.getPassword());
+        }
+    }
+
+
+    private String handleSuccessfulLogin(boolean rememberMe, HttpServletRequest request, HttpServletResponse response, Map<String, Object> responseBody) {
+        responseBody.put("message", "Login successful");
+
+        if (rememberMe) {
+            UserDetails userDetails = getUserDetailsFromToken(request);
+
+            if (userDetails != null) {
+                handleRememberMe(request, response);
+                responseBody.put("username", userDetails.getUsername());
+
+                String jwtToken = jwtTokenUtil.generateToken(userDetails);
+                return jwtToken;
+            } else {
+                handleNullUserDetails();
+            }
+        } else {
+            UserDetails userDetails = getUserDetailsFromToken(request);
+
+            if (userDetails != null) {
+                String jwtToken = jwtTokenUtil.generateToken(userDetails);
+                return jwtToken;
+            } else {
+                handleNullUserDetails();
+            }
         }
 
-        return ResponseEntity.status(isAuthenticated ? HttpStatus.OK : HttpStatus.UNAUTHORIZED).body(responseBody);
+        return null;
     }
+
 
     private boolean handleRememberMeLogin(boolean rememberMe, HttpServletRequest request, HttpServletResponse response) {
         if (rememberMe) {
@@ -91,22 +141,6 @@ public class LoginController {
         return false;
     }
 
-    private void handleSuccessfulLogin(boolean rememberMe, HttpServletRequest request, HttpServletResponse response, Map<String, Object> responseBody) {
-        responseBody.put("message", "Login successful");
-
-        if (rememberMe) {
-            UserDetails userDetails = getUserDetailsFromToken(request);
-
-            if (userDetails != null) {
-                handleRememberMe(request, response);
-                responseBody.put("username", userDetails.getUsername());
-            } else {
-                handleNullUserDetails();
-            }
-        } else {
-            logger.info("RememberMe is false or LoginInfoDto is null");
-        }
-    }
     private String extractTokenFromRequest(HttpServletRequest request) {
         String authorizationHeader = request.getHeader("Authorization");
 
@@ -128,7 +162,6 @@ public class LoginController {
         }
     }
 
-
     private void handleRememberMe(HttpServletRequest request, HttpServletResponse response) {
         if (rememberMeServices != null) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -138,7 +171,7 @@ public class LoginController {
         }
     }
 
-    public void handleFailedLogin(Map<String, Object> responseBody) {
+    private void handleFailedLogin(Map<String, Object> responseBody) {
         responseBody.put("message", "Invalid credentials");
         logger.error("Invalid credentials");
     }
