@@ -10,6 +10,7 @@ import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.UserDetails;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserDetailsRepository;
+import com.example.sharedlibrary.EmailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
