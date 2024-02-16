@@ -52,8 +52,7 @@ public class SecurityConfig {
     @Autowired
     private DataSource dataSource;
 
-    @Value("${security.jwt.enabled}")
-    private boolean jwtEnabled;
+    private boolean jwtEnabled = false;
 
     @Autowired
     public PersistentTokenRepository persistentTokenRepository() {

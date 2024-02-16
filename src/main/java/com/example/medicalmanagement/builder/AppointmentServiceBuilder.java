@@ -5,7 +5,7 @@ import com.example.medicalmanagement.repository.UserDetailsRepository;
 import com.example.medicalmanagement.appointmentcreator.AppointmentCreator;
 import com.example.medicalmanagement.service.AppointmentService;
 import com.example.medicalmanagement.validator.AppointmentValidator;
-import com.example.sharedlibrary.EmailService;
+import com.example.sharedlibrary.service.EmailService;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
