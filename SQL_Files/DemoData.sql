@@ -128,93 +128,93 @@ INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name
 VALUES ('1971-06-28', 'Thanos Lang', '1068294157832049',(SELECT id FROM contact_info WHERE slack_username = 's29'));
 
 #Insert into User
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-('sildiricku13@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '0837462958176432' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+('sildiricku13@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '0837462958176432' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('sildiricku33@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '4536912702841967' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('sildiricku33@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '4536912702841967' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('sildiricku23@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '1468295710397256' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('sildiricku23@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', 'USER',(SELECT id FROM user_details WHERE id_medical_card = '1468295710397256' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('sildiricku37@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '3208941659278413' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('sildiricku37@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '3208941659278413' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('sildiricku39@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '5736489215649132' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('sildiricku39@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '5736489215649132' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('sildiricku31@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '7904825613249051' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('sildiricku31@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '7904825613249051' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('sildiricku30@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '8695472134059328' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('sildiricku30@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '8695472134059328' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('sildiricku32@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '2654389710296548' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('sildiricku32@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '2654389710296548' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('sildiricku3@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '7641852093765412' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('sildiricku3@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','ADMIN', (SELECT id FROM user_details WHERE id_medical_card = '7641852093765412' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('kleaprifti21@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '9385721465029164' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti21@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','ADMIN', (SELECT id FROM user_details WHERE id_medical_card = '9385721465029164' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('kleaprifti221@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '4591783426138956' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti221@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '4591783426138956' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('kleaprifti231@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '6329485107945308' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti231@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '6329485107945308' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('kleaprifti241@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '8150246794832169' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti241@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '8150246794832169' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('kleaprifti251@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '1374298658102397' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti251@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '1374298658102397' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('kleaprifti261@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '2480935467102834' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti261@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '2480935467102834' ));
+INSERT INTO `medical_management_system`.`user` (email, password, role,user_details_id)
 VALUES
-    ('kleaprifti271@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '7946210385627104' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti271@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '7946210385627104' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('kleaprifti281@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '9052638174612957' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti281@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '9052638174612957' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('kleaprifti291@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '4728135960847623' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti291@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '4728135960847623' ));
+INSERT INTO `medical_management_system`.`user` (email, password, role,user_details_id)
 VALUES
-    ('kleaprifti321@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '6514907328465201' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('kleaprifti321@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '6514907328465201' ));
+INSERT INTO `medical_management_system`.`user` (email, password, role,user_details_id)
 VALUES
-    ('romeisaaliu1@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '8243156789024175' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('romeisaaliu1@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','ADMIN', (SELECT id FROM user_details WHERE id_medical_card = '8243156789024175' ));
+INSERT INTO `medical_management_system`.`user` (email, password, role,user_details_id)
 VALUES
-    ('romeisaaliu12@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '1657432987815023' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('romeisaaliu12@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '1657432987815023' ));
+INSERT INTO `medical_management_system`.`user` (email, password, role,user_details_id)
 VALUES
-    ('romeisaaliu13@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '3298174650281796' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('romeisaaliu13@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', 'USER',(SELECT id FROM user_details WHERE id_medical_card = '3298174650281796' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('romeisaaliu14@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '5021948317562049' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('romeisaaliu14@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '5021948317562049' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('romeisaaliu15@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '7865123490671345' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('romeisaaliu15@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', 'USER',(SELECT id FROM user_details WHERE id_medical_card = '7865123490671345' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('romeisaaliu16@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '9362107542815637' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('romeisaaliu16@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '9362107542815637' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('romeisaaliu17@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '4103985274618392' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('romeisaaliu17@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '4103985274618392' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('romeisaaliu18@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '6820493715269301' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('romeisaaliu18@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '6820493715269301' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('romeisaaliu19@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '9574032168213496' ));
-INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
+    ('romeisaaliu19@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '9574032168213496' ));
+INSERT INTO `medical_management_system`.`user` (email, password,role, user_details_id)
 VALUES
-    ('romeisaaliu123@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2', (SELECT id FROM user_details WHERE id_medical_card = '1068294157832049' ));
+    ('romeisaaliu123@gmail.com', '$2a$12$pHMpmnZko3UGLPzdIZwnRO05oodj/ygp6v1cfB/Ic0nKt1hymEHP2','USER', (SELECT id FROM user_details WHERE id_medical_card = '1068294157832049' ));
 
 
 #Assign role to user

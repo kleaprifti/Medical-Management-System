@@ -30,6 +30,7 @@ class CustomUserDetailsServiceTest {
         User mockContactInfo = new User();
         mockContactInfo.setPassword("password123");
         mockContactInfo.setEmail(username);
+        mockContactInfo.setRole("USER");
         when(contactInfoRepository.findByEmail(username)).thenReturn(mockContactInfo);
 
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(mockContactInfo.getEmail());
