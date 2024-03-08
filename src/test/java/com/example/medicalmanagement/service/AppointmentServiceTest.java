@@ -9,7 +9,7 @@ import com.example.medicalmanagement.model.Appointment;
 import com.example.medicalmanagement.model.UserDetails;
 import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserDetailsRepository;
-import com.example.sharedlibrary.service.EmailService;
+//import com.example.sharedlibrary.service.EmailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -44,8 +44,8 @@ class AppointmentServiceTest {
     private AppointmentCreator appointmentCreator;
     @Mock
     private AppointmentService appointmentService;
-    @Mock
-    private EmailService emailService;
+//    @Mock
+//    private EmailService emailService;
     @InjectMocks
     private AppointmentServiceBuilder appointmentServiceBuilder;
 
@@ -58,8 +58,8 @@ class AppointmentServiceTest {
                 userDetailsRepository,
                 modelMapper,
                 appointmentValidator,
-                appointmentCreator,
-                emailService
+                appointmentCreator
+//                emailService
         ).build();
     }
     @Test

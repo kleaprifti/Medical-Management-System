@@ -1,6 +1,8 @@
 use
 medical_management_system;
-#Insert into user
+#Insert into authority
+INSERT INTO `medical_management_system`.`authority` (`authority`) VALUES ('ADMIN');
+INSERT INTO `medical_management_system`.`authority` (`authority`) VALUES ('USER');
 
 #Insert into Role
 
@@ -69,63 +71,63 @@ VALUES ( '123-456-78928', 's29');
 
 
 #Insert into UserDetails
-INSERT INTO `medical_management_system`.`user_details` ( `birth_date`,`full_name`,`id_medical_card`,`contact_info_id`) VALUES ( '1990-05-15','Steve Rogers',  '0837462958176432',(SELECT id FROM contact_info WHERE slack_username = 's1'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1985-09-28', 'Tony Stark', '4536912702841967',(SELECT id FROM contact_info WHERE slack_username = 's2'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1988-07-03', 'Natasha Romanoff', '1468295710397256',(SELECT id FROM contact_info WHERE slack_username = 's3'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1982-11-20', 'Peggy Carter', '3208941659278413',(SELECT id FROM contact_info WHERE slack_username = 's4'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1995-04-10', 'Romeisa Aliu', '5736489215649132',(SELECT id FROM contact_info WHERE slack_username = 's5'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1998-12-07', 'Klejda Rrapaj', '7904825613249051',(SELECT id FROM contact_info WHERE slack_username = 's6'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1992-02-25', 'Sildi Ricku', '8695472134059328',(SELECT id FROM contact_info WHERE slack_username = 's7'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1993-08-30', 'Carlos Sainz', '2654389710296548',(SELECT id FROM contact_info WHERE slack_username = 's8'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1997-06-14', 'Pablus Pabliuus', '7641852093765412',(SELECT id FROM contact_info WHERE slack_username = 's9'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1989-03-07', 'Francesco Totti', '9385721465029164',(SELECT id FROM contact_info WHERE slack_username = 's10'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1987-01-12', 'Matt Smith', '4591783426138956',(SELECT id FROM contact_info WHERE slack_username = 's11'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1991-10-02', 'Wanda Maximoff', '6329485107945308',(SELECT id FROM contact_info WHERE slack_username = 's12'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1994-09-20', 'Max Verstappen', '8150246794832169',(SELECT id FROM contact_info WHERE slack_username = 's13'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1998-06-23', 'Charles Leclerc', '1374298658102397',(SELECT id FROM contact_info WHERE slack_username = 's14'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1990-07-29', 'Daniel Ricciardo', '2480935467102834',(SELECT id FROM contact_info WHERE slack_username = 's15'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1993-04-17', 'Sebastian Vettel', '7946210385627104',(SELECT id FROM contact_info WHERE slack_username = 's16'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1986-02-06', 'Fernando Alonso', '9052638174612957',(SELECT id FROM contact_info WHERE slack_username = 's17'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1984-08-14', 'Lewis Hamilton', '4728135960847623',(SELECT id FROM contact_info WHERE slack_username = 's18'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1999-11-13', 'Lando Norris', '6514907328465201',(SELECT id FROM contact_info WHERE slack_username = 's19'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1996-12-25', 'Carol Denvers', '8243156789024175',(SELECT id FROM contact_info WHERE slack_username = 's20'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1983-05-01', 'Gamora Quill', '1657432987815023',(SELECT id FROM contact_info WHERE slack_username = 's21'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1978-09-09', 'Sherlock Holmes', '3298174650281796',(SELECT id FROM contact_info WHERE slack_username = 's22'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1975-11-11', 'Gregory House', '5021948317562049',(SELECT id FROM contact_info WHERE slack_username = 's23'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1980-01-03', 'Stephen Strange', '7865123490671345',(SELECT id FROM contact_info WHERE slack_username = 's24'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1997-07-18', 'John Watson', '9362107542815637',(SELECT id FROM contact_info WHERE slack_username = 's25'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1991-03-27', 'Irene Adler', '4103985274618392',(SELECT id FROM contact_info WHERE slack_username = 's26'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1988-10-08', 'John Smith', '6820493715269301',(SELECT id FROM contact_info WHERE slack_username = 's27'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1977-12-22', 'James Moriarty', '9574032168213496',(SELECT id FROM contact_info WHERE slack_username = 's28'));
-INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`)
-VALUES ('1971-06-28', 'Thanos Lang', '1068294157832049',(SELECT id FROM contact_info WHERE slack_username = 's29'));
+INSERT INTO `medical_management_system`.`user_details` ( `birth_date`,`full_name`,`id_medical_card`,`contact_info_id`,`authority_id`) VALUES ( '1990-05-15','Steve Rogers',  '0837462958176432',(SELECT id FROM contact_info WHERE slack_username = 's1'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1985-09-28', 'Tony Stark', '4536912702841967',(SELECT id FROM contact_info WHERE slack_username = 's2'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1988-07-03', 'Natasha Romanoff', '1468295710397256',(SELECT id FROM contact_info WHERE slack_username = 's3'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1982-11-20', 'Peggy Carter', '3208941659278413',(SELECT id FROM contact_info WHERE slack_username = 's4'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1995-04-10', 'Romeisa Aliu', '5736489215649132',(SELECT id FROM contact_info WHERE slack_username = 's5'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1998-12-07', 'Klejda Rrapaj', '7904825613249051',(SELECT id FROM contact_info WHERE slack_username = 's6'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1992-02-25', 'Sildi Ricku', '8695472134059328',(SELECT id FROM contact_info WHERE slack_username = 's7'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1993-08-30', 'Carlos Sainz', '2654389710296548',(SELECT id FROM contact_info WHERE slack_username = 's8'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1997-06-14', 'Pablus Pabliuus', '7641852093765412',(SELECT id FROM contact_info WHERE slack_username = 's9'),(SELECT id FROM authority WHERE authority = 'ADMIN'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1989-03-07', 'Francesco Totti', '9385721465029164',(SELECT id FROM contact_info WHERE slack_username = 's10'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1987-01-12', 'Matt Smith', '4591783426138956',(SELECT id FROM contact_info WHERE slack_username = 's11'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1991-10-02', 'Wanda Maximoff', '6329485107945308',(SELECT id FROM contact_info WHERE slack_username = 's12'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1994-09-20', 'Max Verstappen', '8150246794832169',(SELECT id FROM contact_info WHERE slack_username = 's13'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1998-06-23', 'Charles Leclerc', '1374298658102397',(SELECT id FROM contact_info WHERE slack_username = 's14'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1990-07-29', 'Daniel Ricciardo', '2480935467102834',(SELECT id FROM contact_info WHERE slack_username = 's15'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1993-04-17', 'Sebastian Vettel', '7946210385627104',(SELECT id FROM contact_info WHERE slack_username = 's16'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1986-02-06', 'Fernando Alonso', '9052638174612957',(SELECT id FROM contact_info WHERE slack_username = 's17'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1984-08-14', 'Lewis Hamilton', '4728135960847623',(SELECT id FROM contact_info WHERE slack_username = 's18'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1999-11-13', 'Lando Norris', '6514907328465201',(SELECT id FROM contact_info WHERE slack_username = 's19'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1996-12-25', 'Carol Denvers', '8243156789024175',(SELECT id FROM contact_info WHERE slack_username = 's20'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1983-05-01', 'Gamora Quill', '1657432987815023',(SELECT id FROM contact_info WHERE slack_username = 's21'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1978-09-09', 'Sherlock Holmes', '3298174650281796',(SELECT id FROM contact_info WHERE slack_username = 's22'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1975-11-11', 'Gregory House', '5021948317562049',(SELECT id FROM contact_info WHERE slack_username = 's23'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1980-01-03', 'Stephen Strange', '7865123490671345',(SELECT id FROM contact_info WHERE slack_username = 's24'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1997-07-18', 'John Watson', '9362107542815637',(SELECT id FROM contact_info WHERE slack_username = 's25'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1991-03-27', 'Irene Adler', '4103985274618392',(SELECT id FROM contact_info WHERE slack_username = 's26'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1988-10-08', 'John Smith', '6820493715269301',(SELECT id FROM contact_info WHERE slack_username = 's27'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1977-12-22', 'James Moriarty', '9574032168213496',(SELECT id FROM contact_info WHERE slack_username = 's28'),(SELECT id FROM authority WHERE authority = 'USER'));
+INSERT INTO `medical_management_system`.`user_details` (`birth_date`, `full_name`, `id_medical_card`,`contact_info_id`,`authority_id`)
+VALUES ('1971-06-28', 'Thanos Lang', '1068294157832049',(SELECT id FROM contact_info WHERE slack_username = 's29'),(SELECT id FROM authority WHERE authority = 'USER'));
 
 #Insert into User
 INSERT INTO `medical_management_system`.`user` (email, password, user_details_id)
