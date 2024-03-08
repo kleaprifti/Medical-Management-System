@@ -56,6 +56,10 @@ public class UserDetails {
     @JoinColumn(name = "contact_info_id", referencedColumnName = "id")
     private ContactInfo contactInfo;
 
+    @ManyToOne
+    @JoinColumn(name = "authority_id",referencedColumnName = "id")
+    private Authority authority;
+
     @ManyToMany
     @JoinTable    (name = "user_availability",
             joinColumns = @JoinColumn(name = "user_id"),
