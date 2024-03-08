@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-//import com.example.sharedlibrary.service.EmailService;
+import com.example.sharedlibrary.service.EmailService;
 
 @Service
 public class AppointmentService {
@@ -25,7 +25,7 @@ public class AppointmentService {
     private ModelMapper modelMapper;
     private AppointmentValidator appointmentValidator;
     private AppointmentCreator appointmentCreator;
-//    private EmailService emailService;
+    private final EmailService emailService;
 
     @Autowired
     public AppointmentService(AppointmentServiceBuilder builder) {
@@ -34,7 +34,7 @@ public class AppointmentService {
         this.userDetailsRepository = builder.getUserDetailsRepository();
         this.modelMapper = builder.getModelMapper();
         this.appointmentValidator = builder.getAppointmentValidator();
-//        this.emailService = builder.getEmailService();
+        this.emailService = builder.getEmailService();
     }
 
     public Set<AppointmentDto> getAppointments(Long doctorId, Long patientId) {
@@ -85,7 +85,7 @@ public class AppointmentService {
             String cancellationEmailContent = EmailContent.generateEmail(patient.getFullName(), doctor.getFullName(), appointment.getAppointmentDateStartTime());
 
             String subject = "Cancellation of appointment";
-//            emailService.sendEmail(userEmail, subject, cancellationEmailContent);
+            emailService.sendEmail(userEmail, subject, cancellationEmailContent);
 
         }
     }

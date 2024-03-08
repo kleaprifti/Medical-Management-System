@@ -5,7 +5,8 @@ import com.example.medicalmanagement.repository.AppointmentRepository;
 import com.example.medicalmanagement.repository.UserDetailsRepository;
 import com.example.medicalmanagement.service.AppointmentService;
 import com.example.medicalmanagement.validator.AppointmentValidator;
-//import com.example.sharedlibrary.service.EmailService;
+import com.example.sharedlibrary.service.EmailService;
+import com.example.sharedlibrary.service.EmailService;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,14 +18,14 @@ public class AppointmentServiceBuilder {
     private ModelMapper modelMapper;
     private AppointmentValidator appointmentValidator;
     private AppointmentCreator appointmentCreator;
-//    private final EmailService emailService;
+    private  EmailService emailService;
     public AppointmentServiceBuilder(AppointmentRepository appointmentRepository, UserDetailsRepository userDetailsRepository, ModelMapper modelMapper, AppointmentValidator appointmentValidator, AppointmentCreator appointmentCreator) {
         this.appointmentRepository = appointmentRepository;
         this.userDetailsRepository = userDetailsRepository;
         this.modelMapper = modelMapper;
         this.appointmentValidator = appointmentValidator;
         this.appointmentCreator = appointmentCreator;
-//        this.emailService=emailService;
+        this.emailService=emailService;
     }
     public AppointmentServiceBuilder setAppointmentRepository(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
