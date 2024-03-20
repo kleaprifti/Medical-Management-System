@@ -49,7 +49,7 @@ public class LoginController {
         this.userDetailsService = userDetailsService;
     }
     @GetMapping("")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginInfoDto authenticationRequest)  {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginInfoDto authenticationRequest) {
         boolean isAuthenticated = loginService.authenticateUser(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         if (isAuthenticated) {
@@ -60,13 +60,14 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
     @PostMapping("")
     public ResponseEntity<Map<String, Object>> login(@RequestBody(required = false) LoginInfoDto loginInfoDto,
                                                      @RequestParam(value = "rememberMe", defaultValue = "false") boolean rememberMe,
                                                      HttpServletRequest request,
                                                      HttpServletResponse response) {
 
-        boolean isAuthenticated = authenticateUser(loginInfoDto, rememberMe,request,response);
+        boolean isAuthenticated = authenticateUser(loginInfoDto, rememberMe, request, response);
 
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("isAuthenticated", isAuthenticated);
@@ -83,7 +84,7 @@ public class LoginController {
     private boolean authenticateUser(LoginInfoDto loginInfoDto, boolean rememberMe, HttpServletRequest request,
                                      HttpServletResponse response) {
         if (loginInfoDto == null || StringUtils.isEmpty(loginInfoDto.getUsername()) || StringUtils.isEmpty(loginInfoDto.getPassword())) {
-            return handleRememberMeLogin(rememberMe && jwtEnabled,request,response);
+            return handleRememberMeLogin(rememberMe && jwtEnabled, request, response);
         } else {
             return loginService.authenticateUser(loginInfoDto.getUsername(), loginInfoDto.getPassword());
         }
@@ -182,5 +183,13 @@ public class LoginController {
 
     private void handleNullUserDetails() {
         logger.error("UserDetails is null");
+    }
+
+    @PostMapping("/logout")
+    public void logout() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            SecurityContextHolder.clearContext();
+        }
     }
 }
