@@ -185,11 +185,4 @@ public class LoginController {
         logger.error("UserDetails is null");
     }
 
-    @PostMapping("/logout")
-    public void logout() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
-            SecurityContextHolder.clearContext();
-        }
-    }
 }
