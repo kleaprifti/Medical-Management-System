@@ -65,10 +65,13 @@ public class SecurityConfig implements WebMvcConfigurer {
                     if (jwtEnabled) {
                         authorize
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/logout").permitAll()
+
                                 .anyRequest().authenticated();
                     }else {
                         authorize
                                 .requestMatchers("/login").authenticated()
+                                .requestMatchers("/logout").authenticated()
                                 .anyRequest().permitAll();
                     }
                 })
