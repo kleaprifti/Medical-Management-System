@@ -17,13 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
@@ -66,16 +66,19 @@ public class SecurityConfig implements WebMvcConfigurer {
                         authorize
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/logout").permitAll()
-
                                 .anyRequest().authenticated();
-                    }else {
+                    } else {
                         authorize
-                                .requestMatchers("/login").authenticated()
-                                .requestMatchers("/logout").authenticated()
+                                .requestMatchers("/login", "/logout").authenticated()
                                 .anyRequest().permitAll();
                     }
                 })
-                .httpBasic(withDefaults());
+                .httpBasic(withDefaults())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessHandler(new SimpleUrlLogoutSuccessHandler())
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"));
         if (jwtEnabled) {
             configureJwt(http);
         }

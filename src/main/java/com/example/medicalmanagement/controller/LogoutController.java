@@ -14,7 +14,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @CrossOrigin("localhost:4200/")
 public class LogoutController {
 
-    @PostMapping("")
+    @GetMapping("")
     public ResponseEntity<String> logout(Authentication authentication) {
         if (authentication != null) {
             authentication.setAuthenticated(false);
