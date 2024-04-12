@@ -24,6 +24,10 @@
         <maven.compiler.target.version>11</maven.compiler.target.version>
         <tags></tags>
     </properties>
+    <packaging>pom</packaging>
+    <modules>
+        <module>../../IdeaProjects/sharedlibrary</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>com.example</groupId>
@@ -59,6 +63,11 @@
             <artifactId>mockito-core</artifactId>
             <version>4.8.1</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.example</groupId>-->
+<!--            <artifactId>Shared-Library</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -216,10 +225,18 @@
             <version>0.9.1</version>
         </dependency>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>Shared-Library</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!--        <dependency>-->
+<!--            <groupId>com.example</groupId>-->
+<!--            <artifactId>Shared-Library</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -239,8 +256,14 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.9</version>
+                <version>0.8.6</version>
                 <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
                     <execution>
                         <goals>
                             <goal>
@@ -254,6 +277,10 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/coverage-reports/jacoco.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
@@ -265,6 +292,7 @@
                         <exclude>**/helpers/**</exclude>
                         <exclude>**/security/**</exclude>
                         <exclude>**/controller/**</exclude>
+
                     </excludes>
                 </configuration>
             </plugin>
@@ -281,6 +309,7 @@
                     <includes>
                         <include>CucumberRunnerTest.java</include>
                         <include>**/Test*.java</include>
+                        <include>com/example/sharedlibrary/**/*</include>
                     </includes>
                     <parallel>methods</parallel>
                     <threadCount>${parallel.tests}</threadCount>
@@ -314,6 +343,11 @@
                         <groupId>net.serenity-bdd</groupId>
                         <artifactId>serenity-core</artifactId>
                         <version>${serenity.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.example</groupId>
+                        <artifactId>demo1</artifactId>
+                        <version>0.0.1-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
                 <executions>

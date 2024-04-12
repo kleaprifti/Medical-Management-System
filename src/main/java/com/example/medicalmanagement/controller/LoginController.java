@@ -34,8 +34,7 @@ public class LoginController {
     private final JwtTokenUtil jwtTokenUtil;
     private final CustomUserDetailsService userDetailsService;
 
-    @Value("${security.jwt.enabled}")
-    private boolean jwtEnabled;
+    private boolean jwtEnabled = false;
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 

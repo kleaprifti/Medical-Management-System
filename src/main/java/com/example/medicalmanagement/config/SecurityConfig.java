@@ -49,6 +49,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Value("${security.jwt.enabled}")
     private boolean jwtEnabled;
+
     @Autowired
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();

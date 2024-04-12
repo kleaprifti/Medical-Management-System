@@ -3,6 +3,7 @@ package com.example.medicalmanagement.dto;
 import com.example.medicalmanagement.customvalidators.SpecialitiesRequiredForDoctor;
 import com.example.medicalmanagement.model.ContactInfo;
 import com.example.medicalmanagement.model.NotificationType;
+import com.example.medicalmanagement.model.User;
 import com.example.medicalmanagement.model.UserRole;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
@@ -40,5 +41,6 @@ public class UserDto {
     private List<String> specialities;
     private boolean emailSent;
     private List<NotificationType> notificationTypes;
+
 
 }
