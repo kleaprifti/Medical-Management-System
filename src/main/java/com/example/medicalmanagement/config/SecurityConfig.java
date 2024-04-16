@@ -1,58 +1,54 @@
 package com.example.medicalmanagement.config;
- import com.example.medicalmanagement.security.JwtAuthenticationEntryPoint;
- import com.example.medicalmanagement.security.JwtRequestFilter;
- import com.example.medicalmanagement.security.JwtTokenUtil;
- import com.example.medicalmanagement.service.CustomUserDetailsService;
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.beans.factory.annotation.Value;
- import org.springframework.context.annotation.Bean;
- import org.springframework.context.annotation.Configuration;
- import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
- import org.springframework.security.config.annotation.web.builders.HttpSecurity;
- import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
- import org.springframework.security.config.http.SessionCreationPolicy;
- import org.springframework.security.core.userdetails.UserDetails;
- import org.springframework.security.core.userdetails.UserDetailsService;
- import org.springframework.security.crypto.password.PasswordEncoder;
- import org.springframework.security.web.SecurityFilterChain;
- import org.springframework.security.web.authentication.RememberMeServices;
- import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
- import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
- import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
- import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
- import org.springframework.util.StringUtils;
- import org.springframework.web.bind.annotation.CrossOrigin;
+import com.example.medicalmanagement.security.JwtAuthenticationEntryPoint;
+import com.example.medicalmanagement.security.JwtRequestFilter;
+import com.example.medicalmanagement.security.JwtTokenUtil;
+import com.example.medicalmanagement.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
- import javax.sql.DataSource;
- import static org.springframework.security.config.Customizer.withDefaults;
-
+import javax.sql.DataSource;
+import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @CrossOrigin
 @EnableWebSecurity
-public class SecurityConfig {
-
+public class SecurityConfig implements WebMvcConfigurer {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
-
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
-
     @Autowired
     private UserDetailsService userDetailsService;
-
     @Autowired
     private DataSource dataSource;
 
-    private boolean jwtEnabled = false;
+    @Value("${security.jwt.enabled}")
+    private boolean jwtEnabled;
 
     @Autowired
     public PersistentTokenRepository persistentTokenRepository() {
@@ -61,7 +57,6 @@ public class SecurityConfig {
         tokenRepository.setCreateTableOnStartup(false);
         return tokenRepository;
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -71,22 +66,32 @@ public class SecurityConfig {
                     if (jwtEnabled) {
                         authorize
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/logout").permitAll()
                                 .anyRequest().authenticated();
-                    }else {
+                    } else {
                         authorize
-                                .requestMatchers("/login").authenticated()
+                                .requestMatchers("/login", "/logout").authenticated()
                                 .anyRequest().permitAll();
                     }
                 })
-                .httpBasic(withDefaults());
-
+                .httpBasic(withDefaults())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessHandler(new SimpleUrlLogoutSuccessHandler())
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"));
         if (jwtEnabled) {
             configureJwt(http);
         }
-
         return http.build();
     }
-
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*");
+    }
     private void configureJwt(HttpSecurity http) throws Exception {
         http
                 .exceptionHandling()
@@ -110,12 +115,10 @@ public class SecurityConfig {
                         })
                 );
     }
-
     @Bean
     public RememberMeServices rememberMeServices() {
         return new PersistentTokenBasedRememberMeServices("secret", userDetailsService, persistentTokenRepository());
     }
-
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService)
